@@ -1,0 +1,568 @@
+* { box-sizing: border-box; }
+
+html, body {
+    margin: 0;
+    padding: 0;
+    background: radial-gradient(ellipse 1200px 800px at 15% -10%, #10193a 0%, transparent 60%),
+                radial-gradient(ellipse 900px 700px at 100% 0%, #0e1730 0%, transparent 55%),
+                var(--bg-void);
+    color: var(--text-primary);
+    font-family: var(--font-body);
+    font-size: 13px;
+    -webkit-font-smoothing: antialiased;
+    min-height: 100vh;
+}
+
+::selection { background: var(--accent-soft); color: var(--accent-strong); }
+
+::-webkit-scrollbar { width: 10px; height: 10px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border-strong); border-radius: 8px; }
+
+.app-shell {
+    max-width: 1560px;
+    margin: 0 auto;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* ---------- Header ---------- */
+
+.app-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 24px 10px;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0.01em;
+    color: var(--text-bright);
+}
+
+.brand-glyph {
+    display: inline-flex;
+    width: 28px;
+    height: 28px;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    background: linear-gradient(155deg, var(--bg-panel-raised), var(--bg-inset));
+    border: 1px solid var(--border-strong);
+    color: var(--accent);
+    box-shadow: var(--glow-accent);
+    font-size: 14px;
+    animation: glyph-pulse 4.5s ease-in-out infinite;
+}
+
+@keyframes glyph-pulse {
+    0%, 100% { box-shadow: 0 0 0 1px rgba(69,200,255,0.25), 0 0 18px -6px rgba(69,200,255,0.35); }
+    50%      { box-shadow: 0 0 0 1px rgba(69,200,255,0.4), 0 0 28px -4px rgba(69,200,255,0.55); }
+}
+
+.tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--bg-inset);
+    border: 1px solid var(--border-soft);
+    border-radius: 999px;
+    padding: 3px;
+}
+
+.tab-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--text-muted);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 12px;
+    padding: 6px 15px;
+    border-radius: 999px;
+    cursor: pointer;
+    transition: color 0.15s ease, background 0.15s ease;
+}
+
+.tab-btn:hover { color: var(--text-bright); }
+
+.tab-btn.active {
+    background: var(--accent);
+    color: var(--bg-void);
+    color: #05131f;
+}
+
+/* ---------- Body layout ---------- */
+
+.app-body {
+    flex: 1;
+    display: grid;
+    grid-template-columns: 250px 1fr;
+    gap: 16px;
+    padding: 14px 24px;
+    align-items: start;
+}
+
+.sidebar {
+    position: sticky;
+    top: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    min-width: 0;
+}
+
+/* ---------- Panels ---------- */
+
+.panel {
+    background: linear-gradient(180deg, var(--bg-panel-raised), var(--bg-panel));
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    padding: 14px 16px 16px;
+    box-shadow: var(--shadow-panel);
+}
+
+.panel-title {
+    margin: 0 0 3px;
+    font-family: var(--font-display);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    color: var(--text-bright);
+}
+
+.panel-sub {
+    margin: 0 0 8px;
+    color: var(--text-muted);
+    font-size: 11.5px;
+    line-height: 1.4;
+}
+
+.panel-sub:empty { display: none; }
+
+/* ---------- Forms ---------- */
+
+.field-label {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin: 9px 0 4px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+}
+
+.field-label .hint {
+    text-transform: none;
+    font-weight: 400;
+    letter-spacing: normal;
+    color: var(--text-faint);
+    font-size: 10px;
+}
+
+.field-label .stat-key {
+    /* When editing an event/prism track, the label itself becomes the
+       game's own variable name (e.g. "f.bulk") instead of a plain English
+       word -- render it like a code identifier, not shouted like the
+       normal uppercase labels, so it reads as "this is a distinct value,
+       not just Bulk relabeled." */
+    text-transform: none;
+    letter-spacing: normal;
+    font-family: var(--font-mono);
+    color: var(--accent-strong);
+}
+
+.input {
+    width: 100%;
+    background: var(--bg-inset);
+    border: 1px solid var(--border-soft);
+    color: var(--text-bright);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    padding: 7px 10px;
+    border-radius: var(--radius-sm);
+    outline: none;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.input:focus {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px var(--accent-soft);
+}
+
+select.input {
+    font-family: var(--font-body);
+    appearance: none;
+    background-image: linear-gradient(45deg, transparent 50%, var(--text-muted) 50%),
+                       linear-gradient(135deg, var(--text-muted) 50%, transparent 50%);
+    background-position: calc(100% - 18px) calc(50% - 2px), calc(100% - 13px) calc(50% - 2px);
+    background-size: 5px 5px, 5px 5px;
+    background-repeat: no-repeat;
+    cursor: pointer;
+}
+
+.btn {
+    appearance: none;
+    border: none;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 12.5px;
+    border-radius: var(--radius-sm);
+    padding: 8px 14px;
+    margin-top: 10px;
+    width: 100%;
+    transition: transform 0.1s ease, filter 0.15s ease;
+}
+
+.btn:active { transform: translateY(1px); }
+
+.btn-primary {
+    background: linear-gradient(180deg, var(--accent-strong), var(--accent-deep));
+    color: #06131f;
+    box-shadow: 0 8px 20px -10px rgba(69,200,255,0.6);
+}
+
+.btn-primary:hover { filter: brightness(1.08); }
+
+/* ---------- Cost / rate displays ---------- */
+
+.cost-display, .rate-display {
+    margin-top: 10px;
+    padding: 8px 11px;
+    background: var(--bg-inset);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm);
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-primary);
+    line-height: 1.5;
+}
+
+.cost-display .row, .rate-display .row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.cost-display .row span:first-child, .rate-display .row span:first-child {
+    color: var(--text-muted);
+    font-family: var(--font-body);
+}
+
+/* ---------- Tables ---------- */
+
+.table-wrap { overflow-x: auto; }
+
+.drop-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+.drop-table thead th {
+    text-align: left;
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--text-faint);
+    font-weight: 600;
+    padding: 0 10px 7px;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.drop-table tbody td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--border-soft);
+    font-family: var(--font-mono);
+    color: var(--text-primary);
+    white-space: nowrap;
+}
+
+.drop-table tbody tr:last-child td { border-bottom: none; }
+.drop-table tbody tr { transition: background 0.15s ease; }
+.drop-table tbody tr:hover { background: rgba(255,255,255,0.02); }
+
+.drop-table tbody tr.at-cap { box-shadow: inset 3px 0 0 var(--teal); }
+.drop-table tbody tr.noobinial-row { box-shadow: inset 3px 0 0 var(--violet); }
+
+.rune-name-cell {
+    font-family: var(--font-body);
+    font-weight: 600;
+    color: var(--text-bright);
+    white-space: normal;
+}
+
+.tag {
+    display: inline-block;
+    font-family: var(--font-body);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 2px 7px;
+    border-radius: 999px;
+}
+
+.tag-basic { background: var(--accent-soft); color: var(--accent-strong); }
+.tag-noobinial { background: var(--violet-soft); color: var(--violet); }
+
+.cap-badge {
+    font-size: 10px;
+    color: var(--teal);
+    background: var(--teal-soft);
+    padding: 1px 6px;
+    border-radius: 999px;
+    margin-left: 5px;
+}
+
+/* ---------- Opening tab layout ---------- */
+
+.opening-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto 1fr;
+    gap: 14px;
+}
+
+.prediction-panel { grid-column: 1; grid-row: 1; }
+.opening-info-panel { grid-column: 1; grid-row: 2; }
+.drop-list-panel { grid-column: 2; grid-row: 1 / span 2; }
+
+/* ---------- Economy tab layout ---------- */
+
+.economy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px;
+    align-items: start;
+}
+
+/* ---------- Compact rune list (Drop Table replacement) ---------- */
+
+.rune-list {
+    display: flex;
+    flex-direction: column;
+}
+
+.rune-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 6px 6px;
+    border-bottom: 1px solid var(--border-soft);
+}
+
+.rune-row:last-child { border-bottom: none; }
+
+.rune-row.at-cap { box-shadow: inset 3px 0 0 var(--teal); padding-left: 12px; }
+.rune-row.noobinial-row { box-shadow: inset 3px 0 0 var(--violet); padding-left: 12px; }
+
+.rune-row-left {
+    display: flex;
+    align-items: baseline;
+    gap: 9px;
+    min-width: 0;
+}
+
+.rune-row-name {
+    font-family: var(--font-body);
+    font-weight: 700;
+    font-size: 13px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 0 6px currentColor, 0 0 14px currentColor;
+}
+
+.rune-row-odds {
+    font-family: var(--font-mono);
+    font-size: 11.5px;
+    color: var(--text-muted);
+    white-space: nowrap;
+}
+
+.time-pill {
+    flex-shrink: 0;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--accent-strong);
+    background: var(--accent-soft);
+    border: 1px solid rgba(69, 200, 255, 0.3);
+    border-radius: 999px;
+    padding: 3px 10px;
+}
+
+/* ---------- Opening Info panel (black square) ---------- */
+
+.opening-info-panel {
+    background: var(--bg-void);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-lg);
+    padding: 14px 18px 16px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.opening-info-placeholder {
+    margin: 14px 0;
+    color: var(--text-faint);
+    font-size: 12px;
+}
+
+.opening-info-title {
+    font-family: var(--font-display);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-bright);
+    margin-bottom: 8px;
+}
+
+.opening-info-stats {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    text-align: left;
+}
+
+.opening-info-section-label {
+    font-family: var(--font-display);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-top: 8px;
+    margin-bottom: 2px;
+}
+
+.opening-info-list {
+    /* A real two-column grid (not per-row flex) so the count and name
+       columns line up across every row, no matter how much their widths
+       vary from row to row -- e.g. "x2M" next to "x428.094DVt", or a
+       4-char drop name next to a 17-char one. Sizing to the worst-case
+       row on the fly (max-content) means this doesn't need re-tuning
+       every time the drop table's longest name/number changes. */
+    margin-top: 10px;
+    display: grid;
+    grid-template-columns: max-content max-content;
+    justify-content: center;
+    row-gap: 3px;
+    column-gap: 8px;
+    max-width: 100%;
+}
+
+.opening-info-row {
+    /* display:contents dissolves this wrapper so its two children (count,
+       name) become direct items of the .opening-info-list grid above --
+       that's what makes cross-row column alignment possible. Inheritable
+       properties like font-size still cascade to the children normally. */
+    display: contents;
+    font-size: 12.5px;
+}
+
+.opening-info-count {
+    font-family: var(--font-mono);
+    color: var(--text-muted);
+    text-align: right;
+    white-space: nowrap;
+}
+
+.opening-info-name {
+    font-family: var(--font-body);
+    font-weight: 600;
+    text-align: left;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: 0 0 6px currentColor, 0 0 14px currentColor;
+    max-width: 240px;
+}
+
+/* ---------- Result boxes ---------- */
+
+.result-box {
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.result-box:empty { display: none; }
+
+.result-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 7px 12px;
+    background: var(--bg-inset);
+    border: 1px solid var(--border-soft);
+    border-radius: var(--radius-sm);
+    font-size: 12px;
+}
+
+.result-row .label { color: var(--text-muted); }
+.result-row .value { font-family: var(--font-mono); color: var(--text-bright); font-weight: 600; }
+.result-row.highlight { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent-soft); }
+.result-row.highlight .value { color: var(--accent-strong); }
+.result-row.warn { border-color: var(--amber); }
+.result-row.warn .value { color: var(--amber); }
+
+/* ---------- Tab panels ---------- */
+
+.tab-panel { display: none; flex-direction: column; gap: 14px; }
+.tab-panel.active { display: flex; }
+
+/* ---------- Footer ---------- */
+
+.app-footer {
+    padding: 8px 24px 10px;
+    text-align: center;
+    color: var(--text-faint);
+    font-size: 10.5px;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+    .app-body { grid-template-columns: 1fr; }
+    .sidebar { position: static; }
+    .opening-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .prediction-panel, .opening-info-panel, .drop-list-panel { grid-column: 1; grid-row: auto; }
+    .economy-grid { grid-template-columns: 1fr; }
+    .app-header { flex-direction: column; align-items: flex-start; gap: 14px; }
+}
+
+/* ---------- Accessibility ---------- */
+
+:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .brand-glyph { animation: none; }
+    * { transition: none !important; }
+}

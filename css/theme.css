@@ -1,0 +1,134 @@
+/*
+ * theme.css — design tokens.
+ *
+ * Direction: a data-dense "arcane instrument panel" — deep navy void,
+ * a single luminous cyan accent for anything live/interactive, amber for
+ * pity warnings, and violet reserved exclusively for Noobinial (luck-proof)
+ * runes so their "immune to luck" status reads instantly across every table.
+ */
+
+/*
+ * Fonts are bundled locally under css/../fonts/ (Latin subset, WOFF2) so the
+ * page renders correctly with no network connection — no Google Fonts
+ * @import. Falls back to system fonts if a file is ever missing.
+ */
+@font-face {
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/space-grotesk-latin-500-normal.woff2') format('woff2');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/space-grotesk-latin-600-normal.woff2') format('woff2');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+    font-family: 'Space Grotesk';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('../fonts/space-grotesk-latin-700-normal.woff2') format('woff2');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/inter-latin-400-normal.woff2') format('woff2');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/inter-latin-500-normal.woff2') format('woff2');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/inter-latin-600-normal.woff2') format('woff2');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('../fonts/jetbrains-mono-latin-400-normal.woff2') format('woff2');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('../fonts/jetbrains-mono-latin-500-normal.woff2') format('woff2');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+@font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('../fonts/jetbrains-mono-latin-600-normal.woff2') format('woff2');
+    unicode-range: U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,U+2212,U+2215,U+FEFF,U+FFFD;
+}
+
+:root {
+    /* Surfaces */
+    --bg-void: #070a14;
+    --bg-deep: #0b1020;
+    --bg-panel: #101833;
+    --bg-panel-raised: #141d3d;
+    --bg-inset: #0c1226;
+
+    /* Borders */
+    --border-soft: #202a4d;
+    --border-strong: #2c3a68;
+
+    /* Text */
+    --text-bright: #eef1fb;
+    --text-primary: #c7cfea;
+    --text-muted: #7c88b0;
+    --text-faint: #4d5680;
+
+    /* Accent — arcane cyan */
+    --accent: #45c8ff;
+    --accent-soft: rgba(69, 200, 255, 0.12);
+    --accent-strong: #7ee0ff;
+    --accent-deep: #1b8fd1;
+
+    /* Status */
+    --amber: #f5b94d;
+    --amber-soft: rgba(245, 185, 77, 0.12);
+    --violet: #b18bfc;
+    --violet-soft: rgba(177, 139, 252, 0.12);
+    --teal: #3fe0c5;
+    --teal-soft: rgba(63, 224, 197, 0.12);
+    --rose: #ff7a90;
+
+    /* Typography */
+    --font-display: 'Space Grotesk', 'Inter', sans-serif;
+    --font-body: 'Inter', sans-serif;
+    --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+
+    /* Radii & shadow */
+    --radius-sm: 6px;
+    --radius-md: 10px;
+    --radius-lg: 16px;
+    --shadow-panel: 0 1px 0 rgba(255,255,255,0.02) inset, 0 12px 30px -18px rgba(0,0,0,0.7);
+    --glow-accent: 0 0 0 1px rgba(69,200,255,0.25), 0 0 24px -4px rgba(69,200,255,0.35);
+}

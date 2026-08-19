@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Rune Simulator</title>
+<link rel="stylesheet" href="css/theme.css" />
+<link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<div class="app-shell">
+
+    <header class="app-header">
+        <div class="brand">
+            <span class="brand-glyph">◈</span>
+            <span class="brand-name">Rune Simulator</span>
+        </div>
+        <nav class="tabs" id="tabs">
+            <button class="tab-btn active" data-tab="opening">Opening</button>
+            <button class="tab-btn" data-tab="economy">Economy</button>
+        </nav>
+    </header>
+
+    <div class="app-body">
+
+        <aside class="sidebar">
+            <div class="panel">
+                <h3 class="panel-title">Selection</h3>
+                <label class="field-label">Realm</label>
+                <select id="realmSelector" class="input select"></select>
+
+                <label class="field-label">Opening Rune</label>
+                <select id="openingRuneSelector" class="input select"></select>
+
+                <div class="cost-display" id="costDisplay"></div>
+            </div>
+
+            <div class="panel">
+                <h3 class="panel-title">Player Stats</h3>
+
+                <label class="field-label"><span id="bulkLabelText">Bulk</span> <span class="hint">runes per opening</span></label>
+                <input id="bulkInput" class="input" type="text" value="1" />
+
+                <label class="field-label"><span id="speedLabelText">Speed</span> <span class="hint">seconds per opening</span></label>
+                <input id="speedInput" class="input" type="text" value="0.05" />
+
+                <label class="field-label"><span id="luckLabelText">Luck</span> <span class="hint">reduces odds toward cap</span></label>
+                <input id="luckInput" class="input" type="text" value="1" />
+
+                <div class="rate-display" id="rateDisplay"></div>
+            </div>
+        </aside>
+
+        <main class="content">
+
+            <!-- OPENING TAB -->
+            <section class="tab-panel active" id="tab-opening">
+
+                <div class="opening-grid">
+                    <div class="panel prediction-panel">
+                        <h3 class="panel-title">Prediction</h3>
+                        <p class="panel-sub">How long until I get X copies of a rune, and what will it cost?</p>
+
+                        <label class="field-label">Target Rune</label>
+                        <select id="predictRuneSelector" class="input select"></select>
+
+                        <label class="field-label">Copies Wanted</label>
+                        <input id="predictCopiesInput" class="input" type="text" value="1" />
+
+                        <button class="btn btn-primary" id="predictBtn">Predict</button>
+                    </div>
+
+                    <div class="opening-info-panel" id="openingInfoPanel"></div>
+
+                    <div class="panel drop-list-panel">
+                        <h3 class="panel-title">Drop Table &amp; Effective Odds</h3>
+                        <p class="panel-sub">Updates live as you change Bulk, Speed, and Luck.</p>
+                        <div class="rune-list" id="dropList"></div>
+                    </div>
+                </div>
+
+            </section>
+
+            <!-- ECONOMY TAB -->
+            <section class="tab-panel" id="tab-economy">
+                <div class="economy-grid">
+                    <div class="panel">
+                        <h3 class="panel-title">Currency Calculator</h3>
+                        <p class="panel-sub">How many openings can I afford, and what do I expect to get?</p>
+
+                        <label class="field-label" id="currencyLabel">Currency Available</label>
+                        <input id="currencyInput" class="input" type="text" value="0" />
+
+                        <button class="btn btn-primary" id="economyBtn">Calculate</button>
+
+                        <div class="result-box" id="economyResult"></div>
+                    </div>
+
+                    <div class="panel">
+                        <h3 class="panel-title">Expected Gains</h3>
+                        <div class="table-wrap">
+                            <table class="drop-table" id="economyTable">
+                                <thead>
+                                    <tr>
+                                        <th>Rune</th>
+                                        <th>Type</th>
+                                        <th>Expected Copies</th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer class="app-footer">
+        <span>Rune Simulator — offline, client-side only. No data leaves your browser.</span>
+    </footer>
+
+</div>
+
+<!-- Big number library -->
+<script src="lib/bignumber.min.js"></script>
+
+<!-- Config -->
+<script src="js/config.js"></script>
+
+<!-- Data -->
+<script src="js/data/runes.js"></script>
+<script src="js/data/runeColors.js"></script>
+
+<!-- Utils -->
+<script src="js/utils/format.js"></script>
+<script src="js/utils/rarityColor.js"></script>
+
+<!-- Engine -->
+<script src="js/engine/numbers.js"></script>
+<script src="js/engine/time.js"></script>
+<script src="js/engine/luck.js"></script>
+<script src="js/engine/pity.js"></script>
+<script src="js/engine/variance.js"></script>
+<script src="js/engine/prediction.js"></script>
+<script src="js/engine/economy.js"></script>
+
+<!-- State -->
+<script src="js/state/appState.js"></script>
+
+<!-- UI -->
+<script src="js/ui/tabs.js"></script>
+<script src="js/ui/realmSelector.js"></script>
+<script src="js/ui/openingRuneSelector.js"></script>
+<script src="js/ui/playerInputs.js"></script>
+<script src="js/ui/dropList.js"></script>
+<script src="js/ui/predictionPanel.js"></script>
+<script src="js/ui/openingInfoPanel.js"></script>
+<script src="js/ui/economyPanel.js"></script>
+
+<!-- Main -->
+<script src="js/main.js"></script>
+
+</body>
+</html>
