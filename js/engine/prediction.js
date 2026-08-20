@@ -52,7 +52,8 @@
         var openingRune = opts.openingRune;
 
         var eTrialsPerSuccess = Prediction.expectedTrialsPerSuccess(drop, luckValue, openingRune);
-        var successesNeeded = Number(copies) / (1 + RS.Config.CLONE_CHANCE);
+        var yieldMultiplier = drop.yieldMultiplier || 1;
+        var successesNeeded = Number(copies) / yieldMultiplier / (1 + RS.Config.CLONE_CHANCE);
         var expectedTrials = successesNeeded * eTrialsPerSuccess;
 
         var runesPerSecond = RS.Time.runesPerSecond(bulk, speedSeconds);
@@ -118,7 +119,8 @@
     Prediction.expectedCopiesFromTrials = function (drop, luckValue, trials, openingRune) {
         var eTrialsPerSuccess = Prediction.expectedTrialsPerSuccess(drop, luckValue, openingRune);
         var expectedSuccesses = eTrialsPerSuccess > 0 ? trials / eTrialsPerSuccess : 0;
-        return expectedSuccesses * (1 + RS.Config.CLONE_CHANCE);
+        var yieldMultiplier = drop.yieldMultiplier || 1;
+        return expectedSuccesses * (1 + RS.Config.CLONE_CHANCE) * yieldMultiplier;
     };
 
     RS.Prediction = Prediction;

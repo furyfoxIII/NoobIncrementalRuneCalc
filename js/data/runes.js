@@ -56,28 +56,32 @@ RS.RuneDatabase = [
                         name: "Master",
                         baseChance: "1M",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Grandmaster",
                         baseChance: "40M",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Celestial",
                         baseChance: "625B",
                         type: "Basic",
-                        cap: "15.1"
+                        cap: "15.1",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Immortal",
                         baseChance: "500Sp",
                         type: "Basic",
-                        cap: "468"
+                        cap: "468",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
@@ -148,35 +152,40 @@ RS.RuneDatabase = [
                         name: "Champion",
                         baseChance: "200K",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Ascended",
                         baseChance: "2M",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Transcendent",
                         baseChance: "50M",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Universal",
                         baseChance: "20Qn",
                         type: "Basic",
-                        cap: "85.1"
+                        cap: "85.1",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Omnipotent",
                         baseChance: "12.5Oc",
                         type: "Basic",
-                        cap: "645"
+                        cap: "645",
+                        yieldMultiplier: 0.5
                     },
 
                     {
@@ -232,56 +241,64 @@ RS.RuneDatabase = [
                         name: "Standard",
                         baseChance: "1M",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Greater",
                         baseChance: "50M",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Superior",
                         baseChance: "200M",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Prime",
                         baseChance: "100B",
                         type: "Basic",
-                        cap: "12.6"
+                        cap: "12.6",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Apex",
                         baseChance: "1T",
                         type: "Basic",
-                        cap: "15.8"
+                        cap: "15.8",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Ethereal",
                         baseChance: "50T",
                         type: "Basic",
-                        cap: "23.4"
+                        cap: "23.4",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Divine",
                         baseChance: "200Qd",
                         type: "Basic",
-                        cap: "53.7"
+                        cap: "53.7",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Infinite",
                         baseChance: "17.5Oc",
                         type: "Basic",
-                        cap: "667"
+                        cap: "667",
+                        yieldMultiplier: 0.5
                     },
 
                     {
@@ -423,28 +440,32 @@ RS.RuneDatabase = [
                         name: "Expliot",
                         baseChance: "1000Sp",
                         type: "Basic",
-                        cap: "501"
+                        cap: "501",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Kernel",
                         baseChance: "1No",
                         type: "Basic",
-                        cap: "1K"
+                        cap: "1K",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Root",
                         baseChance: "1De",
                         type: "Basic",
-                        cap: "2K"
+                        cap: "2K",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Backdoor",
                         baseChance: "1UDe",
                         type: "Basic",
-                        cap: "3.98k"
+                        cap: "3.98k",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
@@ -468,25 +489,29 @@ RS.RuneDatabase = [
                     {
                         name: "Glitched",
                         baseChance: "50Vt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.491
                     },
                     
                     {
                         name: "Firewall",
                         baseChance: "20TVt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.491
                     },
                     
                     {
                         name: "Connor Hacked It",
                         baseChance: "75SxVt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.491
                     },
                     
                     {
                         name: "Anti-Cheat",
                         baseChance: "2OcVt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.491
                     },
                     
                     {
@@ -515,61 +540,70 @@ RS.RuneDatabase = [
                         name: "Snow",
                         baseChance: "1.01",
                         type: "Basic",
-                        cap: "1.01"
+                        cap: "1.01",
+                        yieldMultiplier: 1.1545
                     },
 
                     {
                         name: "Frost",
                         baseChance: "1Qn",
                         type: "Basic",
-                        cap: "63.1"
+                        cap: "63.1",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Ice",
                         baseChance: "100Qn",
                         type: "Basic",
-                        cap: "100"
+                        cap: "100",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Hail",
                         baseChance: "2Sx",
                         type: "Basic",
-                        cap: "135"
+                        cap: "135",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Glacier",
                         baseChance: "100Sp",
                         type: "Basic",
-                        cap: "398"
+                        cap: "398",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Blizzard",
                         baseChance: "500DDe",
                         type: "Basic",
-                        cap: "14.8k"
+                        cap: "14.8k",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Tundra",
                         baseChance: "2QdDe",
                         type: "Basic",
-                        cap: "33.9k"
+                        cap: "33.9k",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Artic",
                         baseChance: "400OcDe",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.486
                     },
 
                     {
                         name: "Permafrost",
                         baseChance: "190Vt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.486
                     },
 
                     {
@@ -605,63 +639,72 @@ RS.RuneDatabase = [
                         name: "Dust",
                         baseChance: "1.01",
                         type: "Basic",
-                        cap: "1.01"
+                        cap: "1.01",
+                        yieldMultiplier: 1.1546
                     },
 
                     {
                         name: "Pebble",
                         baseChance: "10Sx",
                         type: "Basic",
-                        cap: "158"
+                        cap: "158",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Hollow",
                         baseChance: "20Sx",
                         type: "Basic",
-                        cap: "170"
+                        cap: "170",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Echo",
                         baseChance: "10Sp",
                         type: "Basic",
-                        cap: "316"
+                        cap: "316",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Stalagmite",
                         baseChance: "200Sp",
                         type: "Basic",
-                        cap: "427"
+                        cap: "427",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Cavern",
                         baseChance: "50Oc",
                         type: "Basic",
-                        cap: "741"
+                        cap: "741",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Crystalborn",
                         baseChance: "10No",
                         type: "Basic",
-                        cap: "1.26K"
+                        cap: "1.26K",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Earthshaker",
                         baseChance: "10De",
                         type: "Basic",
-                        cap: "2.5K"
+                        cap: "2.5K",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Golemheart",
                         baseChance: "100UDe",
                         type: "Basic",
-                        cap: "6.31k"
+                        cap: "6.31k",
+                        yieldMultiplier: 0.5
                     },
 
                     {
@@ -703,49 +746,57 @@ RS.RuneDatabase = [
                     {
                         name: "Water Shard",
                         baseChance: "1.5QdVt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.436
                     },
 
                     {
                         name: "Earth Shard",
                         baseChance: "400QnVt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.436
                     },
 
                     {
                         name: "Fire Shard",
                         baseChance: "75SpVt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.436
                     },
 
                     {
                         name: "Ice Shard",
                         baseChance: "12NoVt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.436
                     },
 
                     {
                         name: "Poison Shard",
                         baseChance: "125UTg",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.436
                     },
 
                     {
                         name: "Metal Shard",
                         baseChance: "1.5e104",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.436
                     },
 
                     {
                         name: "Light Shard",
                         baseChance: "3.2e106",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.436
                     },
 
                     {
                         name: "Shadow Shard",
                         baseChance: "4.0e108",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.436
                     },
 
                     {
@@ -790,56 +841,64 @@ RS.RuneDatabase = [
                         name: "Marrow",
                         baseChance: "1.01",
                         type: "Basic",
-                        cap: "1.01"
+                        cap: "1.01",
+                        yieldMultiplier: 1.1419
                     },
 
                     {
                         name: "Femur",
                         baseChance: "333K",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Skull",
                         baseChance: "1B",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Dune",
                         baseChance: "375B",
                         type: "Basic",
-                        cap: "14.4"
+                        cap: "14.4",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Oasis",
                         baseChance: "43.5Qd",
                         type: "Basic",
-                        cap: "46.1"
+                        cap: "46.1",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Mirage",
                         baseChance: "250Qn",
                         type: "Basic",
-                        cap: "110"
+                        cap: "110",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Sunspire",
                         baseChance: "4.29Sp",
                         type: "Basic",
-                        cap: "291"
+                        cap: "291",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Eternal Sand",
                         baseChance: "5.08Oc",
                         type: "Basic",
-                        cap: "590"
+                        cap: "590",
+                        yieldMultiplier: 0.5
                     },
 
                     {
@@ -877,62 +936,71 @@ RS.RuneDatabase = [
                         name: "Ashen",
                         baseChance: "1.01",
                         type: "Basic",
-                        cap: "1.01"
+                        cap: "1.01",
+                        yieldMultiplier: 1.1474
                     },
                     
                     {
                         name: "Parched",
                         baseChance: "43.5M",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Cactus",
                         baseChance: "6.9B",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Scorch",
                         baseChance: "3.65T",
                         type: "Basic",
-                        cap: "18"
+                        cap: "18",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Spark",
                         baseChance: "44.6Sx",
                         type: "Basic",
-                        cap: "184"
+                        cap: "184",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Flare",
                         baseChance: "4.34Oc",
                         type: "Basic",
-                        cap: "581"
+                        cap: "581",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Desert Jewel",
                         baseChance: "7.52UDe",
                         type: "Basic",
-                        cap: "4.87k"
+                        cap: "4.87k",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Solar Titan",
                         baseChance: "2.67QdDe",
                         type: "Basic",
-                        cap: "34.9k"
+                        cap: "34.9k",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Immortal Sun",
                         baseChance: "3.94SpDe",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.4
                     },
                     
                     {
@@ -1052,57 +1120,66 @@ RS.RuneDatabase = [
                         name: "Moonlight",
                         baseChance: "1.01",
                         type: "Basic",
-                        cap: "1.01"
+                        cap: "1.01",
+                        yieldMultiplier: 1.1555
                     },
 
                     {
                         name: "Sunlight",
                         baseChance: "500DDe",
                         type: "Basic",
-                        cap: "3.71k"
+                        cap: "3.71k",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Invasion",
                         baseChance: "80DDe",
                         type: "Basic",
-                        cap: "12.3k"
+                        cap: "12.3k",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Alien",
                         baseChance: "225QdDe",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.25
                     },
 
                     {
                         name: "universe",
                         baseChance: "925SpDe",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Gravity",
                         baseChance: "15UVt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Dimentional",
                         baseChance: "1QnVt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Meteor",
                         baseChance: "75UTg",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.5
                     },
 
                     {
                         name: "Nebula",
                         baseChance: "2DTg",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.5
                     },
 
                     {
@@ -1140,51 +1217,59 @@ RS.RuneDatabase = [
                         name: "Asteroid",
                         baseChance: "1.01",
                         type: "Basic",
-                        cap: "1.01"
+                        cap: "1.01",
+                        yieldMultiplier: 1.1538
                     },
 
                     {
                         name: "Comet",
                         baseChance: "150UDe",
                         type: "Basic",
-                        cap: "6.57k"
+                        cap: "6.57k",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Satellite",
                         baseChance: "3QdDe",
                         type: "Basic",
-                        cap: "35.29k"
+                        cap: "35.29k",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Orbit",
                         baseChance: "700SxDe",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Cluster",
                         baseChance: "17.5NoDe",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Quasar",
                         baseChance: "525QdVt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Pulsar",
                         baseChance: "2.5e101",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.5
                     },
                     
                     {
                         name: "Black Hole",
                         baseChance: "1.0e103",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.5
                     },
                     
                     {

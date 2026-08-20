@@ -88,7 +88,8 @@
     // for `copies` successes.
     Variance.totalTrialsStats = function (drop, luckValue, copies, openingRune) {
         var single = Variance.singleTrialStats(drop, luckValue, openingRune);
-        var successesNeeded = Number(copies) / (1 + RS.Config.CLONE_CHANCE);
+        var yieldMultiplier = drop.yieldMultiplier || 1;
+        var successesNeeded = Number(copies) / yieldMultiplier / (1 + RS.Config.CLONE_CHANCE);
         var variance = successesNeeded * single.variance;
 
         return {
