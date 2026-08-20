@@ -20,7 +20,13 @@
     var PERSISTED_KEYS = [
         "bulk", "speed", "luck",
         "f.bulk", "f.speed", "f.luck",
-        "p.bulk", "p.speed", "p.luck"
+        "p.bulk", "p.speed", "p.luck",
+
+        "activeSection",
+
+        "prism.perCycle", "prism.cycleSeconds", "prism.minionMaster",
+        "prism.bulk", "prism.costPerCapsule", "prism.stockpile",
+        "prism.timeframeValue", "prism.timeframeUnit"
     ];
     var STORAGE_PREFIX = "runeSimulator.";
 
@@ -51,6 +57,8 @@
     var DEFAULT_SPEED = RS.Config ? RS.Config.DEFAULT_SPEED : "1";
     var DEFAULT_LUCK = RS.Config ? RS.Config.DEFAULT_LUCK : "1";
 
+    var cfg = RS.Config || {};
+
     var defaults = {
         realmIndex: 0,
         openingRuneIndex: 0,
@@ -67,7 +75,19 @@
         "p.speed": DEFAULT_SPEED,
         "p.luck": DEFAULT_LUCK,
 
-        currency: "0"
+        currency: "0",
+
+        // "rune" | "prism" — which top-level section is shown.
+        activeSection: "rune",
+
+        "prism.perCycle": cfg.DEFAULT_PRISM_PER_CYCLE || "1",
+        "prism.cycleSeconds": cfg.DEFAULT_PRISM_CYCLE_SECONDS || "60",
+        "prism.minionMaster": "false",
+        "prism.bulk": cfg.DEFAULT_PRISM_BULK || "1",
+        "prism.costPerCapsule": cfg.DEFAULT_PRISM_COST_PER_CAPSULE || "1",
+        "prism.stockpile": cfg.DEFAULT_PRISM_STOCKPILE || "0",
+        "prism.timeframeValue": "1",
+        "prism.timeframeUnit": "hours"
     };
 
     var state = Object.assign({}, defaults, loadPersisted());
@@ -138,6 +158,10 @@
     AppState.bulkNumber = function () { return RS.Numbers.parse(state[AppState.activeBulkKey()]); };
     AppState.speedNumber = function () { return Math.max(0.001, RS.Numbers.parse(state[AppState.activeSpeedKey()])); };
     AppState.luckNumber = function () { return Math.max(1, RS.Numbers.parse(state[AppState.activeLuckKey()])); };
+
+    // "prism.minionMaster" is persisted as the string "true"/"false" (same
+    // scheme as every other persisted field) rather than a real boolean.
+    AppState.prismMinionMaster = function () { return state["prism.minionMaster"] === "true"; };
 
     RS.AppState = AppState;
 })();

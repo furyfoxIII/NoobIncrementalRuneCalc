@@ -4,6 +4,7 @@
  */
 (function () {
     document.addEventListener("DOMContentLoaded", function () {
+        RS.SectionTabs.init();
         RS.Tabs.init();
         RS.RealmSelector.init();
         RS.OpeningRuneSelector.init();
@@ -12,15 +13,18 @@
         RS.PredictionPanel.init();
         RS.EconomyPanel.init();
         RS.OpeningInfoPanel.showPlaceholder();
+        RS.PrismPanel.init();
 
         // Re-render everything whenever state changes (realm, rune, bulk,
         // speed, luck, ...). Keeps every panel in sync without manual wiring.
         RS.AppState.onChange(function () {
+            RS.SectionTabs.sync();
             RS.RealmSelector.sync();
             RS.OpeningRuneSelector.rebuild();
             RS.PlayerInputs.sync();
             RS.DropList.render();
             RS.EconomyPanel.updateLabel();
+            RS.PrismPanel.sync();
         });
     });
 })();

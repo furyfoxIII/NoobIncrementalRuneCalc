@@ -14,7 +14,11 @@
     <header class="app-header">
         <div class="brand">
             <span class="brand-glyph">◈</span>
-            <span class="brand-name">Rune Simulator</span>
+            <nav class="section-tabs" id="sectionTabs">
+                <button class="section-tab-btn active" data-section="rune">Rune</button>
+                <span class="section-tab-sep">/</span>
+                <button class="section-tab-btn" data-section="prism">Prism</button>
+            </nav>
         </div>
         <nav class="tabs" id="tabs">
             <button class="tab-btn active" data-tab="opening">Opening</button>
@@ -22,6 +26,8 @@
         </nav>
     </header>
 
+    <!-- RUNE SECTION -->
+    <section class="app-section active" id="section-rune">
     <div class="app-body">
 
         <aside class="sidebar">
@@ -117,6 +123,75 @@
 
         </main>
     </div>
+    </section>
+
+    <!-- PRISM SECTION -->
+    <section class="app-section" id="section-prism">
+    <div class="app-body prism-body">
+        <main class="content">
+            <div class="prism-grid">
+
+                <div class="panel prism-settings-panel">
+                    <h3 class="panel-title">Prism Settings</h3>
+                    <p class="panel-sub">Global to the Prism tab — shared by both calculators below.</p>
+
+                    <label class="field-label">Prism Per Cycle <span class="hint">amount gained each cycle</span></label>
+                    <input id="prismPerCycleInput" class="input" type="text" value="0" />
+
+                    <label class="field-label">Cycle Length <span class="hint">seconds between gains</span></label>
+                    <input id="prismCycleSecondsInput" class="input" type="text" value="9" />
+
+                    <label class="field-label">Capsule Bulk <span class="hint">per batch, max 20</span></label>
+                    <input id="prismBulkInput" class="input" type="text" value="6" />
+
+                    <label class="field-label">Prism Cost / Capsule</label>
+                    <input id="prismCostPerCapsuleInput" class="input" type="text" value="0" />
+
+                    <label class="checkbox-label">
+                        <input id="prismMinionMasterCheckbox" type="checkbox" />
+                        <span>Minion Master gamepass <span class="hint">0.9s per batch instead of 1s</span></span>
+                    </label>
+
+                    <div class="rate-display" id="prismRateDisplay"></div>
+                </div>
+
+                <div class="panel prism-income-panel">
+                    <h3 class="panel-title">Prism Over Time</h3>
+                    <p class="panel-sub">How much Prism will I have after a given timeframe?</p>
+
+                    <div class="timeframe-row">
+                        <div class="timeframe-value">
+                            <label class="field-label">Timeframe</label>
+                            <input id="prismTimeframeValueInput" class="input" type="text" value="1" />
+                        </div>
+                        <div class="timeframe-unit">
+                            <label class="field-label">&nbsp;</label>
+                            <select id="prismTimeframeUnitSelect" class="input select">
+                                <option value="seconds">Seconds</option>
+                                <option value="minutes">Minutes</option>
+                                <option value="hours" selected>Hours</option>
+                                <option value="days">Days</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="result-box" id="prismIncomeResult"></div>
+                </div>
+
+                <div class="panel prism-sustain-panel">
+                    <h3 class="panel-title">Capsule Opening Time</h3>
+                    <p class="panel-sub">How long can I keep opening capsules, given my Prism income?</p>
+
+                    <label class="field-label">Prism Stockpile <span class="hint">currently on hand</span></label>
+                    <input id="prismStockpileInput" class="input" type="text" value="0" />
+
+                    <div class="result-box" id="prismSustainResult"></div>
+                </div>
+
+            </div>
+        </main>
+    </div>
+    </section>
 
     <footer class="app-footer">
         <span>Rune Simulator — offline, client-side only. No data leaves your browser.</span>
@@ -146,11 +221,13 @@
 <script src="js/engine/variance.js"></script>
 <script src="js/engine/prediction.js"></script>
 <script src="js/engine/economy.js"></script>
+<script src="js/engine/prism.js"></script>
 
 <!-- State -->
 <script src="js/state/appState.js"></script>
 
 <!-- UI -->
+<script src="js/ui/sectionTabs.js"></script>
 <script src="js/ui/tabs.js"></script>
 <script src="js/ui/realmSelector.js"></script>
 <script src="js/ui/openingRuneSelector.js"></script>
@@ -159,6 +236,7 @@
 <script src="js/ui/predictionPanel.js"></script>
 <script src="js/ui/openingInfoPanel.js"></script>
 <script src="js/ui/economyPanel.js"></script>
+<script src="js/ui/prismPanel.js"></script>
 
 <!-- Main -->
 <script src="js/main.js"></script>

@@ -1,13 +1,17 @@
 /*
  * openingInfoPanel.js — the black "Rune Info" square. Shows the key
- * Prediction figures (expected opens/copy, time, cost) plus a full
- * per-rune breakdown of what you'd expect to get along the way, for
- * however many individual opens the last Prediction required. Reuses
+ * Prediction figures (expected opens/copy, time, cost) plus a per-rune
+ * breakdown of what you'd expect to get along the way, for however many
+ * individual opens the last Prediction required. Reuses
  * RS.Prediction.expectedCopiesFromTrials — the same math the Economy tab
  * uses — just driven by the Prediction's trial count instead of currency.
  *
  * Per-rune counts are floored to whole numbers — you can't have obtained
- * a fractional rune, so an expectation like 0.006 is shown as 0.
+ * a fractional rune, so an expectation like 0.006 is shown as 0, and rows
+ * that floor to exactly 0 are dropped from the list entirely rather than
+ * shown as "x0". The list is also capped at the 12 rarest drops: `drops`
+ * is ordered common -> rare, so once more than 12 remain after the zero
+ * filter, the most common ones are trimmed off first.
  */
 (function () {
     window.RS = window.RS || {};
@@ -25,7 +29,7 @@
         var totalTrials = predictionResult.expectedTotalTrials;
 
         var statsHtml =
-            statRow("Expected opens / copy", RS.Numbers.format(predictionResult.expectedTrialsPerSuccess)) +
+            statRow("Expected opens / copy", RS.Numbers.format(Math.round(predictionResult.expectedTrialsPerSuccess))) +
             statRow("Estimated time", RS.Format.duration(predictionResult.expectedSeconds));
 
         if (predictionResult.expectedCost !== undefined) {
@@ -44,13 +48,31 @@
             }).join("");
         }
 
-        var rows = openingRune.drops.map(function (drop) {
-            var expected = RS.Prediction.expectedCopiesFromTrials(drop, luckValue, totalTrials, openingRune);
-            var wholeCount = RS.Numbers.floorNear(expected);
-            var nameStyle = RS.RarityColor.styleForDrop(drop);
+        // Build the full per-rune breakdown, then trim it down for display:
+        //  1. Drops you're expected to get zero of aren't worth showing.
+        //  2. If more than MAX_DROPS_SHOWN remain, keep only the rarest
+        //     ones -- `drops` is ordered common -> rare (matches the Drop
+        //     Table), so keeping the tail keeps the rarest entries and
+        //     drops the most common ones first (e.g. Rookie, the single
+        //     most common drop, is the first to go).
+        var MAX_DROPS_SHOWN = 12;
+
+        var breakdown = openingRune.drops
+            .map(function (drop) {
+                var expected = RS.Prediction.expectedCopiesFromTrials(drop, luckValue, totalTrials, openingRune);
+                return { drop: drop, wholeCount: RS.Numbers.floorNear(expected) };
+            })
+            .filter(function (entry) { return entry.wholeCount > 0; });
+
+        if (breakdown.length > MAX_DROPS_SHOWN) {
+            breakdown = breakdown.slice(-MAX_DROPS_SHOWN);
+        }
+
+        var rows = breakdown.map(function (entry) {
+            var nameStyle = RS.RarityColor.styleForDrop(entry.drop);
             return '<div class="opening-info-row">' +
-                '<span class="opening-info-count">x' + RS.Numbers.format(wholeCount) + '</span>' +
-                '<span class="opening-info-name" style="' + nameStyle + '">' + drop.name + '</span>' +
+                '<span class="opening-info-count">x' + RS.Numbers.format(entry.wholeCount) + '</span>' +
+                '<span class="opening-info-name" style="' + nameStyle + '">' + entry.drop.name + '</span>' +
                 '</div>';
         }).join("");
 

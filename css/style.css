@@ -68,6 +68,38 @@ html, body {
     50%      { box-shadow: 0 0 0 1px rgba(69,200,255,0.4), 0 0 28px -4px rgba(69,200,255,0.55); }
 }
 
+/* ---------- Section tabs (Rune / Prism, in place of the old static
+   brand wordmark) ---------- */
+
+.section-tabs {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.section-tab-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    padding: 0;
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 17px;
+    letter-spacing: 0.01em;
+    color: var(--text-muted);
+    transition: color 0.15s ease;
+}
+
+.section-tab-btn:hover { color: var(--text-bright); }
+.section-tab-btn.active { color: var(--text-bright); }
+
+.section-tab-sep {
+    color: var(--text-faint);
+    font-size: 15px;
+    font-weight: 400;
+}
+
 .tabs {
     display: flex;
     gap: 4px;
@@ -354,6 +386,51 @@ select.input {
     align-items: start;
 }
 
+/* ---------- Prism tab layout ---------- */
+
+.prism-body { grid-template-columns: 1fr; }
+.prism-body .content { max-width: 1100px; }
+
+.prism-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 14px;
+    align-items: start;
+}
+
+.prism-settings-panel { grid-column: 1; grid-row: 1 / span 2; }
+.prism-income-panel { grid-column: 2; grid-row: 1; }
+.prism-sustain-panel { grid-column: 2; grid-row: 2; }
+
+.timeframe-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 12px 0 4px;
+    font-size: 11.5px;
+    color: var(--text-primary);
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    width: 15px;
+    height: 15px;
+    accent-color: var(--accent);
+    cursor: pointer;
+}
+
+.checkbox-label .hint {
+    color: var(--text-faint);
+    font-size: 10px;
+}
+
 /* ---------- Compact rune list (Drop Table replacement) ---------- */
 
 .rune-list {
@@ -535,6 +612,12 @@ select.input {
 .tab-panel { display: none; flex-direction: column; gap: 14px; }
 .tab-panel.active { display: flex; }
 
+/* ---------- Top-level sections (Rune / Prism) ---------- */
+
+.app-section { display: none; }
+.app-section.active { display: block; }
+
+
 /* ---------- Footer ---------- */
 
 .app-footer {
@@ -552,6 +635,9 @@ select.input {
     .opening-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
     .prediction-panel, .opening-info-panel, .drop-list-panel { grid-column: 1; grid-row: auto; }
     .economy-grid { grid-template-columns: 1fr; }
+    .prism-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .prism-settings-panel, .prism-income-panel, .prism-sustain-panel { grid-column: 1; grid-row: auto; }
+    .timeframe-row { grid-template-columns: 1fr; }
     .app-header { flex-direction: column; align-items: flex-start; gap: 14px; }
 }
 

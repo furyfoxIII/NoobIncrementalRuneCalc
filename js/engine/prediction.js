@@ -77,17 +77,17 @@
             stdDevSeconds: runesPerSecond > 0 ? varianceStats.stdDev / runesPerSecond : Infinity
         };
 
-        // A single opening action opens `bulk` runes at once, so it costs
-        // costPerUnit * bulk — the total cost is that times the number of
-        // actions needed.
+        // Cost only reflects the runes actually opened -- expectedTrials --
+        // multiplied by the per-rune cost. It is NOT rounded up to whole
+        // bulk-batches (that would impose an artificial bulk*price minimum
+        // even when far fewer than a full batch's worth of runes were
+        // needed), matching how the Economy tab treats currency as buying
+        // individual opens rather than whole actions.
         var costPerUnit;
         if (opts.openingRune) {
-            var bulkNum = bulk instanceof BigNumber ? bulk.toNumber() : Number(bulk);
             costPerUnit = RS.Numbers.parse(opts.openingRune.cost.amount);
-            var costPerAction = costPerUnit * bulkNum;
-            result.costPerAction = costPerAction;
             result.currency = opts.openingRune.cost.currency;
-            result.expectedCost = costPerAction * openingActions;
+            result.expectedCost = expectedTrials * costPerUnit;
         }
 
         // Percentiles: "if I get typical/lucky/unlucky rolls, how long (and
@@ -98,8 +98,7 @@
             var pctSeconds = runesPerSecond > 0 ? trials / runesPerSecond : Infinity;
             var entry = { p: pct, trials: trials, seconds: pctSeconds };
             if (opts.openingRune) {
-                var pctActions = RS.Time.openingActionsForRunes(bulk, trials);
-                entry.cost = result.costPerAction * pctActions;
+                entry.cost = trials * costPerUnit;
             }
             return entry;
         });

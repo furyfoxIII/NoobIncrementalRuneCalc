@@ -33,7 +33,6 @@
         el.innerHTML =
             row("Cost per bulk opening", RS.Numbers.format(result.costPerAction) + " " + rune.cost.currency) +
             row("Individual runes opened", RS.Numbers.format(result.totalTrials), true) +
-            row("Opening actions (approx)", RS.Numbers.format(result.affordableActions, 2)) +
             row("Time to spend it all", RS.Format.duration(result.timeSeconds));
 
         var tbody = document.querySelector("#economyTable tbody");
