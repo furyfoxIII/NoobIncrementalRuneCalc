@@ -465,6 +465,11 @@ select.input {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    /* padding + matching negative margin gives the glow room to fade out
+       before it hits the overflow:hidden edge, instead of being clipped
+       into a hard-edged rectangle */
+    padding: 18px;
+    margin: -18px;
 }
 
 .rune-row-odds {

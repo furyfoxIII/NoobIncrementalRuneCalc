@@ -24,6 +24,14 @@
 
     var RarityColor = {};
 
+    // Converts a "#rrggbb" hex color into an "r, g, b" triplet string so it
+    // can be dropped into an rgba(...) text-shadow with its own alpha.
+    function hexToRgbTriplet(hex) {
+        var m = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        if (!m) return "255, 255, 255";
+        return parseInt(m[1], 16) + ", " + parseInt(m[2], 16) + ", " + parseInt(m[3], 16);
+    }
+
     RarityColor.forDrop = function (drop) {
         var custom = RS.RuneColors && RS.RuneColors[drop.name];
         if (custom) {
@@ -45,17 +53,21 @@
 
         if (Array.isArray(custom)) {
             var stops = custom.join(", ");
+            var glowRgb = hexToRgbTriplet(custom[0]);
             return "background-image: linear-gradient(to bottom, " + stops + ");" +
                    "background-color: transparent;" +
                    "-webkit-background-clip: text;" +
                    "background-clip: text;" +
                    "color: transparent;" +
                    "-webkit-text-fill-color: transparent;" +
+                   "filter: drop-shadow(0 0 2px rgba(" + glowRgb + ", 0.7)) drop-shadow(0 0 5px rgba(" + glowRgb + ", 0.55)) drop-shadow(0 0 10px rgba(" + glowRgb + ", 0.35));" +
                    "text-shadow: none;";
         }
 
         var color = RarityColor.forDrop(drop);
-        return "color: " + color + ";";
+        var rgb = hexToRgbTriplet(color);
+        return "color: " + color + ";" +
+               "text-shadow: 0 0 2px rgba(" + rgb + ", 0.75), 0 0 5px rgba(" + rgb + ", 0.6), 0 0 10px rgba(" + rgb + ", 0.35);";
     };
 
     RS.RarityColor = RarityColor;
