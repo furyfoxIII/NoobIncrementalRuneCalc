@@ -79,8 +79,13 @@
     // ---- Formatting ----------------------------------------------------
 
     // Formats a plain number (or BigNumber) into game suffix notation.
-    Numbers.format = function (value, decimals) {
-        if (decimals === undefined) decimals = RS.Config.DEFAULT_DECIMALS;
+    //
+    // `sigFigs` caps the TOTAL number of digits shown in the mantissa
+    // (integer digits + decimal digits combined), truncating — never
+    // rounding — any extra precision. E.g. with sigFigs = 3: 518.545 ->
+    // "518", 114.99 -> "114" (not "115"), 3.739 -> "3.73" (not "3.74").
+    Numbers.format = function (value, sigFigs) {
+        if (sigFigs === undefined) sigFigs = RS.Config.DEFAULT_DECIMALS;
         var n = value instanceof BigNumber ? value.toNumber() : Number(value);
 
         if (!isFinite(n)) return n > 0 ? "Infinity" : (n < 0 ? "-Infinity" : "NaN");
@@ -91,7 +96,7 @@
 
         if (n === 0) return "0";
         if (n < 1000) {
-            return sign + trimNumber(n, n < 10 ? decimals : Math.max(0, decimals - 1));
+            return sign + trimToSigFigs(n, sigFigs);
         }
 
         // At and beyond 1e100 (10DTg), skip the named-suffix ladder entirely
@@ -101,7 +106,7 @@
         // exponent notation is the more honest representation anyway.
         var exponent = Math.floor(Math.log10(n));
         if (exponent >= SUFFIX_EXPONENT_CUTOFF) {
-            return sign + formatExponential(n, decimals);
+            return sign + formatExponential(n, sigFigs);
         }
 
         var t = Math.floor(Math.log10(n) / 3);
@@ -113,27 +118,40 @@
         // Bumping the tier above can push the exponent past the cutoff
         // (e.g. 999.999...DTg rounding up to 1000DTg = 1e102) — recheck.
         if (t * 3 >= SUFFIX_EXPONENT_CUTOFF) {
-            return sign + formatExponential(n, decimals);
+            return sign + formatExponential(n, sigFigs);
         }
 
         if (t > MAX_TIER) {
-            return sign + formatExponential(n, decimals);
+            return sign + formatExponential(n, sigFigs);
         }
 
         var suffix = tierSuffix(t);
         if (suffix === null) {
-            return sign + formatExponential(n, decimals);
+            return sign + formatExponential(n, sigFigs);
         }
-        return sign + trimNumber(mantissa, decimals) + suffix;
+        return sign + trimToSigFigs(mantissa, sigFigs) + suffix;
     };
+
+    // Truncates (never rounds) `n` down to at most `sigFigs` total digits
+    // and strips trailing zeros. `n` is assumed to be a positive, finite
+    // number (sign is handled by the caller).
+    function trimToSigFigs(n, sigFigs) {
+        if (n === 0) return "0";
+        var intDigits = Math.max(1, Math.floor(Math.log10(n)) + 1);
+        var decimals = Math.max(0, sigFigs - intDigits);
+        return trimNumber(n, decimals);
+    }
 
     // Formats n in "eXXX" style: a trimmed mantissa followed by a bare "e"
     // and the exponent (no "+" sign, matching the DTg/TTg-style examples).
-    function formatExponential(n, decimals) {
+    function formatExponential(n, sigFigs) {
         var exp = Math.floor(Math.log10(n));
         var mantissa = n / Math.pow(10, exp);
         // Rounding edge case: mantissa rounds up to 10 -> bump exponent.
         if (mantissa >= 10) { mantissa /= 10; exp += 1; }
+        // Mantissa always has exactly 1 integer digit here, so the
+        // remaining sig figs all go to decimals.
+        var decimals = Math.max(0, sigFigs - 1);
         var trimmed = trimNumber(mantissa, decimals);
         // Edge case: decimal rounding itself pushes the trimmed string up
         // to "10" (e.g. 9.9996 at 3 decimals) -> bump exponent again.
@@ -171,8 +189,16 @@
         return Math.floor(n + eps);
     };
 
+    // Truncates `n` to `decimals` decimal places (never rounds) and strips
+    // trailing zeros / trailing dot. A tiny magnitude-scaled epsilon is
+    // added first to absorb floating-point round-trip noise (e.g. a value
+    // that's "really" 115 but represented as 114.99999999999999) without
+    // affecting genuine fractional truncation.
     function trimNumber(n, decimals) {
-        var fixed = n.toFixed(decimals);
+        var factor = Math.pow(10, decimals);
+        var eps = Math.max(1e-9, Math.abs(n) * 1e-12);
+        var truncated = Math.floor(n * factor + eps) / factor;
+        var fixed = truncated.toFixed(decimals);
         // Strip trailing zeros / trailing dot.
         if (fixed.indexOf(".") !== -1) {
             fixed = fixed.replace(/0+$/, "").replace(/\.$/, "");
