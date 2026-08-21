@@ -195,7 +195,8 @@ html, body {
     margin: 9px 0 4px;
     font-size: 11px;
     font-weight: 600;
-    color: var(--text-muted);
+    font-family: var(--font-mono);
+    color: var(--accent-strong);
     text-transform: uppercase;
     letter-spacing: 0.04em;
 }
@@ -208,16 +209,14 @@ html, body {
     font-size: 10px;
 }
 
-.field-label .stat-key {
-    /* When editing an event/prism track, the label itself becomes the
-       game's own variable name (e.g. "f.bulk") instead of a plain English
-       word -- render it like a code identifier, not shouted like the
-       normal uppercase labels, so it reads as "this is a distinct value,
-       not just Bulk relabeled." */
+.field-label .stat-label {
+    /* Bulk/Speed/Luck (and their f./p. variants) read as "Rune Bulk",
+       "F.Rune Bulk", "P.Rune Bulk" -- title case, not shouted uppercase
+       like the rest of the field labels, so the P./F. prefix reads
+       cleanly as a single capital letter rather than blending into
+       an all-caps word. */
     text-transform: none;
-    letter-spacing: normal;
-    font-family: var(--font-mono);
-    color: var(--accent-strong);
+    white-space: nowrap;
 }
 
 .input {
@@ -466,7 +465,6 @@ select.input {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-shadow: 0 0 6px currentColor, 0 0 14px currentColor;
 }
 
 .rune-row-odds {
@@ -574,7 +572,6 @@ select.input {
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    text-shadow: 0 0 6px currentColor, 0 0 14px currentColor;
     max-width: 240px;
 }
 

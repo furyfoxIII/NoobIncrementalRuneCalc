@@ -1195,7 +1195,7 @@ RS.RuneDatabase = [
                     },
 
                     {
-                        name: "Chaos Destruction",
+                        name: "Chaotic Destruction",
                         baseChance: "15Qnvt",
                         type: "Noobinial"
                     }

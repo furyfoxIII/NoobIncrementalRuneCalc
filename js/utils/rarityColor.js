@@ -45,15 +45,13 @@
 
         if (Array.isArray(custom)) {
             var stops = custom.join(", ");
-            var glowColor = custom[0];
             return "background-image: linear-gradient(to bottom, " + stops + ");" +
                    "background-color: transparent;" +
                    "-webkit-background-clip: text;" +
                    "background-clip: text;" +
                    "color: transparent;" +
                    "-webkit-text-fill-color: transparent;" +
-                   "text-shadow: none;" +
-                   "filter: drop-shadow(0 0 6px " + glowColor + ") drop-shadow(0 0 12px " + glowColor + ");";
+                   "text-shadow: none;";
         }
 
         var color = RarityColor.forDrop(drop);

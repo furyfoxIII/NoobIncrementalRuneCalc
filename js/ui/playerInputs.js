@@ -15,9 +15,9 @@
     var PlayerInputs = {};
 
     var LABELS = {
-        normal: { bulk: "Bulk", speed: "Speed", luck: "Luck" },
-        event: { bulk: "f.bulk", speed: "f.speed", luck: "f.luck" },
-        prism: { bulk: "p.bulk", speed: "p.speed", luck: "p.luck" }
+        normal: { bulk: "Rune Bulk", speed: "Rune Speed", luck: "Rune Luck" },
+        event: { bulk: "F.Rune Bulk", speed: "F.Rune Speed", luck: "F.Rune Luck" },
+        prism: { bulk: "P.Rune Bulk", speed: "P.Rune Speed", luck: "P.Rune Luck" }
     };
 
     PlayerInputs.init = function () {
