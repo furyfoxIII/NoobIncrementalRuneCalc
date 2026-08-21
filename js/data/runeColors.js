@@ -175,6 +175,53 @@
         "Eternis":      "#ff0000",
         "Omnira":       ["#3c3300", "#3c3300", "#f4d900", "#f4d900", "#3c3300", "#3c3300"],
 
+        // ---- Realm 4: Starlight ----
+        "Moonlight":            ["#7f64cf", "#9c7fe6"],
+        "Sunlight":             ["#ffd100", "#ffe600"],
+        "Invasion":             "#ff0000",
+        "Alien":                "#00f000",
+        "Universe":             ["#f818ff", "#ff00ff"],
+        "Gravity":              ["#c8aafe", "#997ee4"],
+        "Dimensional":          ["#f200ff", "#cc00ff"],
+        "Meteor":               ["#ff2400", "#ff5b00", "#ff8900"],
+        "Nebula":               ["#1300ff", "#5200ff", "#8700ff"],
+        "Supernova":            ["#9100ff", "#ea00ff", "#9100ff", "#ea00ff"],
+        "Galactic Chaos":       ["#0000d7", "#0000d7", "#6300ba", "#0000d7", "#0000d7"], 
+        "Chaotic Destruction":  ["#b60000", "#b60000", "#ff0000", "#ff0000", "#ff0000", "#b60000", "#b60000"],
+
+        // // ---- Realm 4: Cosma ----
+        // "Asteroid":            ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
+        // "Comet":               ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
+        // "Satellite":           ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
+        // "Orbit":               ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
+        // "Cluster":             ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
+        // "Quasar":              ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
+        // "Pulsar":              ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
+        // "Black Hole":          ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
+        // "Magnetar":            ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
+        // "Event Horizon":       ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
+        // "Elemental Creation":  ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
+
+        // // ---- Realm 4: Light ----
+        // "White":              "#ffffff",
+        // "Divine Light":       "#ffff00",
+        // "Daylight":           "#ffffff",
+        // "Elemental Of Light": "#00ffff",
+        // "Protected":          "#00ff00",
+        // "Creation":           "#ff00ff",
+        // "Angelic Goodness":   "#ffffff",
+        // "Absolute Divinity":  "#ffffff",
+
+        // // ---- Realm 4: Dark ----
+        // "Black":              "#000000",
+        // "Infinite Darkness":  "#000000",
+        // "Midnight":           "#000000",
+        // "Dark Elemental":     "#000000",
+        // "Doomed":             "#000000",
+        // "Destruction":        "#000000",
+        // "Demonic Evil":       "#000000",
+        // "Absolute Darkness":  "#000000",
+
         // ---- Event: Football ----
         "Scuff":         "#debdd4",
         "Fade":          "#cd752d",

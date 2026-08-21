@@ -1144,11 +1144,12 @@ RS.RuneDatabase = [
                         name: "Alien",
                         baseChance: "225QdDe",
                         type: "Basic",
+                        cap: "54.4k",
                         yieldMultiplier: 0.25
                     },
 
                     {
-                        name: "universe",
+                        name: "Universe",
                         baseChance: "925SpDe",
                         type: "Basic",
                         yieldMultiplier: 0.5
