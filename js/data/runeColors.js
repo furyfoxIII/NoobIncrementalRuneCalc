@@ -190,17 +190,17 @@
         "Chaotic Destruction":  ["#b60000", "#b60000", "#ff0000", "#ff0000", "#ff0000", "#b60000", "#b60000"],
 
         // // ---- Realm 4: Cosma ----
-        // "Asteroid":            ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
-        // "Comet":               ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
-        // "Satellite":           ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
-        // "Orbit":               ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
-        // "Cluster":             ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
-        // "Quasar":              ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
-        // "Pulsar":              ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
-        // "Black Hole":          ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
-        // "Magnetar":            ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
-        // "Event Horizon":       ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
-        // "Elemental Creation":  ["#ff0000", "#ff0000", "#ff0000", "#ff0000", "#ff0000"],
+        "Asteroid":            "#6377ca",
+        "Comet":               "#55f0ff",
+        "Satellite":           "#1bcaff",
+        "Orbit":               ["#ff09ff", "#ff7cff"],
+        "Cluster":             "#f700d5",
+        "Quasar":              ["#ffc400", "#ff7000"],
+        "Pulsar":              ["#0097ff", "#00e2ff"],
+        "Black Hole":          ["#4400a3", "#4400a3", "#290070", "#4400a3", "#4400a3"],
+        "Magnetar":            ["#cae5ad", "#00d3c8", "#cae5ad", "#00d3c8"],
+        "Event Horizon":       ["#ffe2ae", "#ffe2ae", "#d1e5ff", "#ffe2ae", "#ffe2ae"],
+        "Elemental Creation":  ["#c5ed00", "#c5ed00", "#ffe700", "#c5ed00", "#c5ed00"],
 
         // // ---- Realm 4: Light ----
         // "White":              "#ffffff",
