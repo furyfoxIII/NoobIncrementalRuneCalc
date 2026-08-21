@@ -622,6 +622,21 @@ select.input {
     text-align: center;
     color: var(--text-faint);
     font-size: 10.5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.footer-credit {
+    opacity: 0.75;
+}
+
+.footer-credit::before {
+    content: "•";
+    margin-right: 8px;
+    opacity: 0.6;
 }
 
 /* ---------- Responsive ---------- */
