@@ -189,7 +189,7 @@
         "Galactic Chaos":       ["#0000d7", "#0000d7", "#6300ba", "#0000d7", "#0000d7"], 
         "Chaotic Destruction":  ["#b60000", "#b60000", "#ff0000", "#ff0000", "#ff0000", "#b60000", "#b60000"],
 
-        // // ---- Realm 4: Cosma ----
+        // ---- Realm 4: Cosma ----
         "Asteroid":            "#6377ca",
         "Comet":               "#55f0ff",
         "Satellite":           "#1bcaff",
@@ -203,24 +203,26 @@
         "Elemental Creation":  ["#c5ed00", "#c5ed00", "#ffe700", "#c5ed00", "#c5ed00"],
 
         // // ---- Realm 4: Light ----
-        // "White":              "#ffffff",
-        // "Divine Light":       "#ffff00",
-        // "Daylight":           "#ffffff",
-        // "Elemental Of Light": "#00ffff",
-        // "Protected":          "#00ff00",
-        // "Creation":           "#ff00ff",
-        // "Angelic Goodness":   "#ffffff",
-        // "Absolute Divinity":  "#ffffff",
+        "White":              "#efdce6",
+        "Divine Light":       ["#f6e5e3", "#f2e5c7"],
+        "Daylight":           "#ffef00",
+        "Elemental Of Light": ["#ffe600", "#ffcc00"],
+        "Protected":          "#00f3ff",
+        "Creation":           ["#00e3ff", "#00e3ff", "#00c8ff", "#00e3ff", "#00e3ff"],
+        "Angelic Goodness":   ["#f9e567", "#f9e567", "#f8e5e2", "#f9e567", "#f9e567"],
+        "Absolute Divinity":  ["#ffc185", "#ffc185", "#fce27d", "#ffc185", "#ffc185"],
+        "Light Genesis":      ["#ff6600", "#ffeb00", "#ff6600", "#ffeb00", "#ff6600"],
 
-        // // ---- Realm 4: Dark ----
-        // "Black":              "#000000",
-        // "Infinite Darkness":  "#000000",
-        // "Midnight":           "#000000",
-        // "Dark Elemental":     "#000000",
-        // "Doomed":             "#000000",
-        // "Destruction":        "#000000",
-        // "Demonic Evil":       "#000000",
-        // "Absolute Darkness":  "#000000",
+        // ---- Realm 4: Dark ----
+        "Dark":               ["#181618", "#464145"],
+        "Infinite Darkness":  ["#08080a", "#403b3e"],
+        "Midnight":           ["#260057", "#52009f"],
+        "Dark Elemental":     ["#390060", "#1a0f1f", "#1a0f1f", "#1a0f1f", "#390060"],
+        "Doomed":             ["#131214", "#131214", "#131214", "#585256", "#131214", "#131214", "#131214"],
+        "Destruction":        ["#d00000", "#d00000", "#ff0000", "#d00000", "#d00000"],
+        "Demonic Evil":       ["#cf0000", "#cf0000", "#880000", "#cf0000", "#cf0000"],
+        "Absolute Darkness":  ["#2d005f", "#2d005f", "#7000be", "#2d005f", "#2d005f"],
+        "Dark Genesis":       ["#3c00cd", "#b200c6", "#3c00cd", "#b200c6", "#3c00cd", "#b200c6"],
 
         // ---- Event: Football ----
         "Scuff":         "#debdd4",
