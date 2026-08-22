@@ -408,6 +408,16 @@ select.input {
     gap: 10px;
 }
 
+.prism-mode-tabs {
+    width: fit-content;
+    margin-bottom: 6px;
+}
+
+.input.input-invalid {
+    border-color: var(--danger, #e0555a);
+    box-shadow: 0 0 0 3px rgba(224, 85, 90, 0.18);
+}
+
 .checkbox-label {
     display: flex;
     align-items: center;

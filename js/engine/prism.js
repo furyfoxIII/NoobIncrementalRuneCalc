@@ -30,6 +30,15 @@
         return rate * t;
     };
 
+    // How long (in seconds) it takes to earn `targetAmount` Prism at the
+    // current income rate. Infinity if income is 0 (never gets there).
+    Prism.timeForAmount = function (perCycle, cycleSeconds, targetAmount) {
+        var rate = Prism.incomePerSecond(perCycle, cycleSeconds);
+        var target = Math.max(0, Number(targetAmount) || 0);
+        if (rate <= 0) return target > 0 ? Infinity : 0;
+        return target / rate;
+    };
+
     // ---- Capsule opening throughput ------------------------------------
 
     Prism.capsuleIntervalSeconds = function (minionMaster) {

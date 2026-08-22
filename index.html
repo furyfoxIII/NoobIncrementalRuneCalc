@@ -158,22 +158,21 @@
 
                 <div class="panel prism-income-panel">
                     <h3 class="panel-title">Prism Over Time</h3>
-                    <p class="panel-sub">How much Prism will I have after a given timeframe?</p>
+                    <p class="panel-sub" id="prismOverTimeSub">How much Prism will I have after a given timeframe?</p>
 
-                    <div class="timeframe-row">
-                        <div class="timeframe-value">
-                            <label class="field-label">Timeframe</label>
-                            <input id="prismTimeframeValueInput" class="input" type="text" value="1" />
-                        </div>
-                        <div class="timeframe-unit">
-                            <label class="field-label">&nbsp;</label>
-                            <select id="prismTimeframeUnitSelect" class="input select">
-                                <option value="seconds">Seconds</option>
-                                <option value="minutes">Minutes</option>
-                                <option value="hours" selected>Hours</option>
-                                <option value="days">Days</option>
-                            </select>
-                        </div>
+                    <div class="tabs prism-mode-tabs">
+                        <button class="tab-btn" id="prismModeForwardBtn" data-mode="forward">Time &rarr; Prism</button>
+                        <button class="tab-btn" id="prismModeReverseBtn" data-mode="reverse">Prism &rarr; Time</button>
+                    </div>
+
+                    <div id="prismForwardFields">
+                        <label class="field-label">Timeframe <span class="hint">e.g. "2h50min", "3d 10h", "1day 1hour"</span></label>
+                        <input id="prismTimeframeTextInput" class="input" type="text" value="1h" placeholder="e.g. 2h50min" />
+                    </div>
+
+                    <div id="prismReverseFields" style="display:none;">
+                        <label class="field-label">Target Prism <span class="hint">amount you want to reach</span></label>
+                        <input id="prismTargetAmountInput" class="input" type="text" value="0" />
                     </div>
 
                     <div class="result-box" id="prismIncomeResult"></div>

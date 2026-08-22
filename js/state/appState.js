@@ -26,7 +26,7 @@
 
         "prism.perCycle", "prism.cycleSeconds", "prism.minionMaster",
         "prism.bulk", "prism.costPerCapsule", "prism.stockpile",
-        "prism.timeframeValue", "prism.timeframeUnit"
+        "prism.overTimeMode", "prism.timeframeText", "prism.targetAmount"
     ];
     var STORAGE_PREFIX = "runeSimulator.";
 
@@ -86,8 +86,12 @@
         "prism.bulk": cfg.DEFAULT_PRISM_BULK || "1",
         "prism.costPerCapsule": cfg.DEFAULT_PRISM_COST_PER_CAPSULE || "1",
         "prism.stockpile": cfg.DEFAULT_PRISM_STOCKPILE || "0",
-        "prism.timeframeValue": "1",
-        "prism.timeframeUnit": "hours"
+
+        // "forward" = enter a timeframe, see how much Prism you'd earn.
+        // "reverse" = enter a Prism amount, see how long it takes to earn.
+        "prism.overTimeMode": "forward",
+        "prism.timeframeText": "1h",
+        "prism.targetAmount": "0"
     };
 
     var state = Object.assign({}, defaults, loadPersisted());

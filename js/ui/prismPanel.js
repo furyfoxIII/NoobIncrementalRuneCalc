@@ -14,13 +14,6 @@
 
     var PrismPanel = {};
 
-    var UNIT_SECONDS = {
-        seconds: 1,
-        minutes: 60,
-        hours: 3600,
-        days: 86400
-    };
-
     PrismPanel.init = function () {
         byId("prismPerCycleInput").addEventListener("input", function (e) {
             RS.AppState.set({ "prism.perCycle": e.target.value });
@@ -43,14 +36,21 @@
         byId("prismCostPerCapsuleInput").addEventListener("input", function (e) {
             RS.AppState.set({ "prism.costPerCapsule": e.target.value });
         });
-        byId("prismTimeframeValueInput").addEventListener("input", function (e) {
-            RS.AppState.set({ "prism.timeframeValue": e.target.value });
+        byId("prismTimeframeTextInput").addEventListener("input", function (e) {
+            RS.AppState.set({ "prism.timeframeText": e.target.value });
         });
-        byId("prismTimeframeUnitSelect").addEventListener("change", function (e) {
-            RS.AppState.set({ "prism.timeframeUnit": e.target.value });
+        byId("prismTargetAmountInput").addEventListener("input", function (e) {
+            RS.AppState.set({ "prism.targetAmount": e.target.value });
         });
         byId("prismStockpileInput").addEventListener("input", function (e) {
             RS.AppState.set({ "prism.stockpile": e.target.value });
+        });
+
+        byId("prismModeForwardBtn").addEventListener("click", function () {
+            RS.AppState.set({ "prism.overTimeMode": "forward" });
+        });
+        byId("prismModeReverseBtn").addEventListener("click", function () {
+            RS.AppState.set({ "prism.overTimeMode": "reverse" });
         });
 
         PrismPanel.sync();
@@ -68,9 +68,18 @@
         byId("prismMinionMasterCheckbox").checked = RS.AppState.prismMinionMaster();
         setIfChanged(byId("prismBulkInput"), state["prism.bulk"]);
         setIfChanged(byId("prismCostPerCapsuleInput"), state["prism.costPerCapsule"]);
-        setIfChanged(byId("prismTimeframeValueInput"), state["prism.timeframeValue"]);
-        setIfChanged(byId("prismTimeframeUnitSelect"), state["prism.timeframeUnit"]);
+        setIfChanged(byId("prismTimeframeTextInput"), state["prism.timeframeText"]);
+        setIfChanged(byId("prismTargetAmountInput"), state["prism.targetAmount"]);
         setIfChanged(byId("prismStockpileInput"), state["prism.stockpile"]);
+
+        var mode = state["prism.overTimeMode"] || "forward";
+        byId("prismModeForwardBtn").classList.toggle("active", mode === "forward");
+        byId("prismModeReverseBtn").classList.toggle("active", mode === "reverse");
+        byId("prismForwardFields").style.display = mode === "forward" ? "" : "none";
+        byId("prismReverseFields").style.display = mode === "reverse" ? "" : "none";
+        byId("prismOverTimeSub").textContent = mode === "forward" ?
+            "How much Prism will I have after a given timeframe?" :
+            "How long will it take to earn a given amount of Prism?";
 
         PrismPanel.updateRateDisplay();
         PrismPanel.updateIncomeDisplay();
@@ -96,22 +105,41 @@
             row("Prism / sec (spent)", RS.Numbers.format(consumptionPerSecond));
     };
 
-    // ---- Calculator 1: Prism earned over a timeframe --------------------
+    // ---- Calculator 1: Prism over time, either direction -----------------
+    // Forward mode: type a timeframe (free-text, e.g. "2h50min") -> see
+    // how much Prism that earns. Reverse mode: type a target Prism amount
+    // -> see how long it takes to earn.
 
     PrismPanel.updateIncomeDisplay = function () {
         var state = RS.AppState.get();
-        var timeframeValue = RS.Numbers.parse(state["prism.timeframeValue"]) || 0;
-        var unitSeconds = UNIT_SECONDS[state["prism.timeframeUnit"]] || 1;
-        var timeframeSeconds = timeframeValue * unitSeconds;
-
-        var total = RS.Prism.projectedIncome(
-            RS.Numbers.parse(state["prism.perCycle"]),
-            RS.Numbers.parse(state["prism.cycleSeconds"]),
-            timeframeSeconds
-        );
-
+        var mode = state["prism.overTimeMode"] || "forward";
+        var perCycle = RS.Numbers.parse(state["prism.perCycle"]);
+        var cycleSeconds = RS.Numbers.parse(state["prism.cycleSeconds"]);
         var el = byId("prismIncomeResult");
-        el.innerHTML = row("Prism earned", RS.Numbers.format(total), true);
+        var timeframeInput = byId("prismTimeframeTextInput");
+
+        if (mode === "forward") {
+            var timeframeSeconds = RS.Format.parseDuration(state["prism.timeframeText"]);
+            var valid = isFinite(timeframeSeconds) && !isNaN(timeframeSeconds);
+
+            timeframeInput.classList.toggle("input-invalid", !valid && state["prism.timeframeText"] !== "");
+
+            if (!valid) {
+                el.innerHTML = row("Prism earned", "—", true);
+                return;
+            }
+
+            var total = RS.Prism.projectedIncome(perCycle, cycleSeconds, timeframeSeconds);
+            el.innerHTML =
+                row("Duration", RS.Format.duration(timeframeSeconds)) +
+                row("Prism earned", RS.Numbers.format(total), true);
+        } else {
+            timeframeInput.classList.remove("input-invalid");
+            var targetAmount = RS.Numbers.parse(state["prism.targetAmount"]) || 0;
+            var seconds = RS.Prism.timeForAmount(perCycle, cycleSeconds, targetAmount);
+            var durationText = isFinite(seconds) ? RS.Format.duration(seconds) : "Never (no income)";
+            el.innerHTML = row("Time needed", durationText, true);
+        }
     };
 
     // ---- Calculator 2: how long capsule-opening is sustainable ----------
@@ -129,7 +157,10 @@
 
         var el = byId("prismSustainResult");
         var durationText = result.sustainable ? "Indefinitely" : RS.Format.duration(result.timeSeconds);
-        el.innerHTML = row("Duration", durationText, true);
+        var capsulesText = result.sustainable ? "∞" : RS.Numbers.format(Math.floor(result.totalCapsules));
+        el.innerHTML =
+            row("Duration", durationText, true) +
+            row("Capsules opened", capsulesText);
     };
 
     // ---- helpers ----------------------------------------------------------
