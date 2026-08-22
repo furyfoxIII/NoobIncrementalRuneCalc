@@ -1242,6 +1242,7 @@ RS.RuneDatabase = [
                         name: "Orbit",
                         baseChance: "700SxDe",
                         type: "Basic",
+                        cap: "242k",
                         yieldMultiplier: 0.5
                     },
                     
