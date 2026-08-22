@@ -1351,6 +1351,12 @@ RS.RuneDatabase = [
                         name: "Absolute Divinity",
                         baseChance: "100SxVt",
                         type: "Noobinial"
+                    },
+
+                    {
+                        name: "Light Genesis",
+                        baseChance: "750SxVt",
+                        type: "Noobinial"
                     }
                 ]
 
@@ -1412,6 +1418,12 @@ RS.RuneDatabase = [
                     {
                         name: "Absolute Darkness",
                         baseChance: "2.5SpVt",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Dark Genesis",
+                        baseChance: "50SpVt",
                         type: "Noobinial"
                     }
                 ]
