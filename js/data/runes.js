@@ -1055,7 +1055,7 @@ RS.RuneDatabase = [
 
                     {
                         name: "Lumina",
-                        baseChance: "1.25T",
+                        baseChance: "1.5T",
                         type: "Basic"
                     },
 
@@ -1067,7 +1067,7 @@ RS.RuneDatabase = [
 
                     {
                         name: "Helios",
-                        baseChance: "500Qd",
+                        baseChance: "500T",
                         type: "Basic"
                     },
 
