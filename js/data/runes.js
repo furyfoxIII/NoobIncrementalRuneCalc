@@ -1000,6 +1000,7 @@ RS.RuneDatabase = [
                         name: "Immortal Sun",
                         baseChance: "3.94SpDe",
                         type: "Basic",
+                        cap: "288k",
                         yieldMultiplier: 0.4
                     },
                     
