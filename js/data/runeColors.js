@@ -214,7 +214,7 @@
         "Light Genesis":      ["#ff6600", "#ffeb00", "#ff6600", "#ffeb00", "#ff6600"],
 
         // ---- Realm 4: Dark ----
-        "Dark":               ["#181618", "#464145"],
+        "Black":               ["#181618", "#464145"],
         "Infinite Darkness":  ["#08080a", "#403b3e"],
         "Midnight":           ["#260057", "#52009f"],
         "Dark Elemental":     ["#390060", "#1a0f1f", "#1a0f1f", "#1a0f1f", "#390060"],

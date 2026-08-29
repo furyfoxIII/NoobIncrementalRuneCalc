@@ -67,6 +67,19 @@
     Variance.singleTrialStats = function (drop, luckValue, openingRune) {
         var p = RS.Luck.normalizedChance(drop, luckValue, openingRune);
         var M = RS.Pity.threshold(drop, luckValue, openingRune);
+        var q = 1 - p;
+
+        // No-pity drops (M === Infinity, see pity.js) reduce to the plain
+        // geometric distribution. The M -> Infinity limit works for `mean`
+        // via exp(-Infinity) = 0 below, but the cancellation-free bracket
+        // used for variance hits qM1 * (M*p + q) = 0 * Infinity = NaN, so
+        // it's handled directly here instead of falling through.
+        if (!isFinite(M)) {
+            var meanNoPity = 1 / p;
+            var varianceNoPity = q / (p * p);
+            return { mean: meanNoPity, variance: varianceNoPity, stdDev: Math.sqrt(varianceNoPity) };
+        }
+
         var logQ = Math.log1p(-p);
 
         var qM = Math.exp(M * logQ);              // (1-p)^M,   numerically stable
@@ -74,7 +87,6 @@
 
         var mean = (1 - qM) / p;
 
-        var q = 1 - p;
         var bracket = 1 - qM1 * (M * p + q);       // cancellation-free form, see note above
         var s1 = q * bracket / (p * p);
 
