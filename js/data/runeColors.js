@@ -212,6 +212,7 @@
         "Angelic Goodness":   ["#f9e567", "#f9e567", "#f8e5e2", "#f9e567", "#f9e567"],
         "Absolute Divinity":  ["#ffc185", "#ffc185", "#fce27d", "#ffc185", "#ffc185"],
         "Light Genesis":      ["#ff6600", "#ffeb00", "#ff6600", "#ffeb00", "#ff6600"],
+        "Ultimate Light":     ["#736b70", "#736b70", "#f2dfea", "#736b70", "#736b70"],
 
         // ---- Realm 4: Dark ----
         "Black":               ["#181618", "#464145"],
@@ -223,6 +224,7 @@
         "Demonic Evil":       ["#cf0000", "#cf0000", "#880000", "#cf0000", "#cf0000"],
         "Absolute Darkness":  ["#2d005f", "#2d005f", "#7000be", "#2d005f", "#2d005f"],
         "Dark Genesis":       ["#3c00cd", "#b200c6", "#3c00cd", "#b200c6", "#3c00cd", "#b200c6"],
+        "Ultimate Darkness":     ["#272426", "#272426", "#272426", "#4a4447", "#272426", "#272426", "#272426"],
 
         // ---- Event: Football ----
         "Scuff":         "#debdd4",
