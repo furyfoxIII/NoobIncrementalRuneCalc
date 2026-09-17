@@ -240,17 +240,17 @@
         "Tsunami":    "#0000cc",
 
         // ---- Realm 5: Atlantis ----
-        "Underwater":           ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
-        "Ancient City":         ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
-        "Mermaid":              ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
-        "Sea Monument":         ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
-        "Fish":                 ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
-        "Coral":                ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
-        "Sea Shell":            ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
-        "Pearl":                ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
-        "Natural Disaster":     ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
-        "Secrets of Atlantis":  ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
-        "Poseidon":             ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
+        "Underwater":           "#00f8ff",
+        "Ancient City":         ["#2c57cf", "#5585fd"],
+        "Mermaid":              ["#8feec9", "#add1ff"],
+        "Sea Monument":         ["#00d397", "#00fb91"],
+        "Fish":                 ["#c65500", "#be8e06"],
+        "Coral":                "#cb00ff",
+        "Sea Shell":            "#c7c307",
+        "Pearl":                ["#c88fff", "#cecfff", "#c88fff"],
+        "Natural Disaster":     ["#00e905", "#00ce11", "#00e905"],
+        "Secrets of Atlantis":  "#00ffff",
+        "Poseidon":             ["#00ffff", "#00ffe2", "#00ffff"],
 
 
         // ---- Event: Football ----
