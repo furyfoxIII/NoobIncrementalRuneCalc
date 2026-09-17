@@ -215,7 +215,7 @@
         "Ultimate Light":     ["#736b70", "#736b70", "#f2dfea", "#736b70", "#736b70"],
 
         // ---- Realm 4: Dark ----
-        "Black":               ["#181618", "#464145"],
+        "Black":              ["#181618", "#464145"],
         "Infinite Darkness":  ["#08080a", "#403b3e"],
         "Midnight":           ["#260057", "#52009f"],
         "Dark Elemental":     ["#390060", "#1a0f1f", "#1a0f1f", "#1a0f1f", "#390060"],
@@ -224,7 +224,34 @@
         "Demonic Evil":       ["#cf0000", "#cf0000", "#880000", "#cf0000", "#cf0000"],
         "Absolute Darkness":  ["#2d005f", "#2d005f", "#7000be", "#2d005f", "#2d005f"],
         "Dark Genesis":       ["#3c00cd", "#b200c6", "#3c00cd", "#b200c6", "#3c00cd", "#b200c6"],
-        "Ultimate Darkness":     ["#272426", "#272426", "#272426", "#4a4447", "#272426", "#272426", "#272426"],
+        "Ultimate Darkness":  ["#272426", "#272426", "#272426", "#4a4447", "#272426", "#272426", "#272426"],
+
+        // ---- Realm 5: Underwater ----
+        "Water":      "#00ffff",
+        "Bubbles":    ["#d2c7ff", "#d891ff"],
+        "Pond":       "#9bffff",
+        "Lake":       ["#00b5ff", "#00ffff"],
+        "River":      ["#3ad7ff", "#3ca6ff"],
+        "Pool":       ["#2dffff", "#95ffff", "#2dffff"],
+        "Sea":        ["#00d4ff", "#14ffff", "#00d4ff"],
+        "Ocean":      ["#1d0cfe", "#4654ff", "#1d0cfe"],
+        "Deep Sea":   "#0000ff",
+        "Tidal Wave": ["#00ffff", "#00ffff", "#00c7ff", "#00ffff", "#00ffff"],
+        "Tsunami":    "#0000cc",
+
+        // ---- Realm 5: Atlantis ----
+        "Underwater":           ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
+        "Ancient City":         ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
+        "Mermaid":              ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
+        "Sea Monument":         ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
+        "Fish":                 ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
+        "Coral":                ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
+        "Sea Shell":            ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
+        "Pearl":                ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
+        "Natural Disaster":     ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
+        "Secrets of Atlantis":  ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
+        "Poseidon":             ["#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff", "#00a2ff"],
+
 
         // ---- Event: Football ----
         "Scuff":         "#debdd4",

@@ -1485,61 +1485,70 @@ RS.RuneDatabase = [
                         name: "Water",
                         baseChance: "1.01",
                         type: "Basic",
-                        cap: "1.01"
+                        cap: "1.01",
+                        yieldMultiplier: 0.9286
                     },
                     
                     {
                         name: "Bubbles",
                         baseChance: "10B",
                         type: "Basic",
-                        cap: "10"
+                        cap: "10",
+                        yieldMultiplier: 0.4643
                     },
                     
                     {
                         name: "Pond",
                         baseChance: "10Qd",
                         type: "Basic",
-                        cap: "39.79"
+                        cap: "39.79",
+                        yieldMultiplier: 0.4643
                     },
                     
                     {
                         name: "Lake",
                         baseChance: "10Sx",
                         type: "Basic",
-                        cap: "158"
+                        cap: "158",
+                        yieldMultiplier: 0.4643
                     },
                     
                     {
                         name: "River",
                         baseChance: "1No",
                         type: "Basic",
-                        cap: "1k"
+                        cap: "1k",
+                        yieldMultiplier: 0.4643
                     },
                     
                     {
                         name: "Pool",
                         baseChance: "10DDe",
                         type: "Basic",
-                        cap: "10k"
+                        cap: "10k",
+                        yieldMultiplier: 0.4643
                     },
                     
                     {
                         name: "Sea",
                         baseChance: "10SxDe",
                         type: "Basic",
-                        cap: "158k"
+                        cap: "158k",
+                        yieldMultiplier: 0.4643
                     },
                     
                     {
                         name: "Ocean",
                         baseChance: "100NoDe",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.4684
                     },
                     
                     {
                         name: "Deep Sea",
                         baseChance: "10UVt",
-                        type: "Basic"
+                        type: "Basic",
+                        yieldMultiplier: 0.469
                     },
                     
                     {
