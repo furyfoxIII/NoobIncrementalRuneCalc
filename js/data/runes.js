@@ -809,19 +809,19 @@ RS.RuneDatabase = [
 
                     {
                         name: "Galactic Shard",
-                        baseChance: "5QdVt",
+                        baseChance: "2.5QdVt",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Elemental Shard",
-                        baseChance: "100QdVt",
+                        baseChance: "40QdVt",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Dragon Shard",
-                        baseChance: "2QnVt",
+                        baseChance: "600QdVt",
                         type: "Noobinial"
                     },
                 ]
@@ -1195,19 +1195,19 @@ RS.RuneDatabase = [
 
                     {
                         name: "Supernova",
-                        baseChance: "200DVt",
+                        baseChance: "125DVt",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Galactic Chaos",
-                        baseChance: "2.25TVt",
+                        baseChance: "1.25TVt",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Chaotic Destruction",
-                        baseChance: "15Qnvt",
+                        baseChance: "3Qnvt",
                         type: "Noobinial"
                     }
                 ]
@@ -1286,19 +1286,19 @@ RS.RuneDatabase = [
                     
                     {
                         name: "Magnetar",
-                        baseChance: "7.5TVt",
+                        baseChance: "3.75TVt",
                         type: "Noobinial"
                     },
                     
                     {
                         name: "Event Horizon",
-                        baseChance: "50TVt",
+                        baseChance: "25TVt",
                         type: "Noobinial"
                     },
                     
                     {
                         name: "Elemental Creation",
-                        baseChance: "200QnVt",
+                        baseChance: "35QnVt",
                         type: "Noobinial"
                     }
                 ]
@@ -1360,26 +1360,26 @@ RS.RuneDatabase = [
 
                     {
                         name: "Angelic Goodness",
-                        baseChance: "1.0e120",
+                        baseChance: "2.0e119",
                         type: "Basic",
                         yieldMultiplier: 0.5484
                     },
 
                     {
                         name: "Absolute Divinity",
-                        baseChance: "100SxVt",
+                        baseChance: "12.5SxVt",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Light Genesis",
-                        baseChance: "750SxVt",
+                        baseChance: "92.5SxVt",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Ultimate Light",
-                        baseChance: "2OcVt",
+                        baseChance: "200SpVt",
                         type: "Noobinial"
                     }
                 ]
@@ -1441,30 +1441,201 @@ RS.RuneDatabase = [
 
                     {
                         name: "Demonic Evil",
-                        baseChance: "1.0e120",
+                        baseChance: "2.0e119",
                         type: "Basic",
                         yieldMultiplier: 0.5501
                     },
 
                     {
                         name: "Absolute Darkness",
-                        baseChance: "2.5SpVt",
+                        baseChance: "250SxVt",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Dark Genesis",
-                        baseChance: "50SpVt",
+                        baseChance: "5SpVt",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Ultimate Darkness",
-                        baseChance: "25OcVt",
+                        baseChance: "1.25OcVt",
                         type: "Noobinial"
                     }
                 ]
 
+            }
+        ]
+    },
+
+    {
+        name: "Realm 5",
+        openingRunes: [
+
+            {
+                name: "Underwater",
+                cost: {
+                    currency: "Bubbles",
+                    amount: "82.8"
+                },
+
+                drops: [
+                    {
+                        name: "Water",
+                        baseChance: "1.01",
+                        type: "Basic",
+                        cap: "1.01"
+                    },
+                    
+                    {
+                        name: "Bubbles",
+                        baseChance: "10B",
+                        type: "Basic",
+                        cap: "10"
+                    },
+                    
+                    {
+                        name: "Pond",
+                        baseChance: "10Qd",
+                        type: "Basic",
+                        cap: "39.79"
+                    },
+                    
+                    {
+                        name: "Lake",
+                        baseChance: "10Sx",
+                        type: "Basic",
+                        cap: "158"
+                    },
+                    
+                    {
+                        name: "River",
+                        baseChance: "1No",
+                        type: "Basic",
+                        cap: "1k"
+                    },
+                    
+                    {
+                        name: "Pool",
+                        baseChance: "10DDe",
+                        type: "Basic",
+                        cap: "10k"
+                    },
+                    
+                    {
+                        name: "Sea",
+                        baseChance: "10SxDe",
+                        type: "Basic",
+                        cap: "158k"
+                    },
+                    
+                    {
+                        name: "Ocean",
+                        baseChance: "100NoDe",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Deep Sea",
+                        baseChance: "10UVt",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Tidal Wave",
+                        baseChance: "10OcVt",
+                        type: "Noobinial"
+                    },
+                    
+                    {
+                        name: "Tsunami",
+                        baseChance: "10NoVt",
+                        type: "Noobinial"
+                    }
+                ]
+            },
+
+            {
+                name: "Altantis",
+                cost: {
+                    currency: "Water",
+                    amount: "800Sx"
+                },
+
+                drops: [
+                    {
+                        name: "Underwater",
+                        baseChance: "1.01",
+                        type: "Basic",
+                        cap: "1.01"
+                    },
+
+                    {
+                        name: "Ancient City",
+                        baseChance: "10Qd",
+                        type: "Basic",
+                        cap: "39.79"
+                    },
+
+                    {
+                        name: "Mermaid",
+                        baseChance: "10Sx",
+                        type: "Basic",
+                        cap: "158"
+                    },
+
+                    {
+                        name: "Sea Monument",
+                        baseChance: "1No",
+                        type: "Basic",
+                        cap: "1k"
+                    },
+
+                    {
+                        name: "Fish",
+                        baseChance: "10DDe",
+                        type: "Basic",
+                        cap: "10k"
+                    },
+
+                    {
+                        name: "Coral",
+                        baseChance: "10SxDe",
+                        type: "Basic",
+                        cap: "158k"
+                    },
+
+                    {
+                        name: "Sea Shell",
+                        baseChance: "100NoDe",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Pearl",
+                        baseChance: "1TVt",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Natural Disaster",
+                        baseChance: "10SxVt",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Secrets of Atlantis",
+                        baseChance: "1NoVt",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Poseidon",
+                        baseChance: "333NoVt",
+                        type: "Noobinial"
+                    },
+                ]
             }
         ]
     },
