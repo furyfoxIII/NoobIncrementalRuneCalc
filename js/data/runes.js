@@ -1105,6 +1105,59 @@ RS.RuneDatabase = [
                         type: "Noobinial",
                     },
                 ]
+            },
+
+            {
+                name: "Mini Noobinial",
+                
+                cost: {
+                    currency: "Sand",
+                    amount: "827.99Vt"
+                },
+
+                drops: [
+                    {
+                        name: "Mini Noob",
+                        baseChance: "1.01",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Noob",
+                        baseChance: "20M",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Big Noob",
+                        baseChance: "250Sp",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Huge Noob",
+                        baseChance: "3.5SxDe",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Giant Noob",
+                        baseChance: "750QdVt",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Colossal Noob",
+                        baseChance: "12.5Tg",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Biggest Noob of all time",
+                        baseChance: "85Tg",
+                        type: "Noobinial"
+                    }
+                ]
             }
 
         ]
@@ -1561,6 +1614,12 @@ RS.RuneDatabase = [
                         name: "Tsunami",
                         baseChance: "10NoVt",
                         type: "Noobinial"
+                    },
+                    
+                    {
+                        name: "Infinite Flood",
+                        baseChance: "1Tg",
+                        type: "Noobinial"
                     }
                 ]
             },
@@ -1644,6 +1703,162 @@ RS.RuneDatabase = [
                         baseChance: "333NoVt",
                         type: "Noobinial"
                     },
+
+                    {
+                        name: "Lord of Atlantis",
+                        baseChance: "7.77Tg",
+                        type: "Noobinial"
+                    }
+                ]
+            },
+
+            {
+                name: "Aquatic Prism",
+                cost: {
+                    currency: "Prism",
+                    amount: "6.63"
+                },
+
+                drops: [
+                    {
+                        name: "Water Molecule",
+                        baseChance: "1.01",
+                        type: "Basic",
+                        cap: "1.01"
+                    },
+
+                    {
+                        name: "Aqua",
+                        baseChance: "350Oc",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "Atlantic",
+                        baseChance: "4.5No",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "Take a Shower",
+                        baseChance: "60No",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "Low Tide",
+                        baseChance: "777No",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "Underwater Crystal",
+                        baseChance: "10De",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "Oceanic Wonder",
+                        baseChance: "135De",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "Submerged",
+                        baseChance: "2UDe",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "Water Elemental",
+                        baseChance: "5TDe",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "Whirlpool",
+                        baseChance: "6.5Sx",
+                        type: "Noobinial"
+                    },
+                    
+                    {
+                        name: "Prismatic Water",
+                        baseChance: "75Sx",
+                        type: "Noobinial"
+                    },
+                    
+                    {
+                        name: "Prismatic Ocean",
+                        baseChance: "350Sx",
+                        type: "Noobinial"
+                    }
+                ]
+            },
+
+            {
+                name: "Mini Non Noobinial",
+                cost: {
+                    currency: "Coral",
+                    amount: "207"
+                },
+
+                drops: [
+                    {
+                        name: "Pro",
+                        baseChance: "1.01",
+                        type: "Basic",
+                        cap: "1.01"
+                    },
+                    
+                    {
+                        name: "Very Pro",
+                        baseChance: "1NoDe",
+                        type: "Basic",
+                        cap: "1M"
+                    },
+                    
+                    {
+                        name: "Insanely Pro",
+                        baseChance: "1NoVt",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "Dedicated Pro",
+                        baseChance: "1.0e120",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "Awakened Pro",
+                        baseChance: "1.0e150",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "One of the Best",
+                        baseChance: "7.5e156",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "The Best",
+                        baseChance: "2.0e158",
+                        type: "Basic",
+                        cap: ""
+                    }
                 ]
             }
         ]
