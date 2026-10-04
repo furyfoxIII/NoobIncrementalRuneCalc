@@ -94,6 +94,20 @@
         "Anti-Cheat":          ["#00f0ff", "#00a8a0"],
         "Unstoppable Virus":   ["#00ff44", "#006622"],
 
+        // ---- Realm 1: Awakend ----
+        "Potential":     ["#dfbe30"],
+        "Limitless":     ["#f2407d", "#f30031"],
+        "Incomparable":  ["#25c2f8"],
+        "Unfathomable":  ["#58bb5b"],
+        "Unmatched":     ["#e24af8"],
+        "Unbelievable":  ["#1554ff"],
+        "Untouchable":   ["#ff8e04"],
+        "Unstoppable":   ["#cca3f2"],
+        "Unrivaled":     ["#ff0088", "#8b008a"],
+        "Unconquerable": ["#147ff2", "#d7339c"],
+        "Unforgettable": ["#008c12", "#0045e3"],
+        "Otherworldly":  ["#a1c5dc", "#e9ce97", "#a1c5dc"],
+
         // ---- Realm 2: Snowy ----
         "Snow":           ["#ffefff"],
         "Frost":          ["#41ffff"],

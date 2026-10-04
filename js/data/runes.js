@@ -525,7 +525,91 @@ RS.RuneDatabase = [
                         name: "Unstoppable Virus",
                         baseChance: "1DVt",
                         type: "Noobinial"
+                    }
+                ]
+            },
+
+            {
+                name: "Awakend",
+
+                cost: {
+                    currency: "Blaze",
+                    amount: "8.3e214"
+                },
+
+                drops: [
+                    {
+                        name: "Potential",
+                        baseChance: "1.01",
+                        type: "Basic",
+                        cap: "1.01"
                     },
+                    
+                    {
+                        name: "Limitless",
+                        baseChance: "1QdVt",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Incomparable",
+                        baseChance: "1SpVt",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Unfathomable",
+                        baseChance: "1Tg",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Unmatched",
+                        baseChance: "1.0e102",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Unbelievable",
+                        baseChance: "1.0e111",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Untouchable",
+                        baseChance: "1.0e120",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Unstoppable",
+                        baseChance: "1.0e129",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Unrivaled",
+                        baseChance: "1.0e138",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Unconquerable",
+                        baseChance: "1.0e147",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Unforgettable",
+                        baseChance: "1.0e156",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Otherworldly",
+                        baseChance: "25UTg",
+                        type: "Noobinial"
+                    }
                 ]
             }
         ]
