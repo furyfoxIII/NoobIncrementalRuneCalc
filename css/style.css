@@ -679,3 +679,11 @@ select.input {
     .brand-glyph { animation: none; }
     * { transition: none !important; }
 }
+
+.opening-info-disclaimer {
+    margin: 8px 0 12px;
+    font-size: 11px;
+    line-height: 1.4;
+    color: var(--amber);
+    opacity: 0.85;
+}

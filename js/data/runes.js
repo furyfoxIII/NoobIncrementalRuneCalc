@@ -1232,13 +1232,13 @@ RS.RuneDatabase = [
 
                     {
                         name: "Colossal Noob",
-                        baseChance: "12.5Tg",
+                        baseChance: "4Tg",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Biggest Noob of all time",
-                        baseChance: "85Tg",
+                        baseChance: "25Tg",
                         type: "Noobinial"
                     }
                 ]
@@ -1925,21 +1925,21 @@ RS.RuneDatabase = [
                     
                     {
                         name: "Awakened Pro",
-                        baseChance: "1.0e150",
+                        baseChance: "3.5e149",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "One of the Best",
-                        baseChance: "7.5e156",
+                        baseChance: "2.0e156",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "The Best",
-                        baseChance: "2.0e158",
+                        baseChance: "5.0e157",
                         type: "Basic",
                         cap: ""
                     }

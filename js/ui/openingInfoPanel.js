@@ -79,6 +79,7 @@
         el.innerHTML =
             '<div class="opening-info-title">Rune Info</div>' +
             '<div class="opening-info-stats">' + statsHtml + '</div>' +
+            '<p class="opening-info-disclaimer">&#9888; Time estimates can be off by up to 40%. I&#39;ll look into it when I have the time.</p>' +
             '<div class="opening-info-list">' + rows + '</div>';
     };
 
