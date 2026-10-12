@@ -27,6 +27,31 @@ html, body {
     flex-direction: column;
 }
 
+/* ---------- Notice bar ---------- */
+
+.notice-bar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 24px;
+    background: var(--accent-soft);
+    border-top: 1px solid var(--border-soft);
+    color: var(--text-primary);
+    font-size: 12px;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.notice-bar strong {
+    color: var(--accent-strong);
+    font-weight: 600;
+}
+
+.notice-icon {
+    color: var(--accent);
+}
+
 /* ---------- Header ---------- */
 
 .app-header {
