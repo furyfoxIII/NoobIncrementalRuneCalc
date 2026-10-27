@@ -6,11 +6,11 @@
  * Bulk / Speed / Luck persist across reloads via localStorage, so the
  * player doesn't have to retype them every visit.
  *
- * Event runes (realm "Events" — currently just Football, but the game may
- * add more) and Prism runes (identified by cost.currency === "Prism" —
+ * Event runes (realm "Events" — e.g. Football, Halloween; each event rune
+ * has its own track, named after the rune) and Prism runes (identified by cost.currency === "Prism" —
  * currently Cosmic Prism and Sunstorm Prism) each level up on their own
  * Bulk/Speed/Luck track, separate from the normal one and from each other
- * — matching the game's own "f.bulk"/"f.speed"/"f.luck" (event) and
+ * — matching the game's own per-event tracks and
  * "p.bulk"/"p.speed"/"p.luck" (prism) naming. Which track is active
  * switches automatically based on which opening rune is selected.
  */
@@ -19,7 +19,6 @@
 
     var PERSISTED_KEYS = [
         "bulk", "speed", "luck",
-        "f.bulk", "f.speed", "f.luck",
         "p.bulk", "p.speed", "p.luck",
 
         "activeSection",
@@ -29,6 +28,29 @@
         "prism.overTimeMode", "prism.timeframeText", "prism.targetAmount"
     ];
     var STORAGE_PREFIX = "runeSimulator.";
+
+    // ---- Event tracks ----
+    // Every opening rune in the "Events" realm gets its OWN
+    // Bulk/Speed/Luck track, keyed by the rune's name
+    // (e.g. "event.Football.bulk", "event.Halloween.speed").
+    // Adding a new event rune to the Events realm in runes.js is enough:
+    // its keys are created here automatically.
+    // An event rune can set `track: "Halloween"` in runes.js to use a track
+    // named differently from the rune itself; otherwise the rune's name is used.
+    function trackName(rune) { return rune.track || rune.name; }
+    function eventKey(track, stat) { return "event." + track + "." + stat; }
+
+    (function registerEventKeys() {
+        var db = RS.RuneDatabase || [];
+        for (var i = 0; i < db.length; i++) {
+            if (db[i].name !== "Events") continue;
+            for (var j = 0; j < db[i].openingRunes.length; j++) {
+                var n = trackName(db[i].openingRunes[j]);
+                if (PERSISTED_KEYS.indexOf(eventKey(n, "bulk")) !== -1) continue;
+                PERSISTED_KEYS.push(eventKey(n, "bulk"), eventKey(n, "speed"), eventKey(n, "luck"));
+            }
+        }
+    })();
 
     function loadPersisted() {
         var saved = {};
@@ -67,10 +89,6 @@
         speed: DEFAULT_SPEED,
         luck: DEFAULT_LUCK,
 
-        "f.bulk": DEFAULT_BULK,
-        "f.speed": DEFAULT_SPEED,
-        "f.luck": DEFAULT_LUCK,
-
         "p.bulk": DEFAULT_BULK,
         "p.speed": DEFAULT_SPEED,
         "p.luck": DEFAULT_LUCK,
@@ -94,7 +112,30 @@
         "prism.targetAmount": "0"
     };
 
-    var state = Object.assign({}, defaults, loadPersisted());
+    // Event defaults (one track per event rune).
+    for (var di = 0; di < PERSISTED_KEYS.length; di++) {
+        var k = PERSISTED_KEYS[di];
+        if (k.indexOf("event.") !== 0) continue;
+        var stat = k.slice(k.lastIndexOf(".") + 1);
+        defaults[k] = stat === "bulk" ? DEFAULT_BULK : stat === "speed" ? DEFAULT_SPEED : DEFAULT_LUCK;
+    }
+
+    var saved = loadPersisted();
+
+    // Migration: values saved under the old Football-only keys
+    // ("f.bulk" etc.) move to the new Football track.
+    try {
+        ["bulk", "speed", "luck"].forEach(function (st) {
+            var oldV = window.localStorage.getItem(STORAGE_PREFIX + "f." + st);
+            var newKey = eventKey("Football", st);
+            if (oldV !== null && saved[newKey] === undefined && defaults.hasOwnProperty(newKey)) {
+                saved[newKey] = oldV;
+                window.localStorage.setItem(STORAGE_PREFIX + newKey, oldV);
+            }
+        });
+    } catch (e) { /* ignore */ }
+
+    var state = Object.assign({}, defaults, saved);
 
     var listeners = [];
 
@@ -140,21 +181,21 @@
     // AppState.currentRuneCategory().
     AppState.activeBulkKey = function () {
         var category = AppState.currentRuneCategory();
-        if (category === "event") return "f.bulk";
+        if (category === "event") return eventKey(trackName(AppState.currentOpeningRune()), "bulk");
         if (category === "prism") return "p.bulk";
         return "bulk";
     };
 
     AppState.activeSpeedKey = function () {
         var category = AppState.currentRuneCategory();
-        if (category === "event") return "f.speed";
+        if (category === "event") return eventKey(trackName(AppState.currentOpeningRune()), "speed");
         if (category === "prism") return "p.speed";
         return "speed";
     };
 
     AppState.activeLuckKey = function () {
         var category = AppState.currentRuneCategory();
-        if (category === "event") return "f.luck";
+        if (category === "event") return eventKey(trackName(AppState.currentOpeningRune()), "luck");
         if (category === "prism") return "p.luck";
         return "luck";
     };
@@ -166,6 +207,9 @@
     // "prism.minionMaster" is persisted as the string "true"/"false" (same
     // scheme as every other persisted field) rather than a real boolean.
     AppState.prismMinionMaster = function () { return state["prism.minionMaster"] === "true"; };
+
+    // Name of the event track the current opening rune uses (e.g. "Football", "Halloween").
+    AppState.currentTrackName = function () { return trackName(AppState.currentOpeningRune()); };
 
     RS.AppState = AppState;
 })();

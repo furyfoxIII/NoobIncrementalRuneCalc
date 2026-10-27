@@ -3,10 +3,10 @@
  *
  * Bulk, Speed, and Luck aren't single values — there's a separate
  * normal/event/prism track for each (see appState.js), matching the game's
- * own "f.bulk"/"f.speed"/"f.luck" (event) and "p.bulk"/"p.speed"/"p.luck"
- * (prism) naming. Which track the inputs read from and write to switches
+ * own naming (one track per event rune, named after it, plus
+ * "p.bulk"/"p.speed"/"p.luck" for prism). Which track the inputs read from and write to switches
  * automatically based on the selected opening rune, and each field's label
- * renames itself to match (e.g. "Bulk" -> "f.bulk") so it's always clear
+ * renames itself to match (e.g. "Rune Bulk" -> "Football Rune Bulk") so it's always clear
  * which value you're editing.
  */
 (function () {
@@ -16,7 +16,6 @@
 
     var LABELS = {
         normal: { bulk: "Rune Bulk", speed: "Rune Speed", luck: "Rune Luck" },
-        event: { bulk: "F.Rune Bulk", speed: "F.Rune Speed", luck: "F.Rune Luck" },
         prism: { bulk: "P.Rune Bulk", speed: "P.Rune Speed", luck: "P.Rune Luck" }
     };
 
@@ -60,6 +59,15 @@
         var state = RS.AppState.get();
         var category = RS.AppState.currentRuneCategory();
         var labels = LABELS[category];
+        if (category === "event") {
+            // Label after the event rune's name: "Football Rune Bulk", "Halloween Rune Bulk"...
+            var evName = RS.AppState.currentTrackName();
+            labels = {
+                bulk: evName + " Rune Bulk",
+                speed: evName + " Rune Speed",
+                luck: evName + " Rune Luck"
+            };
+        }
 
         // Only touch .value if it actually needs to change, so we don't
         // fight the caret position while the player is mid-edit in the

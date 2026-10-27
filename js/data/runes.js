@@ -2038,6 +2038,181 @@ RS.RuneDatabase = [
                         type: "Noobinial"
                     },
                 ]
+            },
+
+            {
+                name: "Spooky",
+                
+                track: "Halloween",
+                
+                cost: {
+                    currency: "SpookyOof",
+                    amount: "8.27M",
+                },
+
+                drops: [
+                    {
+                        name: "Creepy",
+                        baseChance: "1.11",
+                        type: "Basic",
+                        cap: "1.11"
+                    },
+
+                    {
+                        name: "Haunted",
+                        baseChance: "10",
+                        type: "Basic",
+                        cap: "10"
+                    },
+
+                    {
+                        name: "Ghastly",
+                        baseChance: "5K",
+                        type: "Basic",
+                        cap: "10"
+                    },
+
+                    {
+                        name: "Wicked",
+                        baseChance: "75K",
+                        type: "Basic",
+                        cap: "10"
+                    },
+
+                    {
+                        name: "Cursed",
+                        baseChance: "1M",
+                        type: "Basic",
+                        cap: "10"
+                    },
+
+                    {
+                        name: "Spectral",
+                        baseChance: "15M",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Zombie",
+                        baseChance: "500M",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Treats",
+                        baseChance: "20B",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Spooky",
+                        baseChance: "500B",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Revenant",
+                        baseChance: "333Qd",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Lich",
+                        baseChance: "125Qn",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Necromancer",
+                        baseChance: "250Sx",
+                        type: "Noobinial"
+                    }
+                ]
+            },
+
+            {
+                name: "Pumpkin",
+                track: "Halloween",
+
+                cost: {
+                    currency: "Pumpkin",
+                    amount: "207OcVt",
+                },
+
+                drops: [
+                    {
+                        name: "Nightfall",
+                        baseChance: "1.01",
+                        type: "Basic",
+                        cap: "1.01"
+                    },
+
+                    {
+                        name: "Black Cat",
+                        baseChance: "250M",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Raven",
+                        baseChance: "50B",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Pumpkin",
+                        baseChance: "10T",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Tombstone",
+                        baseChance: "1.25Qd",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Graveyard",
+                        baseChance: "35Qd",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Coven",
+                        baseChance: "1Qn",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Cobweb",
+                        baseChance: "20Qn",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Scarecrow",
+                        baseChance: "400Qn",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Coffin",
+                        baseChance: "6.5Qn",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Witch Fire",
+                        baseChance: "5Sx",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Ghost Rider",
+                        baseChance: "25Sp",
+                        type: "Noobinial"
+                    }
+                ]
             }
         ]
     }

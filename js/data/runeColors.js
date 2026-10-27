@@ -312,7 +312,35 @@
         "Header":        ["#f9db00"],
         "Finale":        ["#f09c26", "#f65900"],
         "Victory":       ["#4ea200", "#f98e00", "#f81a1d", "#f81a1d"],
-        "Iconic":        ["#0022a6", "#0084fd", "#0022a6"]
+        "Iconic":        ["#0022a6", "#0084fd", "#0022a6"],
+
+        // ---- Event: Halloween (Spooky) ----
+        "Creepy":        ["#b9e6ff"],
+        "Haunted":       ["#f2e04a"],
+        "Ghastly":       ["#00b8ff"],
+        "Wicked":        ["#ff3c00"],
+        "Cursed":        ["#ff00e6"],
+        "Spectral":      ["#1b9bb4"],
+        "Zombie":        ["#1e9a6c"],
+        "Treats":        ["#c474ff"],
+        "Spooky":        ["#7b6cff"],
+        "Revenant":      ["#a38cf0", "#6958bd", "#a48ef1"],
+        "Lich":          ["#006f75", "#3c5cff", "#009785"],
+        "Necromancer":   ["#0a2c12", "#50049b", "#05320a"],
+
+        // ---- Event: Halloween (Pumpkin) ----
+        "Nightfall":     ["#3a3f8f"],
+        "Black Cat":     ["#2b2b2b"],
+        "Raven":         ["#9b1cff"],
+        "Pumpkin":       ["#ff8a00"],
+        "Tombstone":     ["#1a9a9c"],
+        "Graveyard":     ["#c0506a", "#8a5a8a"],
+        "Coven":         ["#b58cff"],
+        "Cobweb":        ["#a9b8d0"],
+        "Scarecrow":     ["#ff1a1a"],
+        "Coffin":        ["#bfe6fa", "#7a8ecd", "#c9ebff"],
+        "Witch Fire":    ["#6b00af", "#700018", "#6b00b6"],
+        "Ghost Rider":   ["#ff3544", "#ff0000", "#ff3544"],
     };
 
 })();
