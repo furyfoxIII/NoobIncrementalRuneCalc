@@ -2096,7 +2096,8 @@ RS.RuneDatabase = [
                     {
                         name: "Zombie",
                         baseChance: "500M",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "10"
                     },
 
                     {
@@ -2151,7 +2152,8 @@ RS.RuneDatabase = [
                     {
                         name: "Black Cat",
                         baseChance: "250M",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "10"
                     },
 
                     {
