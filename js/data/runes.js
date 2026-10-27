@@ -2089,7 +2089,8 @@ RS.RuneDatabase = [
                     {
                         name: "Spectral",
                         baseChance: "15M",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "10"
                     },
 
                     {
