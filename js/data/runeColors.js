@@ -300,6 +300,48 @@
         "One of the Best": ["#ff0000"],
         "The Best":        ["#ff0000", "#ff0000", "#ffff00", "#ffff00", "#ffff00"],
 
+        // ---- Realm 6: Ares ----
+        "Warrior":              ["#fdb412", "#ffcd6e"],
+        "Clash":                ["#ffe500"],
+        "Bloodshed":            ["#ff0000"],
+        "Rage":                 ["#ffba00", "#ff8c00"],
+        "Valor":                ["#0047ff", "#001aff"],
+        "Carnage":              ["#00f8ff"],
+        "Dominion":             ["#c2f2a1", "#6ffcaf"],
+        "Conquest":             ["#7040ff"],
+        "War Eternal":          ["#ff0000"],
+        "War Immortal":         ["#ffa478", "#ffe495", "#ff796e"],
+        "Wrath Eternal":        ["#9d4217", "#a67a21", "#9a2014"],
+        "Wrath Immortal":       ["#ffcac3", "#ffe4f4", "#ffc0b4"],
+
+        // ---- Realm 6: Apollo ----
+        "Whisper":              ["#f6e1ff"],
+        "Glow":                 ["#ffee00"],
+        "Lyric":                ["#00f5ff"],
+        "Pulse":                ["#ff29ff"],
+        "Harmony":              ["#6afa76", "#0cf920"],
+        "Shine":                ["#ff9300", "#ffb300"],
+        "Oracle":               ["#ff00ff"],
+        "Divinity":             ["#ffece4", "#ffeec5", "#ffece4"],
+        "Solar Crown":          ["#ffea94", "#ffba35", "#ffe68a"],
+        "Beyond The Stars":     ["#ffec00", "#ffaa00", "#ff5a00"],
+        "Beyond The Galaxy":    ["#ff6c00", "#ff0001"],
+        "Beyond The Multiverse":["#b358a9", "#ffe425", "#ae4fae"],
+
+        // ---- Realm 6: Zeus ----
+        "Bolt":                 ["#ffe400"],
+        "Cloud":                ["#67f7ff", "#c3f1ff"],
+        "Storm":                ["#b7e3ec", "#fccd97"],
+        "Thunder":              ["#ff8a00", "#ffad00"],
+        "Charge":               ["#ffe7a1", "#fdc794"],
+        "Strike":               ["#ff0000"],
+        "Tempest":              ["#00f5b1"],
+        "Skyking":              ["#bae5ff", "#d9eeff", "#ade0ff"],
+        "Olympian":             ["#ffe19f", "#ffe89b", "#fed495"],
+        "Thunder Lord":         ["#ffbb00", "#ff7000", "#f39900"],
+        "Eternal Thunder":      ["#ffe183", "#ff922a", "#ffe48b"],
+        "Godlike Lightning":    ["#dd0900", "#ff3a00", "#e10a00"],
+
         // ---- Event: Football ----
         "Scuff":         ["#debdd4"],
         "Fade":          ["#cd752d"],

@@ -2193,6 +2193,12 @@ RS.RuneDatabase = [
                         name: "Eternal Thunder",
                         baseChance: "150TTg",
                         type: "Noobinial"
+                    },
+
+                    {
+                        name: "Godlike Lightning",
+                        baseChance: "100QdTg",
+                        type: "Noobinial"
                     }
                 ]
             }
