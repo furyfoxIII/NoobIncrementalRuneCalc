@@ -27,7 +27,7 @@
             var nameStyle = RS.RarityColor.styleForDrop(drop);
 
             var expectedTrials = RS.Prediction.expectedTrialsPerSuccess(drop, luck, rune);
-            var avgSeconds = runesPerSecond > 0 ? expectedTrials / runesPerSecond : Infinity;
+            var avgSeconds = runesPerSecond.gt(0) ? expectedTrials.div(runesPerSecond) : new BigNumber(Infinity);
             var avgTimeText = formatAvgTime(avgSeconds);
 
             var row = document.createElement("div");
@@ -49,8 +49,8 @@
     };
 
     function formatAvgTime(seconds) {
-        if (!isFinite(seconds)) return "—";
-        if (seconds < 1) return "Instant";
+        if (!seconds.isFinite()) return "—";
+        if (seconds.lt(1)) return "Instant";
         return RS.Format.duration(seconds);
     }
 

@@ -50,6 +50,9 @@
     // Mean / variance / stdDev of T = individual rune-opens for ONE
     // success on `drop`.
     //
+    // (All values here are BigNumbers — see lib/bignumber.min.js — so the
+    // astronomically large/small drop odds can't overflow/underflow a double.)
+    //
     // Numerical note: the textbook finite arithmetico-geometric sum
     //     S1 = q(1 - M*q^(M-1) + (M-1)*q^M) / p^2
     // is fine on paper, but this game's drop denominators run up to ~1e67,
@@ -65,49 +68,55 @@
     // product (a huge number times a tiny one, not a subtraction of two
     // huge ones), so this form stays accurate at any scale.
     Variance.singleTrialStats = function (drop, luckValue, openingRune) {
-        var p = RS.Luck.normalizedChance(drop, luckValue, openingRune);
+        // Clamp to 1 (a chance can't exceed certainty), matching
+        // Prediction.expectedTrialsPerSuccess; with huge Luck an uncapped
+        // drop's raw chance could otherwise come out above 1.
+        var p = BigNumber.min(1, RS.Luck.normalizedChance(drop, luckValue, openingRune));
         var M = RS.Pity.threshold(drop, luckValue, openingRune);
-        var q = 1 - p;
+        var one = new BigNumber(1);
+        var q = one.minus(p);
 
-        // No-pity drops (M === Infinity, see pity.js) reduce to the plain
+        // No-pity drops (M is Infinity, see pity.js) reduce to the plain
         // geometric distribution. The M -> Infinity limit works for `mean`
         // via exp(-Infinity) = 0 below, but the cancellation-free bracket
         // used for variance hits qM1 * (M*p + q) = 0 * Infinity = NaN, so
         // it's handled directly here instead of falling through.
-        if (!isFinite(M)) {
-            var meanNoPity = 1 / p;
-            var varianceNoPity = q / (p * p);
-            return { mean: meanNoPity, variance: varianceNoPity, stdDev: Math.sqrt(varianceNoPity) };
+        if (!M.isFinite()) {
+            var meanNoPity = one.div(p);
+            var varianceNoPity = q.div(p.times(p));
+            return { mean: meanNoPity, variance: varianceNoPity, stdDev: varianceNoPity.sqrt() };
         }
 
-        var logQ = Math.log1p(-p);
+        var logQ = RS.Numbers.log1pNegative(p);
 
-        var qM = Math.exp(M * logQ);              // (1-p)^M,   numerically stable
-        var qM1 = Math.exp((M - 1) * logQ);        // (1-p)^(M-1)
+        // (1-p)^M and (1-p)^(M-1) are probabilities in [0, 1], so they fit a
+        // plain double even when M and p are astronomically large/small.
+        var qM = Math.exp(M.times(logQ).toNumber());
+        var qM1 = Math.exp(M.minus(1).times(logQ).toNumber());
 
-        var mean = (1 - qM) / p;
+        var mean = new BigNumber(1 - qM).div(p);
 
-        var bracket = 1 - qM1 * (M * p + q);       // cancellation-free form, see note above
-        var s1 = q * bracket / (p * p);
+        var bracket = one.minus(M.times(p).plus(q).times(qM1)); // cancellation-free form, see note above
+        var s1 = q.times(bracket).div(p.times(p));
 
-        var meanSquare = 2 * s1 + mean;
-        var variance = Math.max(0, meanSquare - mean * mean);
+        var meanSquare = s1.times(2).plus(mean);
+        var variance = BigNumber.max(0, meanSquare.minus(mean.times(mean)));
 
-        return { mean: mean, variance: variance, stdDev: Math.sqrt(variance) };
+        return { mean: mean, variance: variance, stdDev: variance.sqrt() };
     };
 
     // Mean / variance / stdDev of the TOTAL individual rune-opens needed
-    // for `copies` successes.
+    // for `copies` successes. All BigNumbers.
     Variance.totalTrialsStats = function (drop, luckValue, copies, openingRune) {
         var single = Variance.singleTrialStats(drop, luckValue, openingRune);
         var yieldMultiplier = drop.yieldMultiplier || 1;
-        var successesNeeded = Number(copies) / yieldMultiplier / (1 + RS.Config.CLONE_CHANCE);
-        var variance = successesNeeded * single.variance;
+        var successesNeeded = BigNumber.from(copies).div(yieldMultiplier).div(1 + RS.Config.CLONE_CHANCE);
+        var variance = successesNeeded.times(single.variance);
 
         return {
-            mean: successesNeeded * single.mean,
+            mean: successesNeeded.times(single.mean),
             variance: variance,
-            stdDev: Math.sqrt(variance)
+            stdDev: variance.sqrt()
         };
     };
 
@@ -171,14 +180,17 @@
     // better, and its quantiles scale meaningfully with `copies` instead
     // of bottoming out at a fixed floor.
     Variance.gammaQuantile = function (mean, variance, p) {
-        if (!(variance > 0)) return mean;
+        mean = BigNumber.from(mean);
+        variance = BigNumber.from(variance);
+        if (!variance.gt(0)) return mean;
         var z = Variance.probit(p);
-        var k = (mean * mean) / variance;      // shape
-        var theta = variance / mean;           // scale
-        var h = 1 / (9 * k);
+        var k = mean.times(mean).div(variance).toNumber();   // shape (Infinity if astronomically large)
+        // k * theta = mean, so the quantile is mean * term^3.
+        var h = k === Infinity ? 0 : 1 / (9 * k);
+        if (!isFinite(h)) return new BigNumber(0);
         var term = 1 - h + z * Math.sqrt(h);
-        if (term < 0) return 0;                // beyond this Gamma fit's left tail
-        return k * theta * term * term * term;
+        if (term < 0) return new BigNumber(0);                // beyond this Gamma fit's left tail
+        return mean.times(term * term * term);
     };
 
     // The `p`-th percentile (0 < p < 1) of the total-trials distribution
@@ -194,10 +206,10 @@
         // true ceiling). The Gamma quantile above should land well inside
         // this range in ordinary cases; these just protect against
         // approximation error at extreme percentiles.
-        var lowerBound = Number(copies);
+        var lowerBound = BigNumber.from(copies);
         var M = RS.Pity.threshold(drop, luckValue, openingRune);
-        var upperBound = Number(copies) * M;
-        return Math.max(lowerBound, Math.min(value, upperBound));
+        var upperBound = lowerBound.times(M);
+        return BigNumber.max(lowerBound, BigNumber.min(value, upperBound));
     };
 
     RS.Variance = Variance;

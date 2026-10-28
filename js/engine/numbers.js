@@ -1,5 +1,6 @@
 /*
- * numbers.js — parsing & formatting of game numbers.
+ * numbers.js — parsing & formatting of game numbers (all BigNumber-based,
+ * so values beyond the ~1e308 double limit — e.g. 1e9999 — work).
  *
  * Suffix system (short scale, matches js/data/runes.js):
  *   K, M, B, T, Qd, Qn, Sx, Sp, Oc, No, De, UDe, DDe, TDe, QdDe, QnDe,
@@ -57,39 +58,48 @@
     // ---- Parsing -----------------------------------------------------
 
     // Parses a game-formatted number string ("333K", "43.5Qd", "300NoDe",
-    // "2.5UVt", "1.23e45", "500", null/undefined -> 0) into a plain number.
-    Numbers.parse = function (str) {
-        if (str === null || str === undefined) return 0;
-        if (typeof str === "number") return str;
+    // "2.5UVt", "1.23e45", "e9999", "500", null/undefined -> 0) into a
+    // BigNumber. Unlike a plain double this never overflows: "790NoVt" or
+    // "1e9999" are represented exactly (mantissa + exponent).
+    Numbers.parseBig = function (str) {
+        if (str === null || str === undefined) return new BigNumber(0);
+        if (str instanceof BigNumber) return str;
+        if (typeof str === "number") return new BigNumber(str);
         var s = String(str).trim();
-        if (s === "") return 0;
+        if (s === "") return new BigNumber(0);
 
-        // Scientific notation, e.g. "1.23e45" — JS parses this natively.
-        if (/^-?[\d.]+e[+-]?\d+$/i.test(s)) {
-            return Number(s);
+        // Scientific notation, e.g. "1.23e45", "2e-3" or a bare "e9999".
+        var sci = s.match(/^(-?)([\d.,]*)\s*e\s*([+-]?\d+)$/i);
+        if (sci) {
+            var mant = sci[2].replace(/,/g, "");
+            if (mant === "" ) mant = "1";
+            return new BigNumber(sci[1] + mant + "e" + sci[3]);
         }
 
         var m = s.match(/^(-?[\d.,]+)\s*([A-Za-z]*)$/);
-        if (!m) return Number(s.replace(/,/g, "")) || 0;
+        if (!m) return new BigNumber(Number(s.replace(/,/g, "")) || 0);
 
-        var mantissa = Number(m[1].replace(/,/g, ""));
+        var digits = m[1].replace(/,/g, "");
         var suffix = m[2];
-        if (!suffix) return mantissa;
+        if (!suffix) return new BigNumber(digits);
 
         var tier = SUFFIX_TO_TIER[suffix];
         if (tier === undefined) tier = SUFFIX_TO_TIER[suffix.toLowerCase()];
-        if (tier === undefined) return mantissa; // unknown suffix, treat as plain
-        return mantissa * Math.pow(10, tier * 3);
+        if (tier === undefined) return new BigNumber(digits); // unknown suffix, treat as plain
+        return new BigNumber(digits + "e" + (tier * 3));
     };
 
-    // Parses into a BigNumber instance.
-    Numbers.parseBig = function (str) {
-        return new BigNumber(Numbers.parse(str));
+    // Same as parseBig but collapses to a plain JS number (Infinity if the
+    // value exceeds ~1.8e308). Only for places that genuinely need a double
+    // (CSS-ish thresholds, the Prism bulk clamp, ...).
+    Numbers.parse = function (str) {
+        return Numbers.parseBig(str).toNumber();
     };
 
     // ---- Formatting ----------------------------------------------------
 
-    // Formats a plain number (or BigNumber) into game suffix notation.
+    // Formats a number (plain, numeric string, or BigNumber of any size)
+    // into game suffix notation.
     //
     // `sigFigs` caps the TOTAL number of digits shown in the mantissa
     // (integer digits + decimal digits combined), truncating — never
@@ -97,48 +107,42 @@
     // "518", 114.99 -> "114" (not "115"), 3.739 -> "3.73" (not "3.74").
     Numbers.format = function (value, sigFigs) {
         if (sigFigs === undefined) sigFigs = RS.Config.DEFAULT_DECIMALS;
-        var n = value instanceof BigNumber ? value.toNumber() : Number(value);
+        var big = BigNumber.from(value);
 
-        if (!isFinite(n)) return n > 0 ? "Infinity" : (n < 0 ? "-Infinity" : "NaN");
-        if (isNaN(n)) return "NaN";
+        if (big.isNaN()) return "NaN";
+        if (!big.isFinite()) return big.m > 0 ? "Infinity" : "-Infinity";
 
-        var sign = n < 0 ? "-" : "";
-        n = Math.abs(n);
+        var sign = big.m < 0 ? "-" : "";
+        var abs = big.abs();
 
-        if (n === 0) return "0";
-        if (n < 1000) {
-            return sign + trimToSigFigs(n, sigFigs);
+        if (abs.isZero()) return "0";
+        if (abs.e < 3) { // |value| < 1000: always safe as a plain double
+            return sign + trimToSigFigs(abs.toNumber(), sigFigs);
         }
 
         // At and beyond 1e100 (10DTg), skip the named-suffix ladder entirely
-        // and use scientific "eXXX" notation. This also sidesteps the fact
-        // that a plain-double BigNumber (see lib/bignumber.min.js) loses
-        // precision and eventually overflows well past this point, so
-        // exponent notation is the more honest representation anyway.
-        var exponent = Math.floor(Math.log10(n));
+        // and use scientific "eXXX" notation. The exponent can be as large as
+        // the number engine allows (e.g. "1.5e9999").
+        var exponent = abs.e;
         if (exponent >= SUFFIX_EXPONENT_CUTOFF) {
-            return sign + formatExponential(n, sigFigs);
+            return sign + formatExponential(abs.m, abs.e, sigFigs);
         }
 
-        var t = Math.floor(Math.log10(n) / 3);
-        var mantissa = n / Math.pow(10, t * 3);
+        var t = Math.floor(exponent / 3);
+        var mantissa = abs.m * Math.pow(10, exponent - t * 3);
 
         // Rounding edge case: mantissa rounds up to 1000 -> bump tier.
         if (mantissa >= 1000) { mantissa /= 1000; t += 1; }
 
         // Bumping the tier above can push the exponent past the cutoff
         // (e.g. 999.999...DTg rounding up to 1000DTg = 1e102) — recheck.
-        if (t * 3 >= SUFFIX_EXPONENT_CUTOFF) {
-            return sign + formatExponential(n, sigFigs);
-        }
-
-        if (t > MAX_TIER) {
-            return sign + formatExponential(n, sigFigs);
+        if (t * 3 >= SUFFIX_EXPONENT_CUTOFF || t > MAX_TIER) {
+            return sign + formatExponential(abs.m, abs.e, sigFigs);
         }
 
         var suffix = tierSuffix(t);
         if (suffix === null) {
-            return sign + formatExponential(n, sigFigs);
+            return sign + formatExponential(abs.m, abs.e, sigFigs);
         }
         return sign + trimToSigFigs(mantissa, sigFigs) + suffix;
     };
@@ -153,25 +157,43 @@
         return trimNumber(n, decimals);
     }
 
-    // Formats n in "eXXX" style: a trimmed mantissa followed by a bare "e"
-    // and the exponent (no "+" sign, matching the DTg/TTg-style examples).
-    function formatExponential(n, sigFigs) {
-        var exp = Math.floor(Math.log10(n));
-        var mantissa = n / Math.pow(10, exp);
-        // Rounding edge case: mantissa rounds up to 10 -> bump exponent.
-        if (mantissa >= 10) { mantissa /= 10; exp += 1; }
+    // Formats a value given as (mantissa m in [1,10), integer exponent e) in
+    // "eXXX" style: a trimmed mantissa followed by a bare "e" and the
+    // exponent (no "+" sign, matching the DTg/TTg-style examples).
+    function formatExponential(m, exp, sigFigs) {
         // Mantissa always has exactly 1 integer digit here, so the
         // remaining sig figs all go to decimals.
         var decimals = Math.max(0, sigFigs - 1);
-        var trimmed = trimNumber(mantissa, decimals);
+        var trimmed = trimNumber(m, decimals);
         // Edge case: decimal rounding itself pushes the trimmed string up
-        // to "10" (e.g. 9.9996 at 3 decimals) -> bump exponent again.
+        // to "10" (e.g. 9.9996 at 3 decimals) -> bump exponent.
         if (Number(trimmed) >= 10) {
-            trimmed = trimNumber(mantissa / 10, decimals);
+            trimmed = trimNumber(m / 10, decimals);
             exp += 1;
         }
-        return trimmed + "e" + exp;
+        return trimmed + "e" + exponentText(exp);
     }
+
+    // Plain-digit text for an exponent (avoids "1e+21" style output for
+    // astronomically large exponents).
+    function exponentText(exp) {
+        if (Math.abs(exp) < 1e21) return String(exp);
+        return exp.toLocaleString("fullwide", { useGrouping: false });
+    }
+
+    // ln(1 - p) as a BigNumber, for 0 <= p <= 1, accurate even when p is far
+    // below double range (where Math.log1p(-p) would just return -0). Used by
+    // the closed-form probability maths in prediction.js / variance.js.
+    Numbers.log1pNegative = function (p) {
+        p = BigNumber.from(p);
+        if (p.isZero()) return new BigNumber(0);
+        if (p.e < -8) {
+            // -ln(1-p) = p + p^2/2 + p^3/3 + ...; the dropped p^3/3 term is
+            // < 1e-17 relative to p here.
+            return p.times(new BigNumber(1).plus(p.div(2))).neg();
+        }
+        return new BigNumber(Math.log1p(-p.toNumber()));
+    };
 
     // Formats as "1 in X" style odds string from an effective denominator.
     Numbers.formatOdds = function (denominator, decimals) {
@@ -180,7 +202,7 @@
 
     // Floors a value that is mathematically expected to land on (or very
     // near) a whole number, tolerating tiny floating-point round-trip
-    // noise. Plain Math.floor is dangerous here: Prediction.predictCopies
+    // noise. Plain floor is dangerous here: Prediction.predictCopies
     // and Prediction.expectedCopiesFromTrials are meant to be exact
     // inverses of each other (predict N copies, read N back off the trial
     // count), but the division-then-multiplication round trip can land a
@@ -188,16 +210,20 @@
     // 230). A plain floor turns that into 229. This nudges by a
     // magnitude-scaled epsilon before flooring so genuine noise gets
     // absorbed while true fractional values (e.g. 5.4) are unaffected.
+    // Returns a BigNumber; values at/over 1e15 are already whole at double
+    // precision and are returned untouched.
     Numbers.floorNear = function (n) {
-        n = Number(n);
-        if (!isFinite(n)) return n;
+        var big = BigNumber.from(n);
+        if (!big.isFinite() || big.isZero()) return big;
+        if (big.e >= 15) return big;
+        var v = big.toNumber();
         // Relative term only needs to clear a handful of doubles' worth of
         // rounding error (~1e-15 relative per operation), so 1e-12 leaves
         // ample margin without meaningfully perturbing genuinely large
         // integers. The 1e-9 floor covers small values where a purely
         // relative epsilon would underflow to nothing.
-        var eps = Math.max(1e-9, Math.abs(n) * 1e-12);
-        return Math.floor(n + eps);
+        var eps = Math.max(1e-9, Math.abs(v) * 1e-12);
+        return new BigNumber(Math.floor(v + eps));
     };
 
     // Truncates `n` to `decimals` decimal places (never rounds) and strips

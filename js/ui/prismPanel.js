@@ -89,13 +89,13 @@
     PrismPanel.updateRateDisplay = function () {
         var state = RS.AppState.get();
         var incomePerSecond = RS.Prism.incomePerSecond(
-            RS.Numbers.parse(state["prism.perCycle"]),
-            RS.Numbers.parse(state["prism.cycleSeconds"])
+            RS.Numbers.parseBig(state["prism.perCycle"]),
+            RS.Numbers.parseBig(state["prism.cycleSeconds"])
         );
         var minionMaster = RS.AppState.prismMinionMaster();
         var capsulesPerSecond = RS.Prism.capsulesPerSecond(state["prism.bulk"], minionMaster);
         var consumptionPerSecond = RS.Prism.consumptionPerSecond(
-            state["prism.bulk"], minionMaster, RS.Numbers.parse(state["prism.costPerCapsule"])
+            state["prism.bulk"], minionMaster, RS.Numbers.parseBig(state["prism.costPerCapsule"])
         );
 
         var el = byId("prismRateDisplay");
@@ -113,8 +113,8 @@
     PrismPanel.updateIncomeDisplay = function () {
         var state = RS.AppState.get();
         var mode = state["prism.overTimeMode"] || "forward";
-        var perCycle = RS.Numbers.parse(state["prism.perCycle"]);
-        var cycleSeconds = RS.Numbers.parse(state["prism.cycleSeconds"]);
+        var perCycle = RS.Numbers.parseBig(state["prism.perCycle"]);
+        var cycleSeconds = RS.Numbers.parseBig(state["prism.cycleSeconds"]);
         var el = byId("prismIncomeResult");
         var timeframeInput = byId("prismTimeframeTextInput");
 
@@ -135,9 +135,9 @@
                 row("Prism earned", RS.Numbers.format(total), true);
         } else {
             timeframeInput.classList.remove("input-invalid");
-            var targetAmount = RS.Numbers.parse(state["prism.targetAmount"]) || 0;
+            var targetAmount = RS.Numbers.parseBig(state["prism.targetAmount"]);
             var seconds = RS.Prism.timeForAmount(perCycle, cycleSeconds, targetAmount);
-            var durationText = isFinite(seconds) ? RS.Format.duration(seconds) : "Never (no income)";
+            var durationText = seconds.isFinite() ? RS.Format.duration(seconds) : "Never (no income)";
             el.innerHTML = row("Time needed", durationText, true);
         }
     };
@@ -147,17 +147,17 @@
     PrismPanel.updateSustainDisplay = function () {
         var state = RS.AppState.get();
         var result = RS.Prism.evaluateSustain({
-            stockpile: RS.Numbers.parse(state["prism.stockpile"]),
-            perCycle: RS.Numbers.parse(state["prism.perCycle"]),
-            cycleSeconds: RS.Numbers.parse(state["prism.cycleSeconds"]),
+            stockpile: RS.Numbers.parseBig(state["prism.stockpile"]),
+            perCycle: RS.Numbers.parseBig(state["prism.perCycle"]),
+            cycleSeconds: RS.Numbers.parseBig(state["prism.cycleSeconds"]),
             bulk: state["prism.bulk"],
             minionMaster: RS.AppState.prismMinionMaster(),
-            costPerCapsule: RS.Numbers.parse(state["prism.costPerCapsule"])
+            costPerCapsule: RS.Numbers.parseBig(state["prism.costPerCapsule"])
         });
 
         var el = byId("prismSustainResult");
         var durationText = result.sustainable ? "Indefinitely" : RS.Format.duration(result.timeSeconds);
-        var capsulesText = result.sustainable ? "∞" : RS.Numbers.format(Math.floor(result.totalCapsules));
+        var capsulesText = result.sustainable ? "∞" : RS.Numbers.format(result.totalCapsules.floor());
         el.innerHTML =
             row("Duration", durationText, true) +
             row("Capsules opened", capsulesText);

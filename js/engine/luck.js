@@ -14,7 +14,7 @@
 
     var Luck = {};
 
-    // Returns the effective denominator (a plain number) for a drop, given
+    // Returns the effective denominator (a BigNumber) for a drop, given
     // the player's current Luck stat.
     //
     // Only "Noobinial" type is luck-immune. "Basic" type is ALWAYS affected
@@ -22,25 +22,31 @@
     // hasn't published one), not that luck stops applying. In that case
     // luck keeps dividing the denominator with no clamp.
     Luck.effectiveDenominator = function (drop, luckValue) {
-        var base = RS.Numbers.parse(drop.baseChance);
+        var base = RS.Numbers.parseBig(drop.baseChance);
 
         if (drop.type === "Noobinial") {
             return base;
         }
 
-        var luck = Math.max(1, Number(luckValue) || 1);
-        var effective = base / luck;
+        var effective = base.div(luckAtLeastOne(luckValue));
 
         var hasCap = drop.cap !== null && drop.cap !== undefined;
         if (!hasCap) return effective;
 
-        var cap = RS.Numbers.parse(drop.cap);
-        return Math.max(cap, effective);
+        var cap = RS.Numbers.parseBig(drop.cap);
+        return BigNumber.max(cap, effective);
     };
+
+    // The player's luck as a BigNumber, floored at 1 (NaN/garbage -> 1).
+    function luckAtLeastOne(luckValue) {
+        var luck = BigNumber.from(luckValue);
+        if (luck.isNaN()) return new BigNumber(1);
+        return BigNumber.max(1, luck);
+    }
 
     Luck.effectiveChance = function (drop, luckValue) {
         var denom = Luck.effectiveDenominator(drop, luckValue);
-        return denom > 0 ? 1 / denom : 0;
+        return denom.gt(0) ? new BigNumber(1).div(denom) : new BigNumber(0);
     };
 
     // --- Bulk contention -------------------------------------------------
@@ -84,8 +90,8 @@
     Luck.totalWeight = function (openingRune, luckValue) {
         return openingRune.drops.reduce(function (sum, d) {
             if (!isPooled(d)) return sum;
-            return sum + Luck.effectiveChance(d, luckValue);
-        }, 0);
+            return sum.plus(Luck.effectiveChance(d, luckValue));
+        }, new BigNumber(0));
     };
 
     // The real, contention-adjusted per-roll chance for `drop`, given the
@@ -99,22 +105,21 @@
         if (!openingRune || !isPooled(drop)) return raw;
 
         var totalWeight = Luck.totalWeight(openingRune, luckValue);
-        return totalWeight > 0 ? raw / totalWeight : 0;
+        return totalWeight.gt(0) ? raw.div(totalWeight) : new BigNumber(0);
     };
 
     Luck.normalizedDenominator = function (drop, luckValue, openingRune) {
         var chance = Luck.normalizedChance(drop, luckValue, openingRune);
-        return chance > 0 ? 1 / chance : Infinity;
+        return chance.gt(0) ? new BigNumber(1).div(chance) : new BigNumber(Infinity);
     };
 
     // Whether this drop's odds are currently capped (informational, for UI).
     Luck.isAtCap = function (drop, luckValue) {
         var hasCap = drop.type !== "Noobinial" && drop.cap !== null && drop.cap !== undefined;
         if (!hasCap) return false;
-        var base = RS.Numbers.parse(drop.baseChance);
-        var cap = RS.Numbers.parse(drop.cap);
-        var luck = Math.max(1, Number(luckValue) || 1);
-        return (base / luck) <= cap;
+        var base = RS.Numbers.parseBig(drop.baseChance);
+        var cap = RS.Numbers.parseBig(drop.cap);
+        return base.div(luckAtLeastOne(luckValue)).lte(cap);
     };
 
     RS.Luck = Luck;

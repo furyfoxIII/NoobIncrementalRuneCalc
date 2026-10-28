@@ -21,25 +21,25 @@
     // opts: { openingRune, currencyAmount, bulk, speedSeconds, luckValue }
     Economy.evaluate = function (opts) {
         var openingRune = opts.openingRune;
-        var currency = Number(opts.currencyAmount) || 0;
-        var costPerUnit = RS.Numbers.parse(openingRune.cost.amount);
-        var bulk = opts.bulk;
+        var currency = BigNumber.from(opts.currencyAmount);
+        if (currency.isNaN()) currency = new BigNumber(0);
+        var costPerUnit = RS.Numbers.parseBig(openingRune.cost.amount);
+        var bulk = BigNumber.from(opts.bulk);
         var speedSeconds = opts.speedSeconds;
         var luckValue = opts.luckValue;
 
-        var bulkNum = bulk instanceof BigNumber ? bulk.toNumber() : Number(bulk);
-        var costPerAction = costPerUnit * bulkNum; // cost of one full bulk-batch (informational)
+        var costPerAction = costPerUnit.times(bulk); // cost of one full bulk-batch (informational)
 
         // Individual rune-opens your currency actually covers.
-        var totalTrials = costPerUnit > 0 ? Math.floor(currency / costPerUnit) : 0;
+        var totalTrials = costPerUnit.gt(0) ? currency.div(costPerUnit).floor() : new BigNumber(0);
 
         // Expressed in "opening actions" too -- can be a small fraction if
         // your currency doesn't stretch to a full bulk-batch, meaning it
         // all resolves within (well under) one action.
-        var affordableActions = bulkNum > 0 ? totalTrials / bulkNum : 0;
+        var affordableActions = bulk.gt(0) ? totalTrials.div(bulk) : new BigNumber(0);
 
         var runesPerSecond = RS.Time.runesPerSecond(bulk, speedSeconds);
-        var timeSeconds = runesPerSecond > 0 ? totalTrials / runesPerSecond : 0;
+        var timeSeconds = runesPerSecond.gt(0) ? totalTrials.div(runesPerSecond) : new BigNumber(0);
 
         var expectedGains = [];
         var dropList = openingRune.drops;

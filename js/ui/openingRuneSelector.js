@@ -33,9 +33,9 @@
         var rune = RS.AppState.currentOpeningRune();
         var bulk = RS.AppState.bulkNumber();
         var speed = RS.AppState.speedNumber();
-        var costPerUnit = RS.Numbers.parse(rune.cost.amount);
-        var costPerAction = costPerUnit * bulk;
-        var costPerSecond = costPerAction / speed;
+        var costPerUnit = RS.Numbers.parseBig(rune.cost.amount);
+        var costPerAction = costPerUnit.times(bulk);
+        var costPerSecond = costPerAction.div(speed);
 
         var el = document.getElementById("costDisplay");
         el.innerHTML =

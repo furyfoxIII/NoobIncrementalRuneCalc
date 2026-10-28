@@ -17,7 +17,8 @@
         var openingRune = RS.AppState.currentOpeningRune();
         var idx = Number(document.getElementById("predictRuneSelector").value) || 0;
         var drop = openingRune.drops[idx];
-        var copies = RS.Numbers.parse(document.getElementById("predictCopiesInput").value) || 1;
+        var copies = RS.Numbers.parseBig(document.getElementById("predictCopiesInput").value);
+        if (copies.isZero() || copies.isNaN()) copies = new BigNumber(1);
 
         var result = RS.Prediction.predictCopies(drop, copies, {
             luckValue: RS.AppState.luckNumber(),

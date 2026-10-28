@@ -19,7 +19,7 @@
 
     EconomyPanel.calculate = function () {
         var rune = RS.AppState.currentOpeningRune();
-        var currency = RS.Numbers.parse(document.getElementById("currencyInput").value) || 0;
+        var currency = RS.Numbers.parseBig(document.getElementById("currencyInput").value);
 
         var result = RS.Economy.evaluate({
             openingRune: rune,

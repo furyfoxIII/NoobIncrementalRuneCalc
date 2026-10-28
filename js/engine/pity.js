@@ -10,13 +10,12 @@
  * drops. Every other type (e.g. "Basic") has NO pity — threshold returns
  * Infinity, meaning misses never force a guaranteed drop.
  *
- * Infinity is a deliberate, load-bearing value, not a placeholder: it
- * flows straight into the Prediction/Variance closed-form math (see
- * prediction.js, variance.js) and, via M*log1p(-p) -> -Infinity ->
- * exp(...) -> 0, correctly collapses those formulas back to the plain
- * un-pitied geometric-distribution mean (1/p). variance.js's variance
- * formula can't take that shortcut (it hits a 0*Infinity = NaN term), so
- * it special-cases M === Infinity explicitly — see the comment there.
+ * Infinity (a BigNumber holding Infinity) is a deliberate, load-bearing
+ * value, not a placeholder: prediction.js and variance.js test for it with
+ * isFinite() and use the plain un-pitied geometric-distribution formulas
+ * (mean 1/p, variance (1-p)/p^2) when it's seen. The threshold is
+ * otherwise a BigNumber too, so it stays exact for astronomically rare
+ * drops.
  *
  * This threshold feeds directly into the Prediction engine's closed-form
  * expected-value math (see prediction.js), which computes its per-roll
@@ -37,13 +36,13 @@
 
     Pity.threshold = function (drop, luckValue, openingRune) {
         if (drop.type !== "Noobinial") {
-            return Infinity;
+            return new BigNumber(Infinity);
         }
 
         var denom = openingRune
             ? RS.Luck.normalizedDenominator(drop, luckValue, openingRune)
             : RS.Luck.effectiveDenominator(drop, luckValue);
-        return Math.max(1, Math.round(denom * RS.Config.PITY_MULTIPLIER));
+        return BigNumber.max(1, denom.times(RS.Config.PITY_MULTIPLIER).round());
     };
 
     RS.Pity = Pity;

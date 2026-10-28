@@ -29,7 +29,7 @@
         var totalTrials = predictionResult.expectedTotalTrials;
 
         var statsHtml =
-            statRow("Expected opens / copy", RS.Numbers.format(Math.round(predictionResult.expectedTrialsPerSuccess))) +
+            statRow("Expected opens / copy", RS.Numbers.format(predictionResult.expectedTrialsPerSuccess.round())) +
             statRow("Estimated time", RS.Format.duration(predictionResult.expectedSeconds));
 
         if (predictionResult.expectedCost !== undefined) {
@@ -62,7 +62,7 @@
                 var expected = RS.Prediction.expectedCopiesFromTrials(drop, luckValue, totalTrials, openingRune);
                 return { drop: drop, wholeCount: RS.Numbers.floorNear(expected) };
             })
-            .filter(function (entry) { return entry.wholeCount > 0; });
+            .filter(function (entry) { return entry.wholeCount.gt(0); });
 
         if (breakdown.length > MAX_DROPS_SHOWN) {
             breakdown = breakdown.slice(-MAX_DROPS_SHOWN);

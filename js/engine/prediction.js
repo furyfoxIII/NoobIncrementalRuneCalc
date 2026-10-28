@@ -12,7 +12,9 @@
  *     E[T] = SUM_{k=0}^{M-1} (1-p)^k = (1 - (1-p)^M) / p
  *
  * Computed stably via exp(M * log1p(-p)) rather than Math.pow, since p can
- * be astronomically small.
+ * be astronomically small. All quantities here are BigNumbers (see
+ * lib/bignumber.min.js), so p can be far below 1e-308 and trial counts far
+ * above 1e308 without under/overflowing.
  *
  * --- Expected trials for X successes -------------------------------------
  * Assuming the pity counter resets after each success (independent
@@ -30,12 +32,18 @@
     // (see Luck.normalizedChance) — pass it whenever the full sibling
     // drop table is available, which is everywhere in this app.
     Prediction.expectedTrialsPerSuccess = function (drop, luckValue, openingRune) {
-        var p = Math.min(1, RS.Luck.normalizedChance(drop, luckValue, openingRune));
+        var p = BigNumber.min(1, RS.Luck.normalizedChance(drop, luckValue, openingRune));
         var M = RS.Pity.threshold(drop, luckValue, openingRune);
 
-        var logQM = M * Math.log1p(-p);
+        // Zero chance: it never happens.
+        if (!p.gt(0)) return new BigNumber(Infinity);
+
+        // No pity (M = Infinity): plain geometric distribution, mean 1/p.
+        if (!M.isFinite()) return new BigNumber(1).div(p);
+
+        var logQM = M.times(RS.Numbers.log1pNegative(p)).toNumber();
         var qM = Math.exp(logQM); // (1-p)^M, numerically stable
-        return (1 - qM) / p;
+        return new BigNumber(1 - qM).div(p);
     };
 
     // Percentiles reported alongside the mean prediction — see variance.js
@@ -53,18 +61,21 @@
 
         var eTrialsPerSuccess = Prediction.expectedTrialsPerSuccess(drop, luckValue, openingRune);
         var yieldMultiplier = drop.yieldMultiplier || 1;
-        var successesNeeded = Number(copies) / yieldMultiplier / (1 + RS.Config.CLONE_CHANCE);
-        var expectedTrials = successesNeeded * eTrialsPerSuccess;
+        copies = BigNumber.from(copies);
+        var successesNeeded = copies.div(yieldMultiplier).div(1 + RS.Config.CLONE_CHANCE);
+        var expectedTrials = successesNeeded.times(eTrialsPerSuccess);
 
         var runesPerSecond = RS.Time.runesPerSecond(bulk, speedSeconds);
-        var seconds = runesPerSecond > 0 ? expectedTrials / runesPerSecond : Infinity;
+        var hasRate = runesPerSecond.gt(0);
+        var INF = new BigNumber(Infinity);
+        var seconds = hasRate ? expectedTrials.div(runesPerSecond) : INF;
         var openingActions = RS.Time.openingActionsForRunes(bulk, expectedTrials);
 
         var varianceStats = RS.Variance.totalTrialsStats(drop, luckValue, copies, openingRune);
 
         var result = {
             dropName: drop.name,
-            copiesRequested: Number(copies),
+            copiesRequested: copies,
             effectiveDenominator: RS.Luck.effectiveDenominator(drop, luckValue),
             effectiveChance: RS.Luck.effectiveChance(drop, luckValue),
             normalizedDenominator: RS.Luck.normalizedDenominator(drop, luckValue, openingRune),
@@ -75,7 +86,7 @@
             expectedOpeningActions: openingActions,
             expectedSeconds: seconds,
             stdDevTotalTrials: varianceStats.stdDev,
-            stdDevSeconds: runesPerSecond > 0 ? varianceStats.stdDev / runesPerSecond : Infinity
+            stdDevSeconds: hasRate ? varianceStats.stdDev.div(runesPerSecond) : INF
         };
 
         // Cost only reflects the runes actually opened -- expectedTrials --
@@ -86,9 +97,9 @@
         // individual opens rather than whole actions.
         var costPerUnit;
         if (opts.openingRune) {
-            costPerUnit = RS.Numbers.parse(opts.openingRune.cost.amount);
+            costPerUnit = RS.Numbers.parseBig(opts.openingRune.cost.amount);
             result.currency = opts.openingRune.cost.currency;
-            result.expectedCost = expectedTrials * costPerUnit;
+            result.expectedCost = expectedTrials.times(costPerUnit);
         }
 
         // Percentiles: "if I get typical/lucky/unlucky rolls, how long (and
@@ -96,10 +107,10 @@
         // answer Monte Carlo used to provide, still closed-form.
         result.percentiles = PERCENTILES.map(function (pct) {
             var trials = RS.Variance.totalTrialsPercentile(drop, luckValue, copies, pct, openingRune);
-            var pctSeconds = runesPerSecond > 0 ? trials / runesPerSecond : Infinity;
+            var pctSeconds = hasRate ? trials.div(runesPerSecond) : INF;
             var entry = { p: pct, trials: trials, seconds: pctSeconds };
             if (opts.openingRune) {
-                entry.cost = trials * costPerUnit;
+                entry.cost = trials.times(costPerUnit);
             }
             return entry;
         });
@@ -118,9 +129,10 @@
     // returns X, not some pity-deflated fraction of it.
     Prediction.expectedCopiesFromTrials = function (drop, luckValue, trials, openingRune) {
         var eTrialsPerSuccess = Prediction.expectedTrialsPerSuccess(drop, luckValue, openingRune);
-        var expectedSuccesses = eTrialsPerSuccess > 0 ? trials / eTrialsPerSuccess : 0;
+        var expectedSuccesses = eTrialsPerSuccess.gt(0) ?
+            BigNumber.from(trials).div(eTrialsPerSuccess) : new BigNumber(0);
         var yieldMultiplier = drop.yieldMultiplier || 1;
-        return expectedSuccesses * (1 + RS.Config.CLONE_CHANCE) * yieldMultiplier;
+        return expectedSuccesses.times(1 + RS.Config.CLONE_CHANCE).times(yieldMultiplier);
     };
 
     RS.Prediction = Prediction;

@@ -13,34 +13,33 @@
 
     var Time = {};
 
+    // All of these return BigNumbers so rates/totals never overflow.
+
     Time.openingsPerSecond = function (speedSeconds) {
         speedSeconds = Math.max(1e-9, Number(speedSeconds) || 0);
-        return 1 / speedSeconds;
+        return new BigNumber(1).div(speedSeconds);
     };
 
     Time.runesPerSecond = function (bulk, speedSeconds) {
-        var b = bulk instanceof BigNumber ? bulk.toNumber() : Number(bulk);
-        return b * Time.openingsPerSecond(speedSeconds);
+        return BigNumber.from(bulk).times(Time.openingsPerSecond(speedSeconds));
     };
 
     Time.totalRunesOverTime = function (bulk, speedSeconds, seconds) {
-        return Time.runesPerSecond(bulk, speedSeconds) * seconds;
+        return Time.runesPerSecond(bulk, speedSeconds).times(seconds);
     };
 
     // Seconds needed to individually-open `runeCount` runes at the given rate.
     Time.timeForRunes = function (bulk, speedSeconds, runeCount) {
         var rate = Time.runesPerSecond(bulk, speedSeconds);
-        if (rate <= 0) return Infinity;
-        var count = runeCount instanceof BigNumber ? runeCount.toNumber() : Number(runeCount);
-        return count / rate;
+        if (!rate.gt(0)) return new BigNumber(Infinity);
+        return BigNumber.from(runeCount).div(rate);
     };
 
     // Number of opening actions (bulk-batches) needed to reach runeCount.
     Time.openingActionsForRunes = function (bulk, runeCount) {
-        var b = bulk instanceof BigNumber ? bulk.toNumber() : Number(bulk);
-        if (b <= 0) return Infinity;
-        var count = runeCount instanceof BigNumber ? runeCount.toNumber() : Number(runeCount);
-        return Math.ceil(count / b);
+        var b = BigNumber.from(bulk);
+        if (!b.gt(0)) return new BigNumber(Infinity);
+        return BigNumber.from(runeCount).div(b).ceil();
     };
 
     RS.Time = Time;

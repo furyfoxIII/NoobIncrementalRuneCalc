@@ -6,9 +6,11 @@
  * `intervalSeconds` (1s normally, 0.9s with the Minion Master gamepass),
  * at a fixed Prism cost per capsule.
  *
- * All functions are pure & stateless — they take plain numbers in and
- * return plain numbers/plain objects, matching the style of time.js and
- * economy.js.
+ * All functions are pure & stateless — they take numbers / numeric strings /
+ * BigNumbers in and return BigNumbers (Prism amounts and times can exceed
+ * the plain-double range) or plain objects, matching the style of time.js
+ * and economy.js. Bulk and capsules/sec stay plain numbers (bulk is capped
+ * at PRISM_BULK_MAX).
  */
 (function () {
     window.RS = window.RS || {};
@@ -17,26 +19,32 @@
 
     // ---- Income --------------------------------------------------------
 
+    // Coerces anything number-like to a non-NaN BigNumber (garbage -> 0).
+    function big(v) {
+        var b = BigNumber.from(v);
+        return b.isNaN() ? new BigNumber(0) : b;
+    }
+
     Prism.incomePerSecond = function (perCycle, cycleSeconds) {
-        var per = Number(perCycle) || 0;
-        var secs = Math.max(1e-9, Number(cycleSeconds) || 0);
-        return per / secs;
+        var per = big(perCycle);
+        var secs = BigNumber.max(1e-9, big(cycleSeconds));
+        return per.div(secs);
     };
 
     // How much Prism you'll have earned after `timeframeSeconds`.
     Prism.projectedIncome = function (perCycle, cycleSeconds, timeframeSeconds) {
         var rate = Prism.incomePerSecond(perCycle, cycleSeconds);
-        var t = Math.max(0, Number(timeframeSeconds) || 0);
-        return rate * t;
+        var t = BigNumber.max(0, big(timeframeSeconds));
+        return rate.times(t);
     };
 
     // How long (in seconds) it takes to earn `targetAmount` Prism at the
     // current income rate. Infinity if income is 0 (never gets there).
     Prism.timeForAmount = function (perCycle, cycleSeconds, targetAmount) {
         var rate = Prism.incomePerSecond(perCycle, cycleSeconds);
-        var target = Math.max(0, Number(targetAmount) || 0);
-        if (rate <= 0) return target > 0 ? Infinity : 0;
-        return target / rate;
+        var target = BigNumber.max(0, big(targetAmount));
+        if (!rate.gt(0)) return target.gt(0) ? new BigNumber(Infinity) : new BigNumber(0);
+        return target.div(rate);
     };
 
     // ---- Capsule opening throughput ------------------------------------
@@ -59,8 +67,8 @@
     };
 
     Prism.consumptionPerSecond = function (bulk, minionMaster, costPerCapsule) {
-        var cost = Math.max(0, Number(costPerCapsule) || 0);
-        return Prism.capsulesPerSecond(bulk, minionMaster) * cost;
+        var cost = BigNumber.max(0, big(costPerCapsule));
+        return cost.times(Prism.capsulesPerSecond(bulk, minionMaster));
     };
 
     // ---- Sustainability --------------------------------------------------
@@ -86,23 +94,28 @@
     //
     // opts: { stockpile, perCycle, cycleSeconds, bulk, minionMaster, costPerCapsule }
     Prism.evaluateSustain = function (opts) {
-        var stockpile = Math.max(0, Number(opts.stockpile) || 0);
+        var stockpile = BigNumber.max(0, big(opts.stockpile));
         var incomePerSecond = Prism.incomePerSecond(opts.perCycle, opts.cycleSeconds);
         var bulk = Prism.clampBulk(opts.bulk);
         var intervalSeconds = Prism.capsuleIntervalSeconds(opts.minionMaster);
         var capsulesPerSecond = Prism.capsulesPerSecond(bulk, opts.minionMaster);
         var consumptionPerSecond = Prism.consumptionPerSecond(bulk, opts.minionMaster, opts.costPerCapsule);
-        var netPerSecond = incomePerSecond - consumptionPerSecond;
+        var netPerSecond = incomePerSecond.minus(consumptionPerSecond);
 
-        var sustainable = netPerSecond >= 0;
-        var timeSeconds;
+        var sustainable = netPerSecond.gte(0);
+        var timeSeconds, totalCapsules;
         if (sustainable) {
-            timeSeconds = Infinity;
+            timeSeconds = new BigNumber(Infinity);
+            totalCapsules = new BigNumber(Infinity);
         } else {
-            var rawTimeSeconds = stockpile / -netPerSecond;
-            timeSeconds = Math.ceil(rawTimeSeconds / intervalSeconds) * intervalSeconds;
+            var rawTimeSeconds = stockpile.div(netPerSecond.neg());
+            // Whole ticks only; each tick opens exactly `bulk` capsules, so
+            // the capsule total is an exact integer (no float round-trip
+            // through capsules/sec * seconds, which can land just under it).
+            var ticks = rawTimeSeconds.div(intervalSeconds).ceil();
+            timeSeconds = ticks.times(intervalSeconds);
+            totalCapsules = ticks.times(bulk);
         }
-        var totalCapsules = sustainable ? Infinity : capsulesPerSecond * timeSeconds;
 
         return {
             bulk: bulk,

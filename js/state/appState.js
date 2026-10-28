@@ -200,9 +200,11 @@
         return "luck";
     };
 
-    AppState.bulkNumber = function () { return RS.Numbers.parse(state[AppState.activeBulkKey()]); };
+    // Bulk and Luck are BigNumbers (they can be astronomically large);
+    // Speed is a plain number of seconds-per-opening (always small).
+    AppState.bulkNumber = function () { return RS.Numbers.parseBig(state[AppState.activeBulkKey()]); };
     AppState.speedNumber = function () { return Math.max(0.001, RS.Numbers.parse(state[AppState.activeSpeedKey()])); };
-    AppState.luckNumber = function () { return Math.max(1, RS.Numbers.parse(state[AppState.activeLuckKey()])); };
+    AppState.luckNumber = function () { return BigNumber.max(1, RS.Numbers.parseBig(state[AppState.activeLuckKey()])); };
 
     // "prism.minionMaster" is persisted as the string "true"/"false" (same
     // scheme as every other persisted field) rather than a real boolean.
