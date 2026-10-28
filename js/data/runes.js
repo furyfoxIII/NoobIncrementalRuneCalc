@@ -559,7 +559,7 @@ RS.RuneDatabase = [
                     
                     {
                         name: "Unfathomable",
-                        baseChance: "1Tg",
+                        baseChance: "1000NoVt",
                         type: "Basic"
                     },
                     
@@ -608,6 +608,12 @@ RS.RuneDatabase = [
                     {
                         name: "Otherworldly",
                         baseChance: "1UTg",
+                        type: "Noobinial"
+                    },
+                    
+                    {
+                        name: "Cosmic Origin",
+                        baseChance: "10QdTg",
                         type: "Noobinial"
                     }
                 ]
@@ -1240,6 +1246,12 @@ RS.RuneDatabase = [
                         name: "Biggest Noob of all time",
                         baseChance: "2.5Tg",
                         type: "Noobinial"
+                    },
+
+                    {
+                        name: "The Ultimate Noob",
+                        baseChance: "1QdTg",
+                        type: "Noobinial"
                     }
                 ]
             }
@@ -1815,7 +1827,7 @@ RS.RuneDatabase = [
                         name: "Aqua",
                         baseChance: "350Oc",
                         type: "Basic",
-                        cap: ""
+                        cap: "900"
                     },
                     
                     {
@@ -1932,14 +1944,21 @@ RS.RuneDatabase = [
                     
                     {
                         name: "One of the Best",
-                        baseChance: "2UQg",
+                        baseChance: "200Qg",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "The Best",
-                        baseChance: "50UQg",
+                        baseChance: "4UQg",
+                        type: "Basic",
+                        cap: ""
+                    },
+                    
+                    {
+                        name: "Infinite Skill",
+                        baseChance: "690SxQg",
                         type: "Basic",
                         cap: ""
                     }

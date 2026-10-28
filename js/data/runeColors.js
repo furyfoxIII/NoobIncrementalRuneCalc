@@ -105,8 +105,9 @@
         "Unstoppable":   ["#cca3f2"],
         "Unrivaled":     ["#ff0088", "#8b008a"],
         "Unconquerable": ["#147ff2", "#d7339c"],
-        "Unforgettable": ["#008c12", "#0045e3"],
+        "Unforgettable": ["#00a4ff", "#0088f8"],
         "Otherworldly":  ["#a1c5dc", "#e9ce97", "#a1c5dc"],
+        "Cosmic Origin": ["#0a00e0", "#4a00dd", "#0a00e0"],
 
         // ---- Realm 2: Snowy ----
         "Snow":           ["#ffefff"],
@@ -190,13 +191,14 @@
         "Omnira":       ["#3c3300", "#3c3300", "#f4d900", "#f4d900", "#3c3300", "#3c3300"],
 
         // ---- Realm 3: Mini Noobinial ----
-        "Mini Noob":                 ["#00ff00"],
-        "Noob":                      ["#005fff"],
+        "Mini Noob":                 ["#00f020"],
+        "Noob":                      ["#0030f0"],
         "Big Noob":                  ["#ffff00"],
         "Huge Noob":                 ["#00ff00"],
-        "Giant Noob":                ["#00ffff"],
-        "Colossal Noob":             ["#ffff00"],
+        "Giant Noob":                ["#00c8f0"],
+        "Colossal Noob":             ["#ffc000"],
         "Biggest Noob of all time":  ["#ffff00", "#00faff", "#00ff00"],
+        "The Ultimate Noob":         ["#6b5a2e", "#00409f"],
 
         // ---- Realm 4: Starlight ----
         "Moonlight":            ["#7f64cf", "#9c7fe6"],
@@ -293,12 +295,13 @@
 
         // ---- Realm 5: Mini Non Noobinial ----
         "Pro":             ["#ff0000"],
-        "Very Pro":        ["#df083b"],
-        "Insanely Pro":    ["#ae057e"],
-        "Dedicated Pro":   ["#ff0000", "#ff0000", "#ff0000", "#eb084a"],
-        "Awakened Pro":    ["#3e07ff", "#7300ff", "#8804ce"],
+        "Very Pro":        ["#a00010"],
+        "Insanely Pro":    ["#800030"],
+        "Dedicated Pro":   ["#e00020"],
+        "Awakened Pro":    ["#5000f0", "#7000f0"],
         "One of the Best": ["#ff0000"],
-        "The Best":        ["#ff0000", "#ff0000", "#ffff00", "#ffff00", "#ffff00"],
+        "The Best":        ["#d0f000"],
+        "Infinite Skill":  ["#d0f0a0", "#a8ff30"],
 
         // ---- Realm 6: Ares ----
         "Warrior":              ["#fdb412", "#ffcd6e"],
