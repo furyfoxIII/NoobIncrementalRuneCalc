@@ -15,7 +15,10 @@
 
     var BASE_NAMES = ["", "K", "M", "B", "T", "Qd", "Qn", "Sx", "Sp", "Oc", "No"]; // t = 1..10
     var ONES = ["", "U", "D", "T", "Qd", "Qn", "Sx", "Sp", "Oc", "No"];
-    var TENS = ["De", "Vt", "Tg", "Qg", "Qqg", "Sxg", "Spg", "Og", "Ng", "Ct"]; // groups of ten tiers
+    // Groups of ten tiers. Tg starts at 1e93 (t=31), qg at 1e123, Qg at 1e153,
+    // sg at 1e183, Sg at 1e213. "qg"/"Qg" and "sg"/"Sg" are CASE-SENSITIVE.
+    var TENS = ["De", "Vt", "Tg", "qg", "Qg", "sg", "Sg"];
+    var CASE_SENSITIVE_GROUPS = ["qg", "Qg", "sg", "Sg"];
 
     var MAX_TIER = 10 + TENS.length * 10; // beyond this, fall back to scientific notation
 
@@ -39,7 +42,14 @@
     var SUFFIX_TO_TIER = {};
     for (var t = 1; t <= MAX_TIER; t++) {
         var s = tierSuffix(t);
-        if (s) SUFFIX_TO_TIER[s.toLowerCase()] = t;
+        if (!s) continue;
+        SUFFIX_TO_TIER[s] = t; // exact-case key (always)
+        // Lower-case fallback key, except for the case-sensitive groups
+        // (qg/Qg/sg/Sg), where lower-casing would collide.
+        var sensitive = CASE_SENSITIVE_GROUPS.some(function (g) {
+            return s.slice(-g.length) === g;
+        });
+        if (!sensitive) SUFFIX_TO_TIER[s.toLowerCase()] = t;
     }
 
     var Numbers = {};
@@ -66,7 +76,8 @@
         var suffix = m[2];
         if (!suffix) return mantissa;
 
-        var tier = SUFFIX_TO_TIER[suffix.toLowerCase()];
+        var tier = SUFFIX_TO_TIER[suffix];
+        if (tier === undefined) tier = SUFFIX_TO_TIER[suffix.toLowerCase()];
         if (tier === undefined) return mantissa; // unknown suffix, treat as plain
         return mantissa * Math.pow(10, tier * 3);
     };

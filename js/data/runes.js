@@ -565,43 +565,43 @@ RS.RuneDatabase = [
                     
                     {
                         name: "Unmatched",
-                        baseChance: "1.0e102",
+                        baseChance: "1TTg",
                         type: "Basic"
                     },
                     
                     {
                         name: "Unbelievable",
-                        baseChance: "1.0e111",
+                        baseChance: "1SxTg",
                         type: "Basic"
                     },
                     
                     {
                         name: "Untouchable",
-                        baseChance: "1.0e120",
+                        baseChance: "1NoTg",
                         type: "Basic"
                     },
                     
                     {
                         name: "Unstoppable",
-                        baseChance: "1.0e129",
+                        baseChance: "1Dqg",
                         type: "Basic"
                     },
                     
                     {
                         name: "Unrivaled",
-                        baseChance: "1.0e138",
+                        baseChance: "1Qnqg",
                         type: "Basic"
                     },
                     
                     {
                         name: "Unconquerable",
-                        baseChance: "1.0e147",
+                        baseChance: "1Ocqg",
                         type: "Basic"
                     },
                     
                     {
                         name: "Unforgettable",
-                        baseChance: "1.0e156",
+                        baseChance: "1UQg",
                         type: "Basic"
                     },
                     
@@ -872,21 +872,21 @@ RS.RuneDatabase = [
 
                     {
                         name: "Metal Shard",
-                        baseChance: "1.5e104",
+                        baseChance: "150TTg",
                         type: "Basic",
                         yieldMultiplier: 0.5838
                     },
 
                     {
                         name: "Light Shard",
-                        baseChance: "3.2e106",
+                        baseChance: "32QdTg",
                         type: "Basic",
                         yieldMultiplier: 0.5734
                     },
 
                     {
                         name: "Shadow Shard",
-                        baseChance: "4.0e108",
+                        baseChance: "4QnTg",
                         type: "Basic",
                         yieldMultiplier: 0.5823
                     },
@@ -1409,14 +1409,14 @@ RS.RuneDatabase = [
                     
                     {
                         name: "Pulsar",
-                        baseChance: "2.5e101",
+                        baseChance: "250DTg",
                         type: "Basic",
                         yieldMultiplier: 0.5841
                     },
                     
                     {
                         name: "Black Hole",
-                        baseChance: "1.0e103",
+                        baseChance: "10TTg",
                         type: "Basic",
                         yieldMultiplier: 0.5831
                     },
@@ -1490,14 +1490,14 @@ RS.RuneDatabase = [
 
                     {
                         name: "Creation",
-                        baseChance: "1.0e108",
+                        baseChance: "1QnTg",
                         type: "Basic",
                         yieldMultiplier: 0.5484
                     },
 
                     {
                         name: "Angelic Goodness",
-                        baseChance: "2.0e119",
+                        baseChance: "200OcTg",
                         type: "Basic",
                         yieldMultiplier: 0.5484
                     },
@@ -1571,14 +1571,14 @@ RS.RuneDatabase = [
 
                     {
                         name: "Destruction",
-                        baseChance: "1.0e108",
+                        baseChance: "1QnTg",
                         type: "Basic",
                         yieldMultiplier: 0.5501
                     },
 
                     {
                         name: "Demonic Evil",
-                        baseChance: "2.0e119",
+                        baseChance: "200OcTg",
                         type: "Basic",
                         yieldMultiplier: 0.5501
                     },
@@ -1918,30 +1918,281 @@ RS.RuneDatabase = [
                     
                     {
                         name: "Dedicated Pro",
-                        baseChance: "1.0e120",
+                        baseChance: "1NoTg",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "Awakened Pro",
-                        baseChance: "3.5e149",
+                        baseChance: "350Ocqg",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "One of the Best",
-                        baseChance: "2.0e156",
+                        baseChance: "2UQg",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "The Best",
-                        baseChance: "5.0e157",
+                        baseChance: "50UQg",
                         type: "Basic",
                         cap: ""
+                    }
+                ]
+            }
+        ]
+    },
+
+    {
+        name: "Realm 6",
+        openingRunes: [
+            {
+                name: "Ares",
+
+                cost: {
+                    currency: "Glory",
+                    amount: "501T"
+                },
+
+                drops: [
+                    {
+                        name: "Warrior",
+                        baseChance: "1.01",
+                        type: "Basic",
+                        cap: "1.01"
+                    },
+
+                    {
+                        name: "Clash",
+                        baseChance: "1QdVt",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Bloodshed",
+                        baseChance: "10DTg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Rage",
+                        baseChance: "100qg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Valor",
+                        baseChance: "1Noqg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Carnage",
+                        baseChance: "10Qg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Dominion",
+                        baseChance: "1UQg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Conquest",
+                        baseChance: "100UQg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "War Eternal",
+                        baseChance: "10DQg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "War Immortal",
+                        baseChance: "2.5DTg",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Wrath Eternal",
+                        baseChance: "15DTg",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Wrath Immortal",
+                        baseChance: "10TTg",
+                        type: "Noobinial"
+                    }
+                ]
+            },
+
+            {
+                name: "Apollo",
+
+                cost: {
+                    currency: "Radiance",
+                    amount: "501Sx"
+                },
+
+                drops: [
+                    {
+                        name: "Whisper",
+                        baseChance: "1.01",
+                        type: "Basic",
+                        cap: "1.01"
+                    },
+
+                    {
+                        name: "Glow",
+                        baseChance: "20QdVt",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Lyric",
+                        baseChance: "300DTg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Pulse",
+                        baseChance: "4Uqg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Harmony",
+                        baseChance: "50Noqg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Shine",
+                        baseChance: "100Qg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Oracle",
+                        baseChance: "2DQg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Divinity",
+                        baseChance: "50DQg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Solar Crown",
+                        baseChance: "1TQg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Beyond The Stars",
+                        baseChance: "9.75DTg",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Beyond The Galaxy",
+                        baseChance: "35DTg",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Beyond The Multiverse",
+                        baseChance: "35TTg",
+                        type: "Noobinial"
+                    }
+                ]
+            },
+
+            {
+                name: "Zeus",
+
+                cost: {
+                    currency: "Thunder",
+                    amount: "6.1e249"
+                },
+
+                drops: [
+                    {
+                        name: "Bolt",
+                        baseChance: "1.01",
+                        type: "Basic",
+                        cap: "1.01"
+                    },
+
+                    {
+                        name: "Cloud",
+                        baseChance: "10SpVt",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Storm",
+                        baseChance: "20DTg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Thunder",
+                        baseChance: "30SpTg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Charge",
+                        baseChance: "50Dqg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Strike",
+                        baseChance: "75Spqg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Tempest",
+                        baseChance: "50TQg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Skyking",
+                        baseChance: "1QdQg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Olympian",
+                        baseChance: "20QdQg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Thunder Lord",
+                        baseChance: "3.5TTg",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Eternal Thunder",
+                        baseChance: "150TTg",
+                        type: "Noobinial"
                     }
                 ]
             }
