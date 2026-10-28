@@ -595,19 +595,19 @@ RS.RuneDatabase = [
                     
                     {
                         name: "Unconquerable",
-                        baseChance: "1Ocqg",
+                        baseChance: "500Spqg",
                         type: "Basic"
                     },
                     
                     {
                         name: "Unforgettable",
-                        baseChance: "1UQg",
+                        baseChance: "500Qg",
                         type: "Basic"
                     },
                     
                     {
                         name: "Otherworldly",
-                        baseChance: "25UTg",
+                        baseChance: "1UTg",
                         type: "Noobinial"
                     }
                 ]
@@ -1208,37 +1208,37 @@ RS.RuneDatabase = [
 
                     {
                         name: "Noob",
-                        baseChance: "20M",
+                        baseChance: "2M",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Big Noob",
-                        baseChance: "250Sp",
+                        baseChance: "25Sp",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Huge Noob",
-                        baseChance: "3.5SxDe",
+                        baseChance: "350QnDe",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Giant Noob",
-                        baseChance: "750QdVt",
+                        baseChance: "75QdVt",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Colossal Noob",
-                        baseChance: "4Tg",
+                        baseChance: "400NoVt",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Biggest Noob of all time",
-                        baseChance: "25Tg",
+                        baseChance: "2.5Tg",
                         type: "Noobinial"
                     }
                 ]
@@ -1690,19 +1690,19 @@ RS.RuneDatabase = [
                     
                     {
                         name: "Tidal Wave",
-                        baseChance: "10OcVt",
+                        baseChance: "3.33OcVt",
                         type: "Noobinial"
                     },
                     
                     {
                         name: "Tsunami",
-                        baseChance: "10NoVt",
+                        baseChance: "3.33NoVt",
                         type: "Noobinial"
                     },
                     
                     {
                         name: "Infinite Flood",
-                        baseChance: "1Tg",
+                        baseChance: "200NoVt",
                         type: "Noobinial"
                     }
                 ]
@@ -1778,19 +1778,19 @@ RS.RuneDatabase = [
 
                     {
                         name: "Secrets of Atlantis",
-                        baseChance: "1NoVt",
+                        baseChance: "222OcVt",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Poseidon",
-                        baseChance: "333NoVt",
+                        baseChance: "88NoVt",
                         type: "Noobinial"
                     },
 
                     {
                         name: "Lord of Atlantis",
-                        baseChance: "7.77Tg",
+                        baseChance: "1.11Tg",
                         type: "Noobinial"
                     }
                 ]
@@ -1820,68 +1820,68 @@ RS.RuneDatabase = [
                     
                     {
                         name: "Atlantic",
-                        baseChance: "4.5No",
+                        baseChance: "3.25No",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "Take a Shower",
-                        baseChance: "60No",
+                        baseChance: "35No",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "Low Tide",
-                        baseChance: "777No",
+                        baseChance: "444No",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "Underwater Crystal",
-                        baseChance: "10De",
+                        baseChance: "5De",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "Oceanic Wonder",
-                        baseChance: "135De",
+                        baseChance: "35De",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "Submerged",
-                        baseChance: "2UDe",
+                        baseChance: "500De",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "Water Elemental",
-                        baseChance: "5TDe",
+                        baseChance: "1.25TDe",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "Whirlpool",
-                        baseChance: "6.5Sx",
+                        baseChance: "2Sx",
                         type: "Noobinial"
                     },
                     
                     {
                         name: "Prismatic Water",
-                        baseChance: "75Sx",
+                        baseChance: "10Sx",
                         type: "Noobinial"
                     },
                     
                     {
                         name: "Prismatic Ocean",
-                        baseChance: "350Sx",
+                        baseChance: "40Sx",
                         type: "Noobinial"
                     }
                 ]
@@ -1904,28 +1904,28 @@ RS.RuneDatabase = [
                     
                     {
                         name: "Very Pro",
-                        baseChance: "1NoDe",
+                        baseChance: "200OcDe",
                         type: "Basic",
                         cap: "1M"
                     },
                     
                     {
                         name: "Insanely Pro",
-                        baseChance: "1NoVt",
+                        baseChance: "200OcVt",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "Dedicated Pro",
-                        baseChance: "1NoTg",
+                        baseChance: "200OcTg",
                         type: "Basic",
                         cap: ""
                     },
                     
                     {
                         name: "Awakened Pro",
-                        baseChance: "350Ocqg",
+                        baseChance: "50Ocqg",
                         type: "Basic",
                         cap: ""
                     },
