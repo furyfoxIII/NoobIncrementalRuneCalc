@@ -2492,6 +2492,73 @@ RS.RuneDatabase = [
                         type: "Noobinial"
                     }
                 ]
+            },
+
+            {
+                name: "Witch",
+                track: "Halloween",
+
+                cost: {
+                    currency: "Dark Magic",
+                    amount: "1e120",
+                },
+
+                drops: [
+                    {
+                        name: "Broomstick",
+                        baseChance: "1.01",
+                        type: "Basic",
+                        cap: "1.01"
+                    },
+
+                    {
+                        name: "Cauldron",
+                        baseChance: "100T",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Hex Dust",
+                        baseChance: "200Sx",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Nightbrew",
+                        baseChance: "400No",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Crow",
+                        baseChance: "10UDe",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Spellbound",
+                        baseChance: "2.5DDe",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Moonhex",
+                        baseChance: "30DDe",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Spell Book",
+                        baseChance: "240DDe",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Covenmist",
+                        baseChance: "1.75TDe",
+                        type: "Basic"
+                    }
+                ]
             }
         ]
     }

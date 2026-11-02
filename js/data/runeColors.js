@@ -386,6 +386,17 @@
         "Coffin":        ["#bfe6fa", "#7a8ecd", "#c9ebff"],
         "Witch Fire":    ["#6b00af", "#700018", "#6b00b6"],
         "Ghost Rider":   ["#ff3544", "#ff0000", "#ff3544"],
+
+        // ---- Event: Halloween (Witch) ----
+        "Broomstick":    ["#ff4a0a"],
+        "Cauldron":      ["#5a54c0"],
+        "Hex Dust":      ["#e8762a"],
+        "Nightbrew":     ["#3a7fd4"],
+        "Crow":          ["#4a4552"],
+        "Spellbound":    ["#00c060"],
+        "Moonhex":       ["#c9a800"],
+        "Spell Book":    ["#b000ff"],
+        "Covenmist":     ["#e6147a"],
     };
 
 })();
