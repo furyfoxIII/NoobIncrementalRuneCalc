@@ -2379,13 +2379,15 @@ RS.RuneDatabase = [
                     {
                         name: "Treats",
                         baseChance: "20B",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "10.7"
                     },
 
                     {
                         name: "Spooky",
                         baseChance: "500B",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "14.8"
                     },
 
                     {
@@ -2435,13 +2437,15 @@ RS.RuneDatabase = [
                     {
                         name: "Raven",
                         baseChance: "50B",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "11.7"
                     },
 
                     {
                         name: "Pumpkin",
                         baseChance: "10T",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "20"
                     },
 
                     {
