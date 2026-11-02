@@ -106,6 +106,18 @@
     // rounding — any extra precision. E.g. with sigFigs = 3: 518.545 ->
     // "518", 114.99 -> "114" (not "115"), 3.739 -> "3.73" (not "3.74").
     Numbers.format = function (value, sigFigs) {
+        return formatWithCutoff(value, sigFigs, SUFFIX_EXPONENT_CUTOFF);
+    };
+
+    // Same as format(), but keeps using the named suffix ladder past 1e100
+    // (TTg, QdTg, ..., qg, Qg, sg, Sg) instead of switching to "eXXX".
+    // Only values beyond the last named tier (NoSg = 1e240 and up) fall
+    // back to scientific notation. Used by the Drop Table odds display.
+    Numbers.formatNamed = function (value, sigFigs) {
+        return formatWithCutoff(value, sigFigs, Infinity);
+    };
+
+    function formatWithCutoff(value, sigFigs, cutoff) {
         if (sigFigs === undefined) sigFigs = RS.Config.DEFAULT_DECIMALS;
         var big = BigNumber.from(value);
 
@@ -124,7 +136,7 @@
         // and use scientific "eXXX" notation. The exponent can be as large as
         // the number engine allows (e.g. "1.5e9999").
         var exponent = abs.e;
-        if (exponent >= SUFFIX_EXPONENT_CUTOFF) {
+        if (exponent >= cutoff) {
             return sign + formatExponential(abs.m, abs.e, sigFigs);
         }
 
@@ -136,7 +148,7 @@
 
         // Bumping the tier above can push the exponent past the cutoff
         // (e.g. 999.999...DTg rounding up to 1000DTg = 1e102) — recheck.
-        if (t * 3 >= SUFFIX_EXPONENT_CUTOFF || t > MAX_TIER) {
+        if (t * 3 >= cutoff || t > MAX_TIER) {
             return sign + formatExponential(abs.m, abs.e, sigFigs);
         }
 
@@ -145,7 +157,7 @@
             return sign + formatExponential(abs.m, abs.e, sigFigs);
         }
         return sign + trimToSigFigs(mantissa, sigFigs) + suffix;
-    };
+    }
 
     // Truncates (never rounds) `n` down to at most `sigFigs` total digits
     // and strips trailing zeros. `n` is assumed to be a positive, finite

@@ -38,7 +38,7 @@
             row.innerHTML =
                 '<div class="rune-row-left">' +
                     '<span class="rune-row-name" style="' + nameStyle + '">' + drop.name + '</span>' +
-                    '<span class="rune-row-odds">1/' + RS.Numbers.format(denom) + (atCap ? '<span class="cap-badge">CAP</span>' : '') + '</span>' +
+                    '<span class="rune-row-odds">1/' + RS.Numbers.formatNamed(denom) + (atCap ? '<span class="cap-badge">CAP</span>' : '') + '</span>' +
                 '</div>' +
                 '<div class="time-pill">' + avgTimeText + '</div>';
 
