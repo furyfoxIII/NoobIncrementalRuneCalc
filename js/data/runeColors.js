@@ -372,6 +372,7 @@
         "Revenant":      ["#a38cf0", "#6958bd", "#a48ef1"],
         "Lich":          ["#006f75", "#3c5cff", "#009785"],
         "Necromancer":   ["#0a2c12", "#50049b", "#05320a"],
+        "Banshee":       ["#5a18a8", "#1f6a2c", "#5a18a8"],
 
         // ---- Event: Halloween (Pumpkin) ----
         "Nightfall":     ["#3a3f8f"],
@@ -386,6 +387,7 @@
         "Coffin":        ["#bfe6fa", "#7a8ecd", "#c9ebff"],
         "Witch Fire":    ["#6b00af", "#700018", "#6b00b6"],
         "Ghost Rider":   ["#ff3544", "#ff0000", "#ff3544"],
+        "Headless Horseman": ["#ff4050", "#f80000", "#ff4050"],
 
         // ---- Event: Halloween (Witch) ----
         "Broomstick":    ["#ff4a0a"],
@@ -397,6 +399,9 @@
         "Moonhex":       ["#c9a800"],
         "Spell Book":    ["#b000ff"],
         "Covenmist":     ["#e6147a"],
+        "Hagshadow":     ["#4a4296", "#302858"],
+        "Witchbane":     ["#e000ee", "#b800d0"],
+        "Eldritch":      ["#10c4a0", "#0a7a38"],
     };
 
 })();

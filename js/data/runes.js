@@ -2406,6 +2406,12 @@ RS.RuneDatabase = [
                         name: "Necromancer",
                         baseChance: "250Sx",
                         type: "Noobinial"
+                    },
+
+                    {
+                        name: "Banshee",
+                        baseChance: "5UDe",
+                        type: "Noobinial"
                     }
                 ]
             },
@@ -2494,6 +2500,12 @@ RS.RuneDatabase = [
                         name: "Ghost Rider",
                         baseChance: "25Sp",
                         type: "Noobinial"
+                    },
+
+                    {
+                        name: "Headless Horseman",
+                        baseChance: "200DDe",
+                        type: "Noobinial"
                     }
                 ]
             },
@@ -2561,6 +2573,24 @@ RS.RuneDatabase = [
                         name: "Covenmist",
                         baseChance: "1.75TDe",
                         type: "Basic"
+                    },
+
+                    {
+                        name: "Hagshadow",
+                        baseChance: "75De",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Witchbane",
+                        baseChance: "750UDe",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Eldritch",
+                        baseChance: "150TDe",
+                        type: "Noobinial"
                     }
                 ]
             }
