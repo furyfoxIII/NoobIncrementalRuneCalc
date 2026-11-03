@@ -2530,7 +2530,8 @@ RS.RuneDatabase = [
                     {
                         name: "Cauldron",
                         baseChance: "100T",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "25.1"
                     },
 
                     {
