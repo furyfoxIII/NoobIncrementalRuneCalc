@@ -102,7 +102,7 @@
         var el = document.getElementById("rateDisplay");
         el.innerHTML =
             '<div class="row"><span>Openings / sec</span><span>' + RS.Numbers.format(openingsPerSec) + '</span></div>' +
-            '<div class="row"><span>Runes / sec</span><span>' + RS.Numbers.format(runesPerSec) + '</span></div>';
+            '<div class="row"><span>Runes / sec</span><span>' + RS.Numbers.formatNamed(runesPerSec) + '</span></div>';
     };
 
     RS.PlayerInputs = PlayerInputs;

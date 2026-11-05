@@ -29,7 +29,7 @@
         var totalTrials = predictionResult.expectedTotalTrials;
 
         var statsHtml =
-            statRow("Expected opens / copy", RS.Numbers.format(predictionResult.expectedTrialsPerSuccess.round())) +
+            statRow("Expected opens / copy", RS.Numbers.formatNamed(predictionResult.expectedTrialsPerSuccess.round())) +
             statRow("Estimated time", RS.Format.duration(predictionResult.expectedSeconds));
 
         if (predictionResult.expectedCost !== undefined) {
