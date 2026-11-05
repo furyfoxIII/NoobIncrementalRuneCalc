@@ -2457,13 +2457,15 @@ RS.RuneDatabase = [
                     {
                         name: "Tombstone",
                         baseChance: "1.25Qd",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "32.3"
                     },
 
                     {
                         name: "Graveyard",
                         baseChance: "35Qd",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "45.1"
                     },
 
                     {
