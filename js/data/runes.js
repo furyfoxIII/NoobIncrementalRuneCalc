@@ -1853,7 +1853,7 @@ RS.RuneDatabase = [
                         name: "Atlantic",
                         baseChance: "3.25No",
                         type: "Basic",
-                        cap: ""
+                        cap: "1.12k"
                     },
                     
                     {
