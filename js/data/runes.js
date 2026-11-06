@@ -550,7 +550,8 @@ RS.RuneDatabase = [
                     {
                         name: "Limitless",
                         baseChance: "1QdVt",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "31.6m"
                     },
                     
                     {
@@ -849,6 +850,7 @@ RS.RuneDatabase = [
                         name: "Water Shard",
                         baseChance: "1.5QdVt",
                         type: "Basic",
+                        cap: "32.9m",
                         yieldMultiplier: 0.5838
                     },
 
@@ -2008,7 +2010,8 @@ RS.RuneDatabase = [
                     {
                         name: "Clash",
                         baseChance: "1QdVt",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "31.6m"
                     },
 
                     {
