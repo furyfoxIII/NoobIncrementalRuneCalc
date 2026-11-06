@@ -497,6 +497,7 @@ RS.RuneDatabase = [
                         name: "Glitched",
                         baseChance: "50Vt",
                         type: "Basic",
+                        cap: "2.95m",
                         yieldMultiplier: 0.5677
                     },
                     
@@ -504,6 +505,7 @@ RS.RuneDatabase = [
                         name: "Firewall",
                         baseChance: "20TVt",
                         type: "Basic",
+                        cap: "21.4m",
                         yieldMultiplier: 0.5672
                     },
                     
@@ -693,6 +695,7 @@ RS.RuneDatabase = [
                         name: "Artic",
                         baseChance: "400OcDe",
                         type: "Basic",
+                        cap: "912k",
                         yieldMultiplier: 0.5643
                     },
 
@@ -700,6 +703,7 @@ RS.RuneDatabase = [
                         name: "Permafrost",
                         baseChance: "190Vt",
                         type: "Basic",
+                        cap: "3.37m",
                         yieldMultiplier: 0.5615
                     },
 
@@ -1162,25 +1166,29 @@ RS.RuneDatabase = [
                     {
                         name: "Pyrestone",
                         baseChance: "22.5T",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "21.6"
                     },
 
                     {
                         name: "Helios",
                         baseChance: "500T",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "29.5"
                     },
 
                     {
                         name: "Starforge",
                         baseChance: "20Qd",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "42.7"
                     },
 
                     {
                         name: "Celestia",
                         baseChance: "1.5Qn",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "65.7"
                     },
 
                     {
@@ -1311,6 +1319,7 @@ RS.RuneDatabase = [
                         name: "Universe",
                         baseChance: "925SpDe",
                         type: "Basic",
+                        cap: "497k",
                         yieldMultiplier: 0.5843
                     },
 
@@ -1318,11 +1327,12 @@ RS.RuneDatabase = [
                         name: "Gravity",
                         baseChance: "15UVt",
                         type: "Basic",
+                        cap: "5.22m",
                         yieldMultiplier: 0.5831
                     },
 
                     {
-                        name: "Dimentional",
+                        name: "Dimensional",
                         baseChance: "1QnVt",
                         type: "Basic",
                         yieldMultiplier: 0.5828
@@ -1409,6 +1419,7 @@ RS.RuneDatabase = [
                         name: "Cluster",
                         baseChance: "17.5NoDe",
                         type: "Basic",
+                        cap: "1.33m",
                         yieldMultiplier: 0.5842
                     },
                     
@@ -1476,6 +1487,7 @@ RS.RuneDatabase = [
                         name: "Divine Light",
                         baseChance: "15NoDe",
                         type: "Basic",
+                        cap: "1.31m",
                         yieldMultiplier: 0.5492
                     },
 
@@ -1483,6 +1495,7 @@ RS.RuneDatabase = [
                         name: "Daylight",
                         baseChance: "1TVt",
                         type: "Basic",
+                        cap: "15.8m",
                         yieldMultiplier: 0.5484
                     },
 
@@ -1557,6 +1570,7 @@ RS.RuneDatabase = [
                         name: "Infinite Darkness",
                         baseChance: "1Vt",
                         type: "Basic",
+                        cap: "2m",
                         yieldMultiplier: 0.5051
                     },
 
@@ -1564,6 +1578,7 @@ RS.RuneDatabase = [
                         name: "Midnight",
                         baseChance: "1TVt",
                         type: "Basic",
+                        cap: "15.8m",
                         yieldMultiplier: 0.5501
                     },
 
@@ -1690,6 +1705,7 @@ RS.RuneDatabase = [
                         name: "Ocean",
                         baseChance: "100NoDe",
                         type: "Basic",
+                        cap: "1.58m",
                         yieldMultiplier: 0.4684
                     },
                     
@@ -1697,6 +1713,7 @@ RS.RuneDatabase = [
                         name: "Deep Sea",
                         baseChance: "10UVt",
                         type: "Basic",
+                        cap: "5.01m",
                         yieldMultiplier: 0.469
                     },
                     
@@ -1773,13 +1790,15 @@ RS.RuneDatabase = [
                     {
                         name: "Sea Shell",
                         baseChance: "100NoDe",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "1.58m"
                     },
 
                     {
                         name: "Pearl",
                         baseChance: "1TVt",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "15.8m"
                     },
 
                     {
@@ -1918,7 +1937,7 @@ RS.RuneDatabase = [
                         name: "Very Pro",
                         baseChance: "200OcDe",
                         type: "Basic",
-                        cap: "1M"
+                        cap: "851k"
                     },
                     
                     {
