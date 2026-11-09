@@ -104,6 +104,10 @@
         "Ceasar":         ["#3880f8"],
         "Affine":         ["#f85828"],
         "Hill":           ["#2818b8"],
+        "Brute Force":        ["#f85a00", "#f89a30"],
+        "DDOS Attack":        ["#f8a800", "#f0d078"],
+        "SQL Injection":      ["#f800a8", "#d000b0"],
+        "Unstoppable Hacker": ["#007800", "#005800"],
 
         // ---- Realm 1: Awakend ----
         "Potential":     ["#dfbe30"],

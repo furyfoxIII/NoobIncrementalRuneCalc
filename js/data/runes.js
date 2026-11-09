@@ -593,6 +593,30 @@ RS.RuneDatabase = [
                         name: "Hill",
                         baseChance: "75SpQg",
                         type: "Basic"
+                    },
+                    
+                    {
+                        name: "Brute Force",
+                        baseChance: "5QnTg",
+                        type: "Noobinial"
+                    },
+                    
+                    {
+                        name: "DDOS Attack",
+                        baseChance: "20QnTg",
+                        type: "Noobinial"
+                    },
+                    
+                    {
+                        name: "SQL Injection",
+                        baseChance: "100QnTg",
+                        type: "Noobinial"
+                    },
+                    
+                    {
+                        name: "Unstoppable Hacker",
+                        baseChance: "500QnTg",
+                        type: "Noobinial"
                     }
                 ]
             },
