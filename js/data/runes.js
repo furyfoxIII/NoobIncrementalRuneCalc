@@ -532,6 +532,72 @@ RS.RuneDatabase = [
             },
 
             {
+                name: "Pro Hacker",
+
+                cost: {
+                    currency: "HackPoints",
+                    amount: "5.0e299"
+                },
+
+                drops: [
+                    {
+                        name: "Network",
+                        baseChance: "1.01",
+                        type: "Basic",
+                        cap: "1.01"
+                    },
+                    
+                    {
+                        name: "Security",
+                        baseChance: "1NoVt",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "WLAN",
+                        baseChance: "100QnTg",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Cryptography",
+                        baseChance: "10Dqg",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Encryption",
+                        baseChance: "1Noqg",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Decryption",
+                        baseChance: "10QnQg",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Ceasar",
+                        baseChance: "1.5SpQg",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Affine",
+                        baseChance: "10SpQg",
+                        type: "Basic"
+                    },
+                    
+                    {
+                        name: "Hill",
+                        baseChance: "75SpQg",
+                        type: "Basic"
+                    }
+                ]
+            },
+
+            {
                 name: "Awakend",
 
                 cost: {

@@ -94,6 +94,17 @@
         "Anti-Cheat":          ["#00f0ff", "#00a8a0"],
         "Unstoppable Virus":   ["#00ff44", "#006622"],
 
+        // ---- Realm 1: Pro Hacker ----
+        "Network":        ["#80d8f8"],
+        "Security":       ["#f89800"],
+        "WLAN":           ["#00d8a0"],
+        "Cryptography":   ["#e0c800"],
+        "Encryption":     ["#0080f8"],
+        "Decryption":     ["#f00000"],
+        "Ceasar":         ["#3880f8"],
+        "Affine":         ["#f85828"],
+        "Hill":           ["#2818b8"],
+
         // ---- Realm 1: Awakend ----
         "Potential":     ["#dfbe30"],
         "Limitless":     ["#f2407d", "#f30031"],
