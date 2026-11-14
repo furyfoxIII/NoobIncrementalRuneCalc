@@ -360,6 +360,15 @@
         "Eternal Thunder":      ["#ffe183", "#ff922a", "#ffe48b"],
         "Godlike Lightning":    ["#dd0900", "#ff3a00", "#e10a00"],
 
+        // ---- Realm 6: Colloseum ----
+        "Strength":             ["#ff0000"],
+        "Health":               ["#14d200"],
+        "Mobility":             ["#d8c400"],
+        "Defence":              ["#1e78ff"],
+        "Combat":               ["#ff6a00"],
+        "Powerful Chakra":      ["#ff3cff", "#c43cff"],
+        "Powerful Aura":        ["#a77bff", "#7b5cff"],
+
         // ---- Event: Football ----
         "Scuff":         ["#debdd4"],
         "Fade":          ["#cd752d"],

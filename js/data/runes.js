@@ -2332,6 +2332,60 @@ RS.RuneDatabase = [
                         type: "Noobinial"
                     }
                 ]
+            },
+
+            {
+                name: "Colloseum",
+
+                cost: {
+                    currency: "Glory",
+                    amount: "1e590"
+                },
+
+                drops: [
+                    {
+                        name: "Strength",
+                        baseChance: "1.01",
+                        type: "Basic",
+                        cap: "1.01"
+                    },
+
+                    {
+                        name: "Health",
+                        baseChance: "10QdTg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Mobility",
+                        baseChance: "15Dqg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Defence",
+                        baseChance: "22.5Qg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Combat",
+                        baseChance: "35OcQg",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Powerful Chakra",
+                        baseChance: "7.5SxTg",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Powerful Aura",
+                        baseChance: "50SxTg",
+                        type: "Noobinial"
+                    }
+                ]
             }
         ]
     },
