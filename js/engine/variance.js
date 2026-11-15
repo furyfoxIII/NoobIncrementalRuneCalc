@@ -21,10 +21,10 @@
  *
  * --- X successes -----------------------------------------------------------
  * Pity resets each cycle, so the `successesNeeded` cycles are i.i.d. and
- * variances add: Var[T_total] = successesNeeded * Var[T]. The clone bonus
- * (1/100000 chance per success of counting double) is folded into the mean
- * the same way prediction.js does; at that probability its own extra
- * contribution to variance is negligible and is ignored here.
+ * variances add: Var[T_total] = successesNeeded * Var[T]. Clones are
+ * guaranteed, so `successesNeeded` is ceil(copies / 2), a whole number
+ * (see clones.js): the number of successes is exact, not an average, which
+ * means no extra variance from it.
  *
  * --- Percentiles -------------------------------------------------------
  * With `copies` i.i.d. cycles summed together, you might reach for the
@@ -106,11 +106,11 @@
     };
 
     // Mean / variance / stdDev of the TOTAL individual rune-opens needed
-    // for `copies` successes. All BigNumbers.
+    // for `copies` copies (ceil(copies / 2) successes, see clones.js).
+    // All BigNumbers.
     Variance.totalTrialsStats = function (drop, luckValue, copies, openingRune) {
         var single = Variance.singleTrialStats(drop, luckValue, openingRune);
-        var yieldMultiplier = drop.yieldMultiplier || 1;
-        var successesNeeded = BigNumber.from(copies).div(yieldMultiplier).div(1 + RS.Config.CLONE_CHANCE);
+        var successesNeeded = RS.Clones.successesNeeded(copies);
         var variance = successesNeeded.times(single.variance);
 
         return {
@@ -193,20 +193,171 @@
         return mean.times(term * term * term);
     };
 
+    // EXACT `u`-th quantile (0 < u < 1) of T, the individual rune-opens to
+    // get ONE success on `drop` (pity-capped geometric):
+    //     P(T <= k) = 1 - (1-p)^k   for k < M,   and   P(T <= M) = 1
+    // so the smallest k with P(T <= k) >= u is
+    //     k = min(M, ceil( ln(1-u) / ln(1-p) )).
+    // ln(1-p) goes through RS.Numbers.log1pNegative so it stays accurate
+    // for astronomically small p. No approximation is involved; this is
+    // used instead of the Gamma fit whenever exactly one success is needed
+    // (the fit is weakest there, with shape parameter ~1).
+    Variance.singleCopyQuantile = function (drop, luckValue, u, openingRune) {
+        var p = BigNumber.min(1, RS.Luck.normalizedChance(drop, luckValue, openingRune));
+        if (!p.gt(0)) return new BigNumber(Infinity);
+        if (p.gte(1)) return new BigNumber(1);
+
+        var M = RS.Pity.threshold(drop, luckValue, openingRune);
+        // The ratio can land a hair above an integer from float noise when
+        // u coincides with a CDF step (e.g. u == p), so shave a relative
+        // 1e-12 before taking the ceiling.
+        var ratio = new BigNumber(Math.log(1 - u)).div(RS.Numbers.log1pNegative(p));
+        var k = BigNumber.max(1, ratio.times(1 - 1e-12).ceil());
+        return M.isFinite() ? BigNumber.min(k, M) : k;
+    };
+
+    // --- Exact quantiles for a small number of copies -------------------------
+    //
+    // The Gamma fit below is accurate for many copies but, checked against
+    // Monte Carlo, is badly off for a FEW copies of a pity-capped drop
+    // (e.g. P1 for 2 copies was ~80% too slow). For the odds this game
+    // actually has (rare drops, p <= EXACT_MAX_CHANCE) there is an exact
+    // answer, using the continuous limit of the geometric distribution:
+    //
+    //   Work in units of 1/p opens: one success takes E ~ Exp(1) (that is
+    //   the p -> 0 limit of a geometric), and pity caps it at m =
+    //   PITY_MULTIPLIER (the threshold is m / p opens). The sum S of X
+    //   independent cycles Y = min(E, m) then has a distribution that does
+    //   not depend on p at all, and a closed form:
+    //
+    //   * No pity: S ~ Erlang(X), CDF  F_X(x) = 1 - e^-x * SUM_{i<X} x^i/i!
+    //   * Pity: condition on j cycles being capped (each contributes exactly
+    //     m, with probability c = e^-m) and use inclusion-exclusion for the
+    //     other n = X-j cycles all being < m (memorylessness gives each
+    //     "E >= m" term as e^-m times a shifted Erlang CDF):
+    //         P(S <= x) = SUM_j SUM_m (-1)^m C(X,j) C(X-j,m) c^(j+m)
+    //                              * F_{X-j}(x - m*(j+m))
+    //     (F_0(y) = 1 for y >= 0). The alternating sum's terms are bounded
+    //     by (1+2c)^X, so it loses ~0.1 digits per success -- fine up to
+    //     EXACT_MAX_SUCCESSES_PITY successes, which is why larger counts fall
+    //     back to the Gamma fit (whose error was measured at ~1% there against
+    //     Monte Carlo simulation).
+    //
+    // The quantile is found by bisection on that CDF and converted back to
+    // opens by dividing by p. Discreteness of the real geometric is ignored;
+    // at p <= EXACT_MAX_CHANCE that was measured as a <~1% effect against
+    // Monte Carlo simulation.
+    var EXACT_MAX_CHANCE = 0.01;
+    var EXACT_MAX_SUCCESSES_PITY = 40;
+    var EXACT_MAX_SUCCESSES_NO_PITY = 100;
+
+    // Erlang(n) CDF at y: P(sum of n Exp(1) <= y). Uses the upper series
+    // when y < n (no catastrophic 1 - almost-1 cancellation in the lower
+    // tail) and the complement otherwise.
+    function erlangCdf(n, y) {
+        if (n === 0) return y >= 0 ? 1 : 0;
+        if (!(y > 0)) return 0;
+        var t = Math.exp(-y);
+        if (y < n) {
+            for (var i = 1; i <= n; i++) t *= y / i;      // e^-y y^n / n!
+            var sum = t;
+            for (var k = n + 1; t > 1e-18 * sum && k < n + 2000; k++) {
+                t *= y / k;
+                sum += t;
+            }
+            return Math.min(1, sum);
+        }
+        var cum = t, term = t;                            // SUM_{i<n} e^-y y^i/i!
+        for (var j = 1; j < n; j++) {
+            term *= y / j;
+            cum += term;
+        }
+        return Math.max(0, 1 - cum);
+    }
+
+    function binom(n, k) {
+        var r = 1;
+        for (var i = 1; i <= k; i++) r = r * (n - k + i) / i;
+        return r;
+    }
+
+    // P(S <= x) for the sum of X cycles, `cap` = pity multiplier (or null
+    // for no pity), in units of 1/p opens.
+    function sumCdf(X, cap, x) {
+        if (cap === null) return erlangCdf(X, x);
+        var c = Math.exp(-cap);
+        var total = 0;
+        for (var j = 0; j <= X && cap * j <= x; j++) {
+            var n = X - j;
+            var inner = 0;
+            for (var m = 0; m <= n && cap * (j + m) <= x; m++) {
+                var term = binom(n, m) * Math.pow(c, m) * erlangCdf(n, x - cap * (j + m));
+                inner += (m % 2 === 0) ? term : -term;
+            }
+            total += binom(X, j) * Math.pow(c, j) * inner;
+        }
+        return Math.min(1, Math.max(0, total));
+    }
+
+    function sumQuantile(X, cap, u) {
+        var lo = 0;
+        var hi = cap === null ? X + 20 * Math.sqrt(X) + 60 : cap * X;
+        if (cap === null) {
+            while (sumCdf(X, cap, hi) < u) hi *= 2;
+        }
+        for (var it = 0; it < 100; it++) {
+            var mid = (lo + hi) / 2;
+            if (sumCdf(X, cap, mid) >= u) hi = mid; else lo = mid;
+        }
+        return hi;
+    }
+
+    // Returns the exact quantile (BigNumber of opens) when this case is
+    // covered (2+ integer copies, rare odds), or null to fall back.
+    function exactSmallCountQuantile(drop, luckValue, copies, u, openingRune) {
+        var X = BigNumber.from(copies).toNumber();
+        if (!(X >= 2) || Math.floor(X) !== X) return null;
+
+        var chance = BigNumber.min(1, RS.Luck.normalizedChance(drop, luckValue, openingRune));
+        if (!chance.gt(0) || chance.gt(EXACT_MAX_CHANCE)) return null;
+
+        var hasPity = RS.Pity.threshold(drop, luckValue, openingRune).isFinite();
+        if (X > (hasPity ? EXACT_MAX_SUCCESSES_PITY : EXACT_MAX_SUCCESSES_NO_PITY)) return null;
+
+        var cap = hasPity ? RS.Config.PITY_MULTIPLIER : null;
+        return new BigNumber(sumQuantile(X, cap, u)).div(chance);
+    }
+
     // The `p`-th percentile (0 < p < 1) of the total-trials distribution
-    // for `copies` successes, via the Gamma approximation described above.
+    // for `copies` copies, i.e. S = ceil(copies / 2) successes (clones are
+    // guaranteed, see clones.js):
+    //   * exactly 1 success         -> exact discrete quantile (above)
+    //   * a few successes, rare odds -> exact continuous-limit quantile
+    //   * many successes / common odds -> the Gamma approximation described
+    //     above
+    // All three were checked against Monte Carlo simulation.
     Variance.totalTrialsPercentile = function (drop, luckValue, copies, p, openingRune) {
+        var successes = RS.Clones.successesNeeded(copies);
+        if (successes.eq(1)) {
+            return Variance.singleCopyQuantile(drop, luckValue, p, openingRune);
+        }
+        var exact = exactSmallCountQuantile(drop, luckValue, successes, p, openingRune);
+        if (exact) {
+            var floorBound = successes;
+            var ceilBound = floorBound.times(RS.Pity.threshold(drop, luckValue, openingRune));
+            return BigNumber.max(floorBound, BigNumber.min(exact, ceilBound));
+        }
         var stats = Variance.totalTrialsStats(drop, luckValue, copies, openingRune);
         var value = Variance.gammaQuantile(stats.mean, stats.variance, p);
 
         // Hard sanity bounds, not the primary source of the estimate
-        // anymore: you can never get a success in zero opens (`copies` is
-        // the true floor, one rune-open per success), and pity guarantees
-        // every success lands within M rune-opens (`copies * M` is the
+        // anymore: you can never get a success in zero opens (one
+        // rune-open per success is the true floor), and pity guarantees
+        // every success lands within M rune-opens (`successes * M` is the
         // true ceiling). The Gamma quantile above should land well inside
         // this range in ordinary cases; these just protect against
         // approximation error at extreme percentiles.
-        var lowerBound = BigNumber.from(copies);
+        var lowerBound = successes;
         var M = RS.Pity.threshold(drop, luckValue, openingRune);
         var upperBound = lowerBound.times(M);
         return BigNumber.max(lowerBound, BigNumber.min(value, upperBound));

@@ -95,6 +95,7 @@
 
         currency: "0",
 
+
         // "rune" | "prism" — which top-level section is shown.
         activeSection: "rune",
 
@@ -203,7 +204,7 @@
     // Bulk and Luck are BigNumbers (they can be astronomically large);
     // Speed is a plain number of seconds-per-opening (always small).
     AppState.bulkNumber = function () { return RS.Numbers.parseBig(state[AppState.activeBulkKey()]); };
-    AppState.speedNumber = function () { return Math.max(0.001, RS.Numbers.parse(state[AppState.activeSpeedKey()])); };
+    AppState.speedNumber = function () { return Math.max(RS.Config.MIN_SPEED_SECONDS, RS.Numbers.parse(state[AppState.activeSpeedKey()])); };
     AppState.luckNumber = function () { return BigNumber.max(1, RS.Numbers.parseBig(state[AppState.activeLuckKey()])); };
 
     // "prism.minionMaster" is persisted as the string "true"/"false" (same

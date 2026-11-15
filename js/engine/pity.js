@@ -19,13 +19,13 @@
  *
  * This threshold feeds directly into the Prediction engine's closed-form
  * expected-value math (see prediction.js), which computes its per-roll
- * probability p from RS.Luck.normalizedChance — the bulk-contention-
+ * probability p from RS.Luck.normalizedChance — the shared-roll
  * adjusted chance (see luck.js), not the raw effectiveChance. M and p
  * MUST refer to the same distribution or the closed-form math silently
  * breaks: whenever `openingRune` is supplied, this uses the same
  * normalized denominator so pity triggers at the point the player
  * actually experiences (2x their REAL per-roll odds), not 2x a
- * pre-contention number that understates how rare the roll actually is.
+ * pre-adjustment number that understates how rare the roll actually is.
  * Omitting openingRune falls back to the plain effectiveDenominator,
  * unchanged from before.
  */

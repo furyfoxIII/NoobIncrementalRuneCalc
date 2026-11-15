@@ -712,3 +712,12 @@ select.input {
     color: var(--amber);
     opacity: 0.85;
 }
+
+/* Raw (pre-contention) odds shown beside the adjusted 1/X in the drop list */
+.rune-row-raw {
+    font-family: var(--font-mono);
+    font-size: 10px;
+    color: var(--text-faint);
+    margin-left: 8px;
+    white-space: nowrap;
+}

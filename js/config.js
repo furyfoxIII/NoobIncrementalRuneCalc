@@ -5,8 +5,10 @@
     window.RS = window.RS || {};
 
     RS.Config = {
-        // Base 1-in-100,000 chance for ANY successful drop to clone into 2.
-        CLONE_CHANCE: 1 / 100000,
+        // Clones are guaranteed: every successful drop also drops a clone, so
+        // each success gives 2 copies. (Set to 1 for "no clones".) Must be a
+        // whole number; see engine/clones.js.
+        COPIES_PER_SUCCESS: 2,
 
         // Pity: after (PITY_MULTIPLIER * effectiveDenominator) consecutive
         // misses on a given rune, the next opening is a guaranteed drop.
@@ -16,6 +18,12 @@
         DEFAULT_BULK: "1",
         DEFAULT_SPEED: "0.05",    // seconds per opening action
         DEFAULT_LUCK: "1",
+
+        // Fastest Speed (seconds per opening action) the app will accept.
+        // Smaller inputs are clamped up to this, both when read from the
+        // Speed field (appState.js) and inside the engine (time.js), so
+        // the two can never disagree.
+        MIN_SPEED_SECONDS: 0.001,
 
         // Number formatting.
         DEFAULT_DECIMALS: 3,

@@ -1,5 +1,6 @@
 /*
- * luck.js — apply luck to drop odds while respecting caps.
+ * luck.js — apply luck to drop odds while respecting caps, and share the
+ * roll between the drops of a table.
  *
  * Rule (from spec): baseChance is a denominator (e.g. "1M" = 1-in-1,000,000).
  * Luck DIVIDES that denominator, making the drop more common, down to a
@@ -8,19 +9,39 @@
  * nothing further.
  *
  * "Noobinial" type runes ignore luck entirely (and have no cap).
+ *
+ * A drop with no cap (the property is missing, null, or an empty / blank
+ * string) is "uncapped": luck keeps dividing its denominator with no floor.
  */
 (function () {
     window.RS = window.RS || {};
 
     var Luck = {};
 
+    // The drop's cap denominator as a BigNumber, or null when it has none.
+    // Missing, null, "" and whitespace-only all mean "no cap" -- they must
+    // all behave identically (a blank string used to be parsed as a cap of
+    // 0, which counted the drop as capped for pooling but never limited it).
+    function capOf(drop) {
+        var raw = drop.cap;
+        if (raw === null || raw === undefined) return null;
+        if (typeof raw === "string" && raw.trim() === "") return null;
+        return RS.Numbers.parseBig(raw);
+    }
+
+    Luck.hasCap = function (drop) {
+        return drop.type !== "Noobinial" && capOf(drop) !== null;
+    };
+
     // Returns the effective denominator (a BigNumber) for a drop, given
-    // the player's current Luck stat.
+    // the player's current Luck stat. This is the RAW odds: what the
+    // drop's own luck and cap say, before the table's shared roll is
+    // taken into account (see normalizedChance below).
     //
     // Only "Noobinial" type is luck-immune. "Basic" type is ALWAYS affected
-    // by luck — cap:null just means no floor has been set yet (the game
-    // hasn't published one), not that luck stops applying. In that case
-    // luck keeps dividing the denominator with no clamp.
+    // by luck — having no cap just means no floor has been set yet (the
+    // game hasn't published one), not that luck stops applying. In that
+    // case luck keeps dividing the denominator with no clamp.
     Luck.effectiveDenominator = function (drop, luckValue) {
         var base = RS.Numbers.parseBig(drop.baseChance);
 
@@ -30,10 +51,9 @@
 
         var effective = base.div(luckAtLeastOne(luckValue));
 
-        var hasCap = drop.cap !== null && drop.cap !== undefined;
-        if (!hasCap) return effective;
+        var cap = capOf(drop);
+        if (cap === null) return effective;
 
-        var cap = RS.Numbers.parseBig(drop.cap);
         return BigNumber.max(cap, effective);
     };
 
@@ -49,42 +69,36 @@
         return denom.gt(0) ? new BigNumber(1).div(denom) : new BigNumber(0);
     };
 
-    // --- Bulk contention -------------------------------------------------
+    // --- Shared roll ("contention") ---------------------------------------
     //
-    // CONFIRMED (player-reported): "Noobinial" drops aren't affected by
-    // luck directly, but raising luck still hurts them indirectly, because
-    // every individual rune-open is a shared pool across the WHOLE drop
-    // table for that Opening Rune. "Basic" type odds scale with luck (up to
-    // their own cap), so as luck rises they claim a bigger share of every
-    // roll, leaving less of the roll "left over" for the (fixed-odds)
-    // Noobinial checks — even though the Noobinial drop's own raw chance
-    // never changes. Lowering luck shrinks the Basic types' share and
-    // frees more of the pool back up for Noobinials.
+    // Every rune-open is ONE roll against the whole drop table. Luck pushes
+    // Basic drops towards their caps (often 1/10 or so), and once enough of
+    // them are that likely the table's raw chances add up to more than 100%.
+    // The fixed-odds Noobinials then lose out: the game's developers say that
+    // in Realm 3 and below, a rune luck of 1 gives ~1.5x more Noobinials than
+    // high luck, caused by runes being pushed down to 1/10 odds, and that
+    // runes without this are not affected (Realm 4+ no longer have it).
     //
-    // Modeled as a normalized multinomial: each drop's real per-roll
-    // chance is its raw chance divided by the sum of raw chances across
-    // every drop in the table (order-independent, no double counting).
-    // At luck values low enough that nothing is near its cap, raw chances
-    // sum to ~1 by design and this normalization barely matters; it starts
-    // to bite once Basic-type odds climb toward their caps and the table's
-    // total exceeds 1.
+    // Modeled by scaling the table back down to 100% when -- and only when --
+    // its raw chances exceed it: each pooled drop's per-roll chance is
     //
-    // EXCLUDED FROM THE POOL: Basic-type drops with cap:null. A capped
-    // drop's share of the pool is bounded (it can only climb to 1/cap), so
-    // normalizing it against its siblings is stable. An uncapped drop's
-    // raw chance has no ceiling at all — as luck rises it would eventually
-    // dominate the sum it's being divided by, making its OWN normalized
-    // chance climb toward "guaranteed every roll" purely as an artifact of
-    // dividing a fast-growing number by itself, not because the drop is
-    // actually that common. Since these are exactly the ultra-rare endgame
-    // rewards where this matters most, treating them as independent
-    // long-tail checks outside the shared pool (rather than a pool
-    // participant with an artificial floor) avoids that runaway while
-    // still letting capped/Noobinial siblings normalize against each other
-    // normally.
+    //     raw chance / max(1, sum of raw chances over the pooled drops)
+    //
+    // A table whose chances add up to 1 or less is left exactly at its
+    // published odds. On the first Realm 1 rune this reproduces the
+    // developers' number: Luck 1 gives ~1.5x the Noobinials of maximum
+    // Luck. (The exact formula, as opposed to the effect's size and where it
+    // applies, is a model rather than something the developers have stated.)
+    //
+    // EXCLUDED FROM THE POOL: Basic-type drops with no cap. A capped drop's
+    // share is bounded (it can only climb to 1/cap), so scaling it against
+    // its siblings is stable. An uncapped drop's raw chance has no ceiling;
+    // as luck rises it would eventually dominate the very sum it is divided
+    // by and be driven towards "guaranteed every roll" purely as an artifact
+    // of dividing a fast-growing number by itself. These ultra-rare endgame
+    // drops are treated as independent checks outside the pool.
     function isPooled(drop) {
-        var hasCap = drop.cap !== null && drop.cap !== undefined;
-        return drop.type === "Noobinial" || hasCap;
+        return drop.type === "Noobinial" || capOf(drop) !== null;
     }
 
     Luck.totalWeight = function (openingRune, luckValue) {
@@ -94,18 +108,23 @@
         }, new BigNumber(0));
     };
 
-    // The real, contention-adjusted per-roll chance for `drop`, given the
-    // full sibling drop table it shares a bulk pool with. Falls back to
-    // the plain (unnormalized) chance if no openingRune is supplied, so
-    // existing call sites without it keep working. Uncapped drops are not
-    // pool participants (see isPooled above) and so are never normalized —
-    // they get their own raw chance, uncontended.
+    // Whether the shared roll is lowering this drop's odds right now: it is
+    // in the pool and the pool's raw chances exceed 100%.
+    Luck.isContended = function (drop, luckValue, openingRune) {
+        if (!openingRune || !isPooled(drop)) return false;
+        return Luck.totalWeight(openingRune, luckValue).gt(1);
+    };
+
+    // The per-roll chance the app uses for every prediction (name kept for
+    // the many call sites in pity/variance/prediction). Equals the raw
+    // effectiveChance unless the shared roll applies. Falls back to the raw
+    // chance when no openingRune is supplied.
     Luck.normalizedChance = function (drop, luckValue, openingRune) {
         var raw = Luck.effectiveChance(drop, luckValue);
         if (!openingRune || !isPooled(drop)) return raw;
 
         var totalWeight = Luck.totalWeight(openingRune, luckValue);
-        return totalWeight.gt(0) ? raw.div(totalWeight) : new BigNumber(0);
+        return totalWeight.gt(1) ? raw.div(totalWeight) : raw;
     };
 
     Luck.normalizedDenominator = function (drop, luckValue, openingRune) {
@@ -115,11 +134,9 @@
 
     // Whether this drop's odds are currently capped (informational, for UI).
     Luck.isAtCap = function (drop, luckValue) {
-        var hasCap = drop.type !== "Noobinial" && drop.cap !== null && drop.cap !== undefined;
-        if (!hasCap) return false;
+        if (!Luck.hasCap(drop)) return false;
         var base = RS.Numbers.parseBig(drop.baseChance);
-        var cap = RS.Numbers.parseBig(drop.cap);
-        return base.div(luckAtLeastOne(luckValue)).lte(cap);
+        return base.div(luckAtLeastOne(luckValue)).lte(capOf(drop));
     };
 
     RS.Luck = Luck;

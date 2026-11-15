@@ -28,8 +28,12 @@
         var el = document.getElementById("openingInfoPanel");
         var totalTrials = predictionResult.expectedTotalTrials;
 
+        // Odds used for every number below. Only when the table's shared
+        // roll is lowering them are the raw odds worth showing as well.
         var statsHtml =
-            statRow("Expected opens / copy", RS.Numbers.formatNamed(predictionResult.expectedTrialsPerSuccess.round())) +
+            statRow("Odds", "1/" + RS.Numbers.formatNamed(predictionResult.normalizedDenominator)) +
+            (predictionResult.isContended ? statRow("Raw odds", "1/" + RS.Numbers.formatNamed(predictionResult.effectiveDenominator)) : "") +
+            statRow("Expected opens / drop", RS.Numbers.formatNamed(predictionResult.expectedTrialsPerSuccess.round())) +
             statRow("Estimated time", RS.Format.duration(predictionResult.expectedSeconds));
 
         if (predictionResult.expectedCost !== undefined) {

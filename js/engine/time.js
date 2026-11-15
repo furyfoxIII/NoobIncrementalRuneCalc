@@ -16,7 +16,9 @@
     // All of these return BigNumbers so rates/totals never overflow.
 
     Time.openingsPerSecond = function (speedSeconds) {
-        speedSeconds = Math.max(1e-9, Number(speedSeconds) || 0);
+        // Same floor the Speed input is clamped to (RS.Config.MIN_SPEED_SECONDS),
+        // so the UI and the engine can never disagree about the fastest speed.
+        speedSeconds = Math.max(RS.Config.MIN_SPEED_SECONDS, Number(speedSeconds) || 0);
         return new BigNumber(1).div(speedSeconds);
     };
 

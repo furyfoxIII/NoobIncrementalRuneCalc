@@ -18,9 +18,9 @@
  *
  * --- Expected trials for X successes -------------------------------------
  * Assuming the pity counter resets after each success (independent
- * "cycles"), E[T_total] = X * E[T]. Clones give a small free bonus: each
- * success has an extra RS.Config.CLONE_CHANCE chance of counting as 2, so
- * the number of *successes* needed is reduced to X / (1 + CLONE_CHANCE).
+ * "cycles"), E[T_total] = S * E[T] for S successes. Clones are guaranteed
+ * (every success gives RS.Config.COPIES_PER_SUCCESS = 2 copies), so X copies
+ * need S = ceil(X / 2) successes (see clones.js).
  */
 (function () {
     window.RS = window.RS || {};
@@ -28,7 +28,7 @@
     var Prediction = {};
 
     // Expected number of individual rune-opens for ONE success on `drop`.
-    // `openingRune`, if supplied, enables bulk-contention normalization
+    // `openingRune`, if supplied, enables the table's shared-roll scaling
     // (see Luck.normalizedChance) — pass it whenever the full sibling
     // drop table is available, which is everywhere in this app.
     Prediction.expectedTrialsPerSuccess = function (drop, luckValue, openingRune) {
@@ -60,9 +60,8 @@
         var openingRune = opts.openingRune;
 
         var eTrialsPerSuccess = Prediction.expectedTrialsPerSuccess(drop, luckValue, openingRune);
-        var yieldMultiplier = drop.yieldMultiplier || 1;
         copies = BigNumber.from(copies);
-        var successesNeeded = copies.div(yieldMultiplier).div(1 + RS.Config.CLONE_CHANCE);
+        var successesNeeded = RS.Clones.successesNeeded(copies);
         var expectedTrials = successesNeeded.times(eTrialsPerSuccess);
 
         var runesPerSecond = RS.Time.runesPerSecond(bulk, speedSeconds);
@@ -80,6 +79,7 @@
             effectiveChance: RS.Luck.effectiveChance(drop, luckValue),
             normalizedDenominator: RS.Luck.normalizedDenominator(drop, luckValue, openingRune),
             normalizedChance: RS.Luck.normalizedChance(drop, luckValue, openingRune),
+            isContended: RS.Luck.isContended(drop, luckValue, openingRune),
             pityThreshold: RS.Pity.threshold(drop, luckValue, openingRune),
             expectedTrialsPerSuccess: eTrialsPerSuccess,
             expectedTotalTrials: expectedTrials,
@@ -119,20 +119,21 @@
     };
 
     // Expected number of copies of `drop` obtained from `trials` individual
-    // rune-opens, accounting for pity via the renewal-reward rate.
+    // rune-opens, accounting for pity via the renewal-reward rate and for
+    // guaranteed clones (each success is worth several copies).
     //
     // Pity means a success arrives faster than plain probability p would
     // suggest (it's GUARANTEED by the threshold M), so the long-run rate of
     // successes per trial is 1 / expectedTrialsPerSuccess, not p. Using
-    // this rate makes this function the exact inverse of predictCopies —
-    // predicting X copies and then reading the count back off `trials`
-    // returns X, not some pity-deflated fraction of it.
+    // this rate keeps the pity effect consistent with predictCopies. (The
+    // two are not exact inverses: predictCopies rounds up to whole
+    // successes, this returns an average, e.g. 5 copies need 3 successes =
+    // 6 copies, and reading back 3 successes' worth of opens gives 6.)
     Prediction.expectedCopiesFromTrials = function (drop, luckValue, trials, openingRune) {
         var eTrialsPerSuccess = Prediction.expectedTrialsPerSuccess(drop, luckValue, openingRune);
         var expectedSuccesses = eTrialsPerSuccess.gt(0) ?
             BigNumber.from(trials).div(eTrialsPerSuccess) : new BigNumber(0);
-        var yieldMultiplier = drop.yieldMultiplier || 1;
-        return expectedSuccesses.times(1 + RS.Config.CLONE_CHANCE).times(yieldMultiplier);
+        return RS.Clones.expectedCopies(expectedSuccesses);
     };
 
     RS.Prediction = Prediction;

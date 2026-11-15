@@ -2,7 +2,8 @@
  * dropList.js — compact live list of all drops for the current Opening
  * Rune: colored rune name, "1/X" odds, and a rounded time-pill showing
  * average time to get one copy. Recomputes in real time whenever Bulk,
- * Speed, or Luck change. Also feeds the Prediction panel's target-rune
+ * Speed, or Luck change. The 1/X shown and the
+ * time pill both come from the same (active) odds model. Also feeds the Prediction panel's target-rune
  * selector.
  */
 (function () {
@@ -21,7 +22,10 @@
         container.innerHTML = "";
 
         rune.drops.forEach(function (drop) {
-            var denom = RS.Luck.effectiveDenominator(drop, luck);
+            // Odds shown are the ones the time pill is computed from, so
+            // 1/X and the time always agree.
+            var rawDenom = RS.Luck.effectiveDenominator(drop, luck);
+            var denom = RS.Luck.normalizedDenominator(drop, luck, rune);
             var atCap = RS.Luck.isAtCap(drop, luck);
             var isNoobinial = drop.type === "Noobinial";
             var nameStyle = RS.RarityColor.styleForDrop(drop);
@@ -29,6 +33,21 @@
             var expectedTrials = RS.Prediction.expectedTrialsPerSuccess(drop, luck, rune);
             var avgSeconds = runesPerSecond.gt(0) ? expectedTrials.div(runesPerSecond) : new BigNumber(Infinity);
             var avgTimeText = formatAvgTime(avgSeconds);
+
+            // When the table's shared roll is lowering this drop's odds
+            // (see Luck.normalizedChance), show the raw odds beside them.
+            var rawNote = "";
+            if (RS.Luck.isContended(drop, luck, rune) && denom.isFinite() && denom.gt(0) &&
+                denom.div(rawDenom).minus(1).abs().gt(0.0005)) {
+                rawNote = '<span class="rune-row-raw" title="Raw odds, before the shared roll is scaled to 100%">raw 1/' +
+                    RS.Numbers.formatNamed(rawDenom) + '</span>';
+            }
+
+            var pillTitle = "Average time to get one copy at these odds";
+            if (isNoobinial) {
+                pillTitle += " (includes the pity guarantee after " +
+                    RS.Numbers.formatNamed(RS.Pity.threshold(drop, luck, rune)) + " opens, so it is a little shorter than 1/odds \u00f7 rate)";
+            }
 
             var row = document.createElement("div");
             row.className = "rune-row";
@@ -39,8 +58,9 @@
                 '<div class="rune-row-left">' +
                     '<span class="rune-row-name" style="' + nameStyle + '">' + drop.name + '</span>' +
                     '<span class="rune-row-odds">1/' + RS.Numbers.formatNamed(denom) + (atCap ? '<span class="cap-badge">CAP</span>' : '') + '</span>' +
+                    rawNote +
                 '</div>' +
-                '<div class="time-pill">' + avgTimeText + '</div>';
+                '<div class="time-pill" title="' + pillTitle + '">' + avgTimeText + '</div>';
 
             container.appendChild(row);
         });

@@ -366,8 +366,12 @@
         "Mobility":             ["#d8c400"],
         "Defence":              ["#1e78ff"],
         "Combat":               ["#ff6a00"],
+        "Battle":               ["#ad4600", "#7a0d00"],
+        "Showdown":             ["#ab0a00", "#ff4800"],
         "Powerful Chakra":      ["#ff3cff", "#c43cff"],
         "Powerful Aura":        ["#a77bff", "#7b5cff"],
+        "Powerful Duelist":     ["#9e86ff", "#2b24ff", "#957eff"],
+        "Powerful Champion":    ["#73acfc", "#2ac0fa", "#aa9fff"],
 
         // ---- Event: Football ----
         "Scuff":         ["#debdd4"],
