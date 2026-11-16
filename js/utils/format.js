@@ -7,7 +7,7 @@
     var Format = {};
 
     // Formats a duration in seconds (number or BigNumber) into a human-readable
-    // string, e.g. "3d 4h 12m 5s" or "2.35 years" for very large spans.
+    // string, e.g. "3d4h" (two largest units) or "2.35 years" for very large spans.
     Format.duration = function (secondsInput) {
         var big = BigNumber.from(secondsInput);
         if (!big.isFinite()) return "∞";
@@ -44,10 +44,10 @@
                 parts.push(count + u.label.charAt(0));
                 remaining -= count * u.secs;
             }
-            if (parts.length >= 4) break;
+            if (parts.length >= 2) break;
         }
         if (parts.length === 0) return remaining.toFixed(2) + "s";
-        return parts.join(" ");
+        return parts.join("");
     };
 
     // Parses a free-typed duration string into a number of seconds, e.g.
