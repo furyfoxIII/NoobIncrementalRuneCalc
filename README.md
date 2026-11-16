@@ -49,7 +49,7 @@ Opening tab:
 
 - Prediction: choose a target rune and how many copies you want. The Rune
   Info panel shows the odds used (and the raw odds when the shared roll is
-  lowering them), expected opens per drop (each drop also brings a clone),
+  lowering them), expected opens (total opens needed for the copies you asked for; each drop also brings a clone),
   estimated time and cost, a lucky / median / unlucky bracket (P1, P50, P99),
   and what else you'd expect to collect along the way. Clones are guaranteed, so
   each success gives 2 copies: 5 copies are 3 successes, and you end up with 6.

@@ -1,6 +1,6 @@
 /*
  * openingInfoPanel.js — the black "Rune Info" square. Shows the key
- * Prediction figures (expected opens/copy, time, cost) plus a per-rune
+ * Prediction figures (expected opens, time, cost) plus a per-rune
  * breakdown of what you'd expect to get along the way, for however many
  * individual opens the last Prediction required. Reuses
  * RS.Prediction.expectedCopiesFromTrials — the same math the Economy tab
@@ -33,7 +33,7 @@
         var statsHtml =
             statRow("Odds", "1/" + RS.Numbers.formatNamed(predictionResult.normalizedDenominator)) +
             (predictionResult.isContended ? statRow("Raw odds", "1/" + RS.Numbers.formatNamed(predictionResult.effectiveDenominator)) : "") +
-            statRow("Expected opens / drop", RS.Numbers.formatNamed(predictionResult.expectedTrialsPerSuccess.round())) +
+            statRow("Expected opens", RS.Numbers.formatNamed(predictionResult.expectedTotalTrials.ceil())) +
             statRow("Estimated time", RS.Format.duration(predictionResult.expectedSeconds));
 
         if (predictionResult.expectedCost !== undefined) {
