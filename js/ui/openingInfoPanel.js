@@ -82,8 +82,10 @@
 
         el.innerHTML =
             '<div class="opening-info-title">Rune Info</div>' +
-            '<div class="opening-info-stats">' + statsHtml + '</div>' +
-            '<div class="opening-info-list">' + rows + '</div>';
+            '<div class="opening-info-body">' +
+                '<div class="opening-info-stats">' + statsHtml + '</div>' +
+                '<div class="opening-info-list">' + rows + '</div>' +
+            '</div>';
     };
 
     function statRow(label, value) {

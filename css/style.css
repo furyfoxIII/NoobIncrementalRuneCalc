@@ -161,7 +161,7 @@ html, body {
 .app-body {
     flex: 1;
     display: grid;
-    grid-template-columns: 340px 1fr;
+    grid-template-columns: 300px 1fr;
     gap: 16px;
     padding: 14px 24px;
     align-items: start;
@@ -555,6 +555,17 @@ select.input {
     margin-bottom: 8px;
 }
 
+.opening-info-body {
+    /* Stats on the left, the "what you'd also collect" list on the right,
+       so the whole panel fits on screen without scrolling. */
+    display: grid;
+    grid-template-columns: minmax(0, 340px) max-content;
+    justify-content: center;
+    column-gap: 16px;
+    align-items: start;
+    text-align: left;
+}
+
 .opening-info-stats {
     display: flex;
     flex-direction: column;
@@ -580,10 +591,11 @@ select.input {
        4-char drop name next to a 17-char one. Sizing to the worst-case
        row on the fly (max-content) means this doesn't need re-tuning
        every time the drop table's longest name/number changes. */
-    margin-top: 10px;
+    margin-top: 0;
     display: grid;
     grid-template-columns: max-content max-content;
-    justify-content: center;
+    justify-content: start;
+    align-content: start;
     row-gap: 3px;
     column-gap: 8px;
     max-width: 100%;
@@ -685,6 +697,8 @@ select.input {
     .app-body { grid-template-columns: 1fr; }
     .sidebar { position: static; }
     .opening-grid { grid-template-columns: 1fr; grid-template-rows: auto; }
+    .opening-info-body { grid-template-columns: 1fr; row-gap: 12px; }
+    .opening-info-list { justify-content: center; }
     .prediction-panel, .opening-info-panel, .drop-list-panel { grid-column: 1; grid-row: auto; }
     .economy-grid { grid-template-columns: 1fr; }
     .prism-grid { grid-template-columns: 1fr; grid-template-rows: auto; }

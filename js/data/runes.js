@@ -1344,7 +1344,8 @@ RS.RuneDatabase = [
                     {
                         name: "Dimensional",
                         baseChance: "1QnVt",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "62.09m"
                     },
 
                     {
@@ -1428,7 +1429,8 @@ RS.RuneDatabase = [
                     {
                         name: "Quasar",
                         baseChance: "525QdVt",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "59.2m"
                     },
                     
                     {
@@ -1469,7 +1471,7 @@ RS.RuneDatabase = [
 
                 cost: {
                     currency: "Yang",
-                    amount: "104Qd"
+                    amount: "25Qd"
                 },
 
 
@@ -1544,8 +1546,8 @@ RS.RuneDatabase = [
                 name: "Dark",
 
                 cost: {
-                    currency: "Yang",
-                    amount: "104Qd"
+                    currency: "Yin",
+                    amount: "25Qd"
                 },
 
 
@@ -2069,7 +2071,8 @@ RS.RuneDatabase = [
                     {
                         name: "Glow",
                         baseChance: "20QdVt",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "42.7m"
                     },
 
                     {
@@ -2545,7 +2548,8 @@ RS.RuneDatabase = [
                     {
                         name: "Coven",
                         baseChance: "1Qn",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "63.1"
                     },
 
                     {
