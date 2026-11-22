@@ -35,7 +35,7 @@ Sidebar. Pick a Realm and an Opening Rune, then enter your stats:
 | Luck | Divides the odds of luck-affected drops, down to each drop's cap |
 
 Runes opened per second is `Bulk / Speed`. Normal runes, each event track
-(Football, Halloween, ...) and the Prism runes each have their own Bulk /
+(Football, Halloween, Thanksgiving, ...) and the Prism runes each have their own Bulk /
 Speed / Luck, mirroring the game; the labels rename themselves to show which
 track you are editing. Values are never lost when you switch between them.
 

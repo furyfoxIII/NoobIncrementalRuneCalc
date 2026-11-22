@@ -2674,6 +2674,117 @@ RS.RuneDatabase = [
                         type: "Noobinial"
                     }
                 ]
+            },
+
+            {
+                name: "Thanksgiving",
+                track: "Thanksgiving",
+
+                cost: {
+                    currency: "TurkeyOof",
+                    amount: "5.0e137",
+                },
+
+                drops: [
+                    {
+                        name: "Harvest",
+                        baseChance: "1.05",
+                        type: "Basic",
+                        cap: "1.05"
+                    },
+
+                    {
+                        name: "Cranberry",
+                        baseChance: "20",
+                        type: "Basic",
+                        cap: "20"
+                    },
+
+                    {
+                        name: "Cornucopia",
+                        baseChance: "500",
+                        type: "Basic",
+                        cap: "500"
+                    },
+
+                    {
+                        name: "Gravy",
+                        baseChance: "500K",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Pilgrim",
+                        baseChance: "15M",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Maple",
+                        baseChance: "850M",
+                        type: "Basic"
+                    }
+                ]
+            },
+
+            {
+                name: "Turkey",
+                track: "Thanksgiving",
+
+                cost: {
+                    currency: "Pie",
+                    amount: "1T",
+                },
+
+                drops: [
+                    {
+                        name: "Gobbler",
+                        baseChance: "1.01",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Drumstick",
+                        baseChance: "300M",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Wishbone",
+                        baseChance: "5B",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Roasted",
+                        baseChance: "60B",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Turkey",
+                        baseChance: "2T",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Turkey Lord",
+                        baseChance: "35T",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Eternal Feast",
+                        baseChance: "750T",
+                        type: "Basic"
+                    },
+
+                    {
+                        name: "Harvest Crown",
+                        baseChance: "15Qd",
+                        type: "Basic"
+                    }
+                ]
             }
         ]
     }

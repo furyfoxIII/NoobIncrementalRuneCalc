@@ -430,6 +430,24 @@
         "Hagshadow":     ["#4a4296", "#302858"],
         "Witchbane":     ["#e000ee", "#b800d0"],
         "Eldritch":      ["#10c4a0", "#0a7a38"],
+
+        // ---- Event: Thanksgiving (Thanksgiving) ----
+        "Harvest":       ["#ffa200", "#ff7a00", "#ffa200"],
+        "Cranberry":     ["#ff0a2a"],
+        "Cornucopia":    ["#ffe3b0"],
+        "Gravy":         ["#ff5a14"],
+        "Pilgrim":       ["#e600ff"],
+        "Maple":         ["#ff5a10", "#ff3a00", "#ff5a10"],
+
+        // ---- Event: Thanksgiving (Turkey) ----
+        "Gobbler":       ["#a8d8ff"],
+        "Drumstick":     ["#ecd85a"],
+        "Wishbone":      ["#12b8ff"],
+        "Roasted":       ["#ff3a10"],
+        "Turkey":        ["#ffb080", "#ff8a40", "#ffb080"],
+        "Turkey Lord":   ["#1a8ab0", "#10a8a0", "#1a8ab0"],
+        "Eternal Feast": ["#ffa400", "#ff5a00", "#ffa400"],
+        "Harvest Crown": ["#ffd000", "#ffa800", "#ffd000"],
     };
 
 })();
