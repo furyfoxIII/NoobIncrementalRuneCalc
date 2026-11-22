@@ -2740,7 +2740,8 @@ RS.RuneDatabase = [
                     {
                         name: "Gobbler",
                         baseChance: "1.01",
-                        type: "Basic"
+                        type: "Basic",
+                        cap: "1.01"
                     },
 
                     {
