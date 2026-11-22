@@ -49,7 +49,7 @@ Opening tab:
 
 - Prediction: choose a target rune and how many copies you want. The Rune
   Info panel shows the odds used (and the raw odds when the shared roll is
-  lowering them), expected opens (total opens needed for the copies you asked for; each drop also brings a clone),
+  lowering them), expected opens (total opens needed for the copies you asked for; each drop also brings a clone, except on event runes, which have no clones),
   estimated time and cost, a lucky / median / unlucky bracket (P1, P50, P99),
   and what else you'd expect to collect along the way. Clones are guaranteed, so
   each success gives 2 copies: 5 copies are 3 successes, and you end up with 6.
@@ -140,7 +140,9 @@ computed with `exp(M * log1p(-p))` so it stays stable when `p` is 1e-60.
 ### 3. Copies, clones, time and cost
 
 - Clones are guaranteed: every success also drops a clone, so each success
-  gives 2 copies (`COPIES_PER_SUCCESS` in `js/config.js`). X copies therefore
+  gives 2 copies (`COPIES_PER_SUCCESS` in `js/config.js`). The exception is
+  the Events realm: event runes have no clone mechanic (`clones: false` in
+  `js/data/runes.js`), so each success gives 1 copy and X copies need X successes. X copies therefore
   need `ceil(X / 2)` successes, always a whole number: 1 copy needs 1 success
   (you end up with 2), 5 copies need 3 (you end up with 6).
 - `runes/second = Bulk / Speed`; time = opens / (runes/second).
@@ -149,7 +151,8 @@ computed with `exp(M * log1p(-p))` so it stays stable when `p` is 1e-60.
 
 ### 4. Variance and percentiles (P1 / P50 / P99)
 
-The totals for X copies are the sum of S = `ceil(X / 2)` independent
+The totals for X copies are the sum of S = `ceil(X / 2)` (S = X on event runes,
+which have no clones) independent
 capped-geometric cycles, one per success.
 Percentiles use the most exact method that applies:
 
@@ -192,7 +195,7 @@ to a whole interval, since opening happens in whole batches.
   still has a cap of 10 on `Bubbles`, which the model would start to scale at
   Luck around 1e9 and up (~12% at extreme Luck). Worth checking that cap.
 - `COPIES_PER_SUCCESS` (clones are assumed guaranteed on every drop of every
-  rune), `PITY_MULTIPLIER` and every number in `js/data/runes.js` are
+  non-event rune), `PITY_MULTIPLIER` and every number in `js/data/runes.js` are
   taken as given. The calculator is only as accurate as that data.
 - Drops with no cap (missing, `null` or an empty string) are treated as
   uncapped (luck never stops helping).

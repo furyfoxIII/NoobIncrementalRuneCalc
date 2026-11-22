@@ -110,7 +110,7 @@
     // All BigNumbers.
     Variance.totalTrialsStats = function (drop, luckValue, copies, openingRune) {
         var single = Variance.singleTrialStats(drop, luckValue, openingRune);
-        var successesNeeded = RS.Clones.successesNeeded(copies);
+        var successesNeeded = RS.Clones.successesNeeded(copies, openingRune);
         var variance = successesNeeded.times(single.variance);
 
         return {
@@ -337,7 +337,7 @@
     //     above
     // All three were checked against Monte Carlo simulation.
     Variance.totalTrialsPercentile = function (drop, luckValue, copies, p, openingRune) {
-        var successes = RS.Clones.successesNeeded(copies);
+        var successes = RS.Clones.successesNeeded(copies, openingRune);
         if (successes.eq(1)) {
             return Variance.singleCopyQuantile(drop, luckValue, p, openingRune);
         }

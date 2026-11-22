@@ -20,7 +20,8 @@
  * Assuming the pity counter resets after each success (independent
  * "cycles"), E[T_total] = S * E[T] for S successes. Clones are guaranteed
  * (every success gives RS.Config.COPIES_PER_SUCCESS = 2 copies), so X copies
- * need S = ceil(X / 2) successes (see clones.js).
+ * need S = ceil(X / 2) successes (see clones.js). Event runes have no
+ * clones, so there S = X.
  */
 (function () {
     window.RS = window.RS || {};
@@ -61,7 +62,7 @@
 
         var eTrialsPerSuccess = Prediction.expectedTrialsPerSuccess(drop, luckValue, openingRune);
         copies = BigNumber.from(copies);
-        var successesNeeded = RS.Clones.successesNeeded(copies);
+        var successesNeeded = RS.Clones.successesNeeded(copies, openingRune);
         var expectedTrials = successesNeeded.times(eTrialsPerSuccess);
 
         var runesPerSecond = RS.Time.runesPerSecond(bulk, speedSeconds);
@@ -133,7 +134,7 @@
         var eTrialsPerSuccess = Prediction.expectedTrialsPerSuccess(drop, luckValue, openingRune);
         var expectedSuccesses = eTrialsPerSuccess.gt(0) ?
             BigNumber.from(trials).div(eTrialsPerSuccess) : new BigNumber(0);
-        return RS.Clones.expectedCopies(expectedSuccesses);
+        return RS.Clones.expectedCopies(expectedSuccesses, openingRune);
     };
 
     RS.Prediction = Prediction;

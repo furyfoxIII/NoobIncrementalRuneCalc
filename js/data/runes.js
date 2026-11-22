@@ -2303,6 +2303,7 @@ RS.RuneDatabase = [
 
     {
         name: "Events",
+        clones: false, // event runes have no clone mechanic
         openingRunes: [
             {
                 name: "Football",
@@ -2791,5 +2792,16 @@ RS.RuneDatabase = [
     }
 
 ];
+
+// A realm can set `clones: false` to turn the clone mechanic off for all of
+// its opening runes (see engine/clones.js). Stamp it onto each rune so the
+// engine only needs the rune object it is already given.
+RS.RuneDatabase.forEach(function (realm) {
+    if (realm.clones === false) {
+        realm.openingRunes.forEach(function (rune) {
+            if (rune.clones === undefined) rune.clones = false;
+        });
+    }
+});
 
 })();
