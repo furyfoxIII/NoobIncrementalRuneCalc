@@ -2724,6 +2724,18 @@ RS.RuneDatabase = [
                         name: "Maple",
                         baseChance: "850M",
                         type: "Basic"
+                    },
+
+                    {
+                        name: "Harvest King",
+                        baseChance: "1Qn",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Harvest Lord",
+                        baseChance: "200Qn",
+                        type: "Noobinial"
                     }
                 ]
             },
@@ -2785,6 +2797,18 @@ RS.RuneDatabase = [
                         name: "Harvest Crown",
                         baseChance: "15Qd",
                         type: "Basic"
+                    },
+
+                    {
+                        name: "Thanksgiving",
+                        baseChance: "12.5Qn",
+                        type: "Noobinial"
+                    },
+
+                    {
+                        name: "Gratitude",
+                        baseChance: "3.5Sx",
+                        type: "Noobinial"
                     }
                 ]
             }

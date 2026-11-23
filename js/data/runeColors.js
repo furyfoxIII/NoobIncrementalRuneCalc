@@ -448,6 +448,10 @@
         "Turkey Lord":   ["#1a8ab0", "#10a8a0", "#1a8ab0"],
         "Eternal Feast": ["#ffa400", "#ff5a00", "#ffa400"],
         "Harvest Crown": ["#ffd000", "#ffa800", "#ffd000"],
+        "Harvest King":  ["#ffa800", "#ff8a00", "#ffa800"],
+        "Harvest Lord":  ["#ff4a10", "#ff7a00", "#ff4a10"],
+        "Thanksgiving":  ["#ffe08a", "#ffc400", "#ffe08a"],
+        "Gratitude":     ["#8a5cff", "#ff4a9a", "#ff7a30"],
     };
 
 })();
